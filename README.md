@@ -1,2 +1,0 @@
-# Team-August-Project-Work
-We are a team of 5 dedicated professionals who are passionate about software development. Our goal is to create a cutting-edge software product that will revolutionize the industry. We bring together diverse backgrounds and skill sets, which allows us to approach problem-solving from multiple perspectives. We work collaboratively to ensure that our project meets the highest standards of quality and functionality. We are committed to delivering a product that exceeds Chintan Sir’s expectations.
