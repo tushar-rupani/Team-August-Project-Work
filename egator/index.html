@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+
+    <!-- Google Fonts Poppins-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+
+    <!-- material icons -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp" rel="stylesheet">
+
+    <!-- stylesheet -->
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+    <div class="container">
+        <aside class="sidebar" id="sidebar">
+
+            <!-- top sidebar -->
+            <div class="sidebar__header">
+                <div class="sidebar__logo">
+                    <img class="sidebar__image" src="./images/logo.png" alt="logo_admin">
+                    <h2 class="sidebar__title"><span class="text--danger">eSparkbiz</span></h2>
+                </div>
+
+                <div class="sidebar__close" id="close-btn">
+                    <span class="material-icons-sharp">close</span>
+                </div>
+            </div>
+
+            <!-- content sidebar -->
+            <div class="sidebar__content">
+
+                <a class="sidebar__item sidebar__item--active" href="#">
+                    <span class="material-icons-sharp sidebar__item-icon sidebar__item-icon--active">grid_view</span>
+                    <h3 class="sidebar__item-text">Dashboard</h3>
+                </a>
+
+                <a class="sidebar__item" href="#">
+                    <span class="material-icons-sharp sidebar__item-icon">person_outline</span>
+                    <h3 class="sidebar__item-text">Hotline</h3>
+                </a>
+
+                <a class="sidebar__item" href="#">
+                    <span class="material-icons-sharp sidebar__item-icon">receipt_long</span>
+                    <h3 class="sidebar__item-text">Calender</h3>
+                </a>
+
+                <a class="sidebar__item" href="#">
+                    <span class="material-icons-sharp sidebar__item-icon">insights</span>
+                    <h3 class="sidebar__item-text">Attendance</h3>
+                </a>
+
+                <a class="sidebar__item" href="#">
+                    <span class="material-icons-sharp sidebar__item-icon">mail_outline</span>
+                    <h3 class="sidebar__item-text">News</h3>
+                    <span class="sidebar__message-count">26</span>
+                </a>
+
+                <a class="sidebar__item" href="#">
+                    <span class="material-icons-sharp sidebar__item-icon">inventory</span>
+                    <h3 class="sidebar__item-text">Expences Claim</h3>
+                </a>
+
+                <a class="sidebar__item" href="#">
+                    <span class="material-icons-sharp sidebar__item-icon">report_gmailerrorred</span>
+                    <h3 class="sidebar__item-text">Company Policy</h3>
+                </a>
+
+                <a class="sidebar__item" href="#">
+                    <span class="material-icons-sharp sidebar__item-icon">settings</span>
+                    <h3 class="sidebar__item-text">Sensation</h3>
+                </a>
+
+                <a class="sidebar__item" href="#">
+                    <span class="material-icons-sharp sidebar__item-icon">add</span>
+                    <h3 class="sidebar__item-text">Community</h3>
+                </a>
+
+                <a class="sidebar__item" href="#">
+                    <span class="material-icons-sharp sidebar__item-icon">logout</span>
+                    <h3 class="sidebar__item-text">Logout</h3>
+                </a>
+
+            </div>
+        </aside>
+        <!-- END OF SIDEBAR -->
+
+        <main>
+
+            <div class="dashboard">
+                <h1>Dashboard</h1>
+
+                 
+                <!-- Insights -->
+                <div class="dashboard__insights">
+
+                    <!-- CARD OF SALES -->
+                    <div class="card">
+                        <div class="attandance">
+                            <h3>Record Your Attandance</h3>
+
+                        </div>
+                        <div class="record">
+                            <div class="row1">
+                                <span>Attandance</span>
+                                <p> 12 Day</p>
+                            </div>
+                            <div class="row1">
+                                <span>Late</span>
+                                <p> 2 Day</p>
+                            </div>
+                            <div class="row1">
+                                <span>Absent</span>
+                                <p> 12 Day</p>
+                            </div>
+                            <div class="row1">
+                                <span>Half Days</span>
+                                <p> 1 Day</p>
+                            </div>
+                            <div class="row1">
+                                <span>Worked Hours</span>
+                                <p> 12 Day</p>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <!-- CARD OF  EXPENSES-->
+                    <div class="card">
+                        <div class="comment">
+                            <h3>Add Your Comments</h3>
+                        </div>
+                        <div class="add_comment">
+                            <div class="input">
+                                <input type="text" placeholder="Type here..">
+                            </div>
+                            <div>
+                                <button>Comment</button>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                </div>
+
+                </div>
+                </main>
+
+    <script src="./main.js"></script>
+</body>
+
+</html>
