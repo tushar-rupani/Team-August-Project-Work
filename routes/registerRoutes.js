@@ -21,4 +21,8 @@ app.post("/check-user-email", checkEmailExistController);
 
 app.get("/logout", logoutController)
 
+app.get("/home", (req, res) => {
+    res.render("employee_form.ejs")
+})
+
 module.exports = app;
