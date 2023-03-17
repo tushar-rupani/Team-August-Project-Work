@@ -6,7 +6,7 @@ var connection = require("../connection/connection");
 
 
 app.get("/", (req, res) => {
-    res.render("register")
+    res.render("register");
 })
 
 
