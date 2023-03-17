@@ -33,5 +33,9 @@ app.post("/check-user-email", async (req, res) => {
     }
 })
 
+app.get("/home", (req, res) => {
+    res.render("employee_form.ejs")
+})
+
 
 module.exports = app;
