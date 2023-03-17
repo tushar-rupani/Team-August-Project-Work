@@ -19,14 +19,14 @@
 
   <body>
     <div class="container" id="container">
-      <div class="form-container sign-up-container">
+      <div class="form-container sign-up-container" style="margin-top: -20px;">
         <form action="/register" method="post" id="my-form">
           <img src="/assets/espark_logo.png" alt="espark logo">
 
           <h1 style="margin-bottom: 5px;">Create an Account</h1>
          
           <span style="margin-bottom: 15px;">Register your information here</span>
-          <input type="email" placeholder="Email" name="email" id="email" onblur="checkIfExistsEmail(this)" autocomplete="false"/>
+          <input type="email" placeholder="Email" name="email" id="email" onkeyup="checkIfExistsEmail(this)" autocomplete="false"/>
           <span class="mtop-30 messgae hidden green" id="email_available">This email is available</span>
           <span class="mtop-30 messgae hidden red" id="email_unavailable" >This email is not available</span>
 
@@ -55,7 +55,7 @@
         <div class="overlay">
           <div class="overlay-panel overlay-left">
             <h1>Welcome Aboard!</h1>
-            <p>
+            <p style="margin-bottom: 30px;">
               To keep track of your activities, please register an account from here.
             </p>
             <button class="ghost" id="signIn">Sign In</button>
