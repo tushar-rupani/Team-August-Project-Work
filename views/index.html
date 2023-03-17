@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+
+    <!-- Google Fonts Poppins-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+
+    <!-- material icons -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp" rel="stylesheet">
+
+    <!-- stylesheet -->
+    <link rel="stylesheet" href="/css/style.css">
+
+</head>
+
+<body>
+    <div class="container">
+        <aside class="sidebar" id="sidebar">
+
+            <!-- top sidebar -->
+            <div class="sidebar__header">
+                <div class="sidebar__logo">
+                    <img class="sidebar__image" src="/assets/logo.png" alt="logo_admin">
+                    <h2 class="sidebar__title"> <span class="text--danger">Esparkbiz</span></h2>
+                </div>
+
+                <div class="sidebar__close" id="close-btn">
+                    <span class="material-icons-sharp">close</span>
+                </div>
+            </div>
+
+            <!-- content sidebar -->
+            <div class="sidebar__content">
+
+                <a class="sidebar__item sidebar__item--active" href="#">
+                    <span class="material-icons-sharp sidebar__item-icon sidebar__item-icon--active">grid_view</span>
+                    <h3 class="sidebar__item-text">Dashboard</h3>
+                </a>
+
+                <a class="sidebar__item" href="#">
+                    <span class="material-symbols-outlined">person_search</span>
+                    <h3 class="sidebar__item-text">Hotline</h3>
+                </a>
+
+                <a class="sidebar__item" href="#">
+                    <span class="material-symbols-outlined">calendar_month</span>
+                    <h3 class="sidebar__item-text">Calender</h3>
+                </a>
+
+                <a class="sidebar__item" href="#">
+                    <span class="material-symbols-outlined">newspaper</span>
+                    <h3 class="sidebar__item-text">News</h3>
+                    <span class="sidebar__message-count">26</span>
+                </a>
+
+                <a class="sidebar__item" href="#">
+                    <span class="material-symbols-outlined">schedule</span>
+                    <h3 class="sidebar__item-text">Attandance</h3>
+                    
+                </a>
+
+                <a class="sidebar__item" href="#">
+                    <span class="material-icons-sharp sidebar__item-icon">inventory</span>
+                    <h3 class="sidebar__item-text">Leaves</h3>
+                </a>
+
+                <a class="sidebar__item" href="#">
+                    <span class="material-symbols-outlined">forum</span>
+                    <h3 class="sidebar__item-text">Sensation</h3>
+                </a>
+
+                <a class="sidebar__item" href="#">
+                    <span class="material-icons-sharp sidebar__item-icon">settings</span>
+                    <h3 class="sidebar__item-text">Settings</h3>
+                </a>
+
+                <a class="sidebar__item" href="#">
+                    <span class="material-icons-sharp sidebar__item-icon">logout</span>
+                    <h3 class="sidebar__item-text">Logout</h3>
+                </a>
+
+            </div>
+        </aside>
+        <!-- END OF SIDEBAR -->
+
+        <main>
+
+            <div class="dashboard">
+                <h1>Dashboard</h1>
+
+
+                <!-- Insights -->
+                <div class="dashboard__insights">
+
+                    <!-- CARD OF SALES -->
+                    <div class="card">
+                        <div class="attandance">
+                            <h3>Record Your Attandance</h3>
+
+                        </div>
+                        <div class="record">
+                            <div class="row1">
+                                <span>Attandance</span>
+                                <p> 12 Day</p>
+                            </div>
+                            <div class="row1">
+                                <span>Late</span>
+                                <p> 2 Day</p>
+                            </div>
+                            <div class="row1">
+                                <span>Absent</span>
+                                <p> 12 Day</p>
+                            </div>
+                            <div class="row1">
+                                <span>Half Days</span>
+                                <p> 1 Day</p>
+                            </div>
+                            <div class="row1">
+                                <span>Worked Hours</span>
+                                <p> 12 Day</p>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <!-- CARD OF  EXPENSES-->
+                    <div class="card">
+                        <div class="comment">
+                            <h3>Add Your Comments</h3>
+                        </div>
+                        <div class="add_comment">
+                            <div class="input">
+                                <input type="text" placeholder="Type here..">
+                            </div>
+                            <div>
+                                <button>Comment</button>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                </div>
+
+                <!-- Recent Orders -->
+
+                <div class="recent-order">
+                    <div class="card">
+                        <div class="head">
+                            <div>
+                                <h3>Today's Employee Activities</h3>
+                            </div>
+                            <div>
+                                <input type="text" placeholder="Search..">
+                            </div>
+                            <div>
+                                <span class="material-icons-sharp">autorenew</span>
+                            </div>
+                        </div>
+                        <div class="scroll">
+                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam iure asperiores natus
+                                reprehenderit, deleniti quas molestiae non? Fuga dolorum quis iusto tempora accusantium
+                                modi esse alias quam, sunt cumque? Id sed repellendus voluptatum cumque. Optio minima et
+                                quaerat, nulla omnis praesentium rerum repudiandae quod veniam ut soluta maxime
+                                consequatur, doloribus blanditiis culpa distinctio vel? Cupiditate ex quam veritatis
+                                praesentium atque! Rerum laborum reprehenderit atque? Modi dignissimos doloremque
+                                exercitationem itaque sed, libero minima accusantium? Deserunt porro tempora voluptates
+                                rerum recusandae, deleniti quo minima incidunt reiciendis eveniet doloremque
+                                voluptatibus repudiandae voluptas unde enim aperiam id asperiores quidem excepturi?
+                                Minima id magnam quibusdam aliquid aspernatur. Quos vel vitae ab maiores fugiat
+                                praesentium amet consequuntur aliquid voluptatibus accusamus, illum non sunt facere.
+                                Cupiditate aliquam laboriosam, iste inventore consectetur dicta enim quidem earum.
+                                Praesentium, rerum quae impedit beatae tempora voluptate corrupti id veniam minima
+                                consectetur esse deleniti tempore magni doloribus optio molestiae deserunt possimus,
+                                facere quisquam mollitia omnis. Aliquam molestiae ipsam ipsa enim mollitia porro!
+                                Officia aspernatur eligendi obcaecati nulla consequatur! Ipsum consequatur sequi ipsa,
+                                doloribus debitis magni similique reiciendis hic incidunt fugit animi facilis odit
+                                pariatur adipisci dolores dolorum blanditiis, impedit voluptas ex maiores, facere natus.
+                                Vitae, expedita itaque magni id accusamus nihil fugiat quo maiores tempore in magnam
+                                obcaecati nesciunt debitis asperiores cumque, rerum quos facere ad. Temporibus rem modi
+                                consectetur, animi reiciendis suscipit facere qui expedita, quibusdam dicta mollitia
+                                odit exercitationem eius quas quam nisi ipsam assumenda! Provident error voluptatem iste
+                                molestiae id magnam veritatis! Natus voluptate quidem repellendus! Perspiciatis dicta
+                                quis nam maxime repellendus! A, eius veritatis quidem corporis amet enim sequi facere
+                                tenetur necessitatibus eligendi odit fuga beatae reiciendis. Animi distinctio unde,
+                                quaerat atque explicabo amet earum nam numquam laudantium aliquam consequatur molestiae
+                                nobis architecto dolorum iure ratione quia eius sapiente! Est accusantium facilis
+                                similique praesentium officiis vel nisi illum nihil, magnam animi molestias, temporibus
+                                iste laudantium natus voluptates deserunt quas dolore, sint ratione perspiciatis
+                                consequuntur deleniti quae voluptatem. Necessitatibus facere explicabo nam ab magni. Eum
+                                voluptatibus itaque placeat voluptatum! Earum corrupti voluptatibus eius obcaecati,
+                                placeat temporibus consequuntur ex ipsum, impedit enim in quam velit aperiam ad,
+                                adipisci libero consectetur facilis repellat laborum deleniti sapiente saepe explicabo
+                                natus. Repellendus laborum blanditiis impedit esse porro voluptatum perferendis eveniet
+                                cum ex debitis nihil error nesciunt adipisci alias est ipsa accusamus aut, sint animi
+                                perspiciatis quae unde eum tempore. Illo exercitationem quidem placeat, provident saepe
+                                eos! Deleniti illo nulla quas, labore explicabo obcaecati et eum aliquam sunt animi sed
+                                magnam doloribus, expedita placeat molestias consequuntur. Nesciunt animi provident
+                                dolor maxime non. Impedit voluptatibus mollitia ducimus iste sequi cumque non, velit
+                                quasi illo commodi amet, animi dicta labore tempore dignissimos repudiandae modi
+                                dolorum, magnam voluptatum praesentium vel. Ducimus exercitationem corrupti eos placeat
+                                dolorem ullam tempore, officiis quidem, explicabo quod nostrum nulla temporibus
+                                reiciendis deserunt, commodi facilis nesciunt! Provident, est quas incidunt natus a
+                                dolore doloremque tempore facilis dolor, consequatur modi et reiciendis suscipit alias
+                                iusto quis voluptatibus similique dolores necessitatibus quia ipsam nihil. At cum
+                                sapiente eos laborum, aliquid reiciendis rem maiores labore quo exercitationem fuga
+                                expedita accusamus provident, earum perferendis sit. Provident magnam nobis, autem
+                                praesentium placeat minus facilis illum eveniet consectetur eos obcaecati aliquid eius
+                                quod. At, velit beatae ratione blanditiis maxime delectus quas nobis sed natus modi
+                                incidunt earum quia ea debitis harum magnam. Ad animi consequuntur adipisci. Illum
+                                molestias nihil, voluptas ipsam maxime, adipisci quibusdam aperiam omnis dolores
+                                ducimus, dignissimos praesentium obcaecati architecto incidunt! Harum ab recusandae
+                                deleniti similique accusamus eligendi vitae doloremque consequuntur animi quo illum,
+                                eius corrupti delectus quidem consectetur ea fugit voluptas. Itaque soluta mollitia
+                                autem beatae modi quo explicabo culpa repellendus inventore qui nisi veritatis et nobis,
+                                sapiente, omnis corporis? Eveniet minima aut asperiores deleniti nisi voluptas culpa,
+                                debitis ipsa illo ipsum error natus maiores commodi, dicta non expedita necessitatibus
+                                quaerat nemo rem! A eos voluptatem odit recusandae sapiente sunt sed ratione, earum
+                                eaque accusantium tempora, totam, in amet quo maiores quidem provident unde nihil
+                                voluptas fugiat illum ab minus beatae fuga? Iusto itaque, voluptas dicta placeat dolorum
+                                sint incidunt quisquam minima natus quis blanditiis assumenda laboriosam vel cum modi
+                                aperiam id nam iste, doloremque nemo pariatur nostrum! Veritatis officiis tempore
+                                molestiae cumque inventore adipisci, saepe pariatur corrupti nobis, nihil voluptas sequi
+                                et autem eligendi nemo explicabo. Ducimus repellendus, quia vero minus accusantium
+                                distinctio? Explicabo reiciendis officia blanditiis tempora suscipit! Earum, illum.
+                                Natus officia tempore cupiditate! Veritatis illum, adipisci repellendus dignissimos
+                                animi voluptate provident ea sit. Reprehenderit repellat nulla modi quo ratione, et id
+                                obcaecati voluptate ex, sapiente, perferendis libero mollitia repellendus cumque nihil
+                                iusto? Nemo non obcaecati, porro quibusdam molestias ipsa, eius exercitationem velit
+                                itaque, fugiat aliquam corporis? Blanditiis esse quis ipsum soluta adipisci amet, eum
+                                rerum sequi facilis possimus excepturi quod tenetur. Sed, corporis magni hic laudantium
+                                numquam dolorem eius excepturi tenetur voluptatibus esse asperiores vero soluta,
+                                accusantium quae doloribus harum officiis? Vel asperiores veritatis illum? Sapiente id
+                                placeat ratione ipsa saepe at nesciunt doloremque non eum rem explicabo voluptatibus
+                                temporibus quos possimus et laboriosam maiores aperiam iste, excepturi dolorem animi?
+                                Asperiores voluptatibus consequuntur molestias suscipit quos impedit, vel rerum deserunt
+                                architecto alias facilis! Voluptatum nesciunt magnam perspiciatis, cupiditate assumenda
+                                impedit aspernatur architecto corporis odit vero nam tenetur sint reiciendis, doloribus
+                                animi iure in soluta fuga fugit explicabo necessitatibus nobis. Ducimus ipsa, ullam
+                                repudiandae accusantium harum iusto cum vel non fuga, dolorum nostrum omnis aperiam
+                                eaque amet assumenda mollitia hic fugit? Laudantium officia perspiciatis qui! Ipsam at
+                                minus hic nulla nisi quidem consequatur a blanditiis asperiores fuga suscipit tenetur
+                                enim inventore, quam reprehenderit veritatis soluta animi est nesciunt, deserunt
+                                accusantium libero. Reprehenderit nemo deserunt eveniet nesciunt tempore veniam
+                                blanditiis pariatur aut eaque quisquam ipsa eius illo vel voluptate eos magnam repellat
+                                et quae iure, odit maiores doloremque sequi nulla recusandae! Magnam vel ipsam sit
+                                sapiente culpa provident reprehenderit animi quo molestiae minus illo earum tempora
+                                repellat, possimus deleniti optio ratione aliquam, autem doloremque nulla sint? Itaque
+                                numquam placeat error temporibus, natus, minus fugiat nostrum repudiandae nobis dicta
+                                veniam distinctio praesentium est nesciunt quos sunt iste impedit. Tempora ad ex
+                                doloremque aspernatur quae ab placeat.
+
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </main>
+
+        <!-- Right Side -->
+        <div class="gadgets-side">
+
+            <div class="gadgets-side__header">
+                <button class="menu-button" id="menu-btn">
+                    <span class="material-icons-sharp menu-button__icon">menu</span>
+                </button>
+
+                <div class="theme-toggler">
+                    <span class="
+                        material-icons-sharp 
+                        theme-toggler__button
+                        theme-toggler__button--light
+                        theme-toggler__button--active">light_mode</span>
+                    <span class="
+                        material-icons-sharp 
+                        theme-toggler__button--dark
+                        theme-toggler__button">dark_mode</span>
+                </div>
+
+                <div class="profile">
+                    <div class="profile__info">
+                        <p>Hey, <b>Jyotsana</b></p>
+                        <small class="text-muted">SDL-1</small>
+                    </div>
+                    <div>
+                        <img class="profile__photo" src="/assets/profile-3.jpg" alt="profile-picture">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recents Updates -->
+            <div class="recent-updates">
+
+
+                <div class="recent-updates__container">
+
+                    <h2>Today's Action</h2>
+                    <div class="action-top">
+
+                        <div class="date">
+                            <span class="datetxt">Current Date</span>
+                            <span>15/03/2023</span>
+                        </div>
+                        <div class="time">
+                            <span class="datetxt">Current Time</span><br>
+                            <span>12:00</span>
+                        </div>
+
+                    </div>
+                    <div class="button">
+                        <div>
+                            <button class="checkin">
+                                <div>
+                                    <span class="material-symbols-outlined">
+                                        select_check_box
+                                    </span>
+                                </div>
+                                <div class="check">
+                                    <span class="text">Check In</span>
+                                </div>
+                            </button>
+                        </div>
+                        <div>
+                            <button class="breakin">
+                                <span class="material-symbols-outlined">
+                                    emoji_food_beverage
+                                </span>
+                                <span class="text"> Break In </span>
+                            </button>
+
+                        </div>
+                        <div>
+                            <button class="checkout">
+                                <span class="material-symbols-outlined">
+                                    exit_to_app
+                                </span>
+                                <span class="text">Check Out</span>
+                            </button>
+                        </div>
+                        <div>
+                            <button class="breakout">
+                                <span class="material-symbols-outlined">
+                                    emoji_food_beverage
+                                </span>
+                                <span class="text">Break Out</span>
+                            </button>
+                        </div>
+                    </div>
+
+
+
+
+
+
+
+                </div>
+            </div>
+
+            <!-- below recent update -->
+
+            <div class="recent-updates">
+
+
+                <div class="recent-updates__container">
+                    <h2 class="recent-updates__title">Attendance</h2>
+                    <div class="check_in">
+                        <span>Checked In : 09:35 AM</span>
+                    </div>
+                    <div class="break_in">
+                        <span>Breaked In : 10:29 AM</span>
+                    </div>
+                    <div class="break_out">
+                        <span>Breaked Out : 10:37 AM</span>
+                    </div>
+                    <div class="check_out">
+                        <span>Checked Out : 07:00 PM</span>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="./main.js"></script>
+</body>
+
+</html>
