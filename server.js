@@ -8,6 +8,6 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.static(__dirname + '/public'));
 app.use("/", authRoutes)
 
-app.listen(3000, () => {
+app.listen(3001, () => {
     console.log("App is runnig");
 })

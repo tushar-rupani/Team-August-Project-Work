@@ -62,10 +62,8 @@ label {
 }
 
 .card-header{
-    /* background-color: #5c6873; */
     background-image: linear-gradient(to right bottom,#132f4c,#123957,#0e4363,#084e6e,#005978);
     color: white;
-    /* font-size: 16px; */
 }
 .card-header h4{
     font-size: 16px;
