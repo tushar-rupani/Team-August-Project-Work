@@ -22,11 +22,9 @@ app.post("/register", async(req, res) => {
 })
 
 app.post("/check-user-email", async (req, res) => {
-    console.log("control came");
     let getEmail = req.body.email;
     let sqlQuery = `SELECT * FROM register where email = '${getEmail}'`;
     let results = await connection.execute(sqlQuery);
-    console.log(results[0]);
     if (results[0].length) {
         return res.json({ status: "exist" })
     }
