@@ -24,7 +24,7 @@
 
 <body>
     <div class="container">
-        <form action="">
+        <form action="/employee-data/insert" method="post" enctype="multipart/form-data">
 
             <div class="info_form">
 
@@ -59,13 +59,26 @@
                                 <div class="all">
                                     <div class="image">
                                         <div class="card-header">
-                                            <h4> Photo</h4>
+                                            <h4> <i class="fa-regular fa-face-smile"></i> Photo</h4>
                                         </div>
                                         <div class="photo">
-                                            <img src="" alt="">
-                                            <!-- <input type="file" class="btn btn-select" value="Choose File"> -->
 
-                                            <input class="btn-style" type="button" value="Remove">
+                                            <div><img
+                                                    src="https://hrms.appdemoserver.com/assets/img/avatars/profile_image.jpg"
+                                                    alt="profile DP" id="chosen-image"></div>
+                                            <div class="round">
+                                                <!-- <form action="/employee-data/upload" method="post" enctype="multipart/form-data"> -->
+                                                <input type="file" name="dp" id="upload-button" accept="image/*">
+                                                <!-- <button type="submit" id="upload-image">upload-image</button> -->
+                                                <!-- <input type="submit" value="Upload Image" id="upload-image"> -->
+                                                <label for="upload-button" id="upload-image" onclick="uploadImage()">Upload Image</label>
+                                                <label for="remove-button" id="remove-image">Remove</label>
+                                            
+                                            </div>
+                                            <!-- <img src="" alt="">
+                                            <input type="file" class="btn btn-select" value="Choose File">
+
+                                            <input class="btn-style" type="button" value="Remove"> -->
                                         </div>
                                     </div>
                                     <div class="info">
@@ -87,7 +100,7 @@
                                             </div>
                                             <div class="part">
                                                 <label for="bdate">Date of Birth</label>
-                                                <input type="date" name="bdate">
+                                                <input type="date" name="dob">
                                                 <label for="status">Marital status</label>
                                                 <!-- <input type="checkbox"> -->
                                                 <select name="status" id="status">
@@ -98,13 +111,14 @@
                                                 <label for="WFH">Work From Home</label>
                                                 <div class="toggle">
                                                     <div class="work"> <input class="wfh" type="radio" name="wfh"
-                                                            class="toggle" id="wfh">Yes </div>
+                                                            class="toggle" id="wfh" value="1">Yes </div>
                                                     <div class="work"><input class="wfh" type="radio" name="wfh"
-                                                            class="toggle" id="wfh">No</div>
+                                                            class="toggle" id="wfh" value="0">No</div>
                                                 </div>
 
                                             </div>
                                         </div>
+
                                     </div>
 
                                 </div>
@@ -135,16 +149,16 @@
                                                         id="current_address" cols="30" rows="3"></textarea>
                                                 </div>
                                                 <div class="form-group">
-                                                    <label for="parmanent_address">Parmanent Address</label>
-                                                    <textarea name="parmanent_address" class="form-control"
-                                                        id="parmanent_address" cols="30" rows="3"></textarea>
+                                                    <label for="parmanent_address">Permanent Address</label>
+                                                    <textarea name="permanent_address" class="form-control"
+                                                        id="permanent_address" cols="30" rows="3"></textarea>
                                                 </div>
                                             </div>
 
                                             <div class="col col2">
                                                 <div class="form-group">
                                                     <label for="Contact Number">Contact Number</label>
-                                                    <input type="text" name="phone" class="form-control" id="phone">
+                                                    <input type="text" name="contact" class="form-control" id="contact">
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="emergency_contact">Emergency Contact Number</label>
@@ -153,9 +167,9 @@
 
                                                 </div>
                                                 <div class="form-group">
-                                                    <label for="emergency_contact">Emergency Contact Person</label>
-                                                    <input type="text" name="emergency_contact" class="form-control"
-                                                        id="emergency_contact">
+                                                    <label for="emergency_person">Emergency Contact Person</label>
+                                                    <input type="text" name="emergency_person" class="form-control"
+                                                        id="emergency_person">
                                                 </div>
                                             </div>
                                         </div>
@@ -288,7 +302,7 @@
 
 
 
-                      
+
 
 
 
@@ -321,7 +335,7 @@
                                     </div>
                                 </form>
                             </div>
-                          
+
                         </div>
 
 
@@ -343,5 +357,57 @@
     crossorigin="anonymous"></script>
 
 <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+
+<script>
+    // console.log("hii");
+    let uploadBtn = document.getElementById("upload-button");
+    let chosenImg = document.getElementById("chosen-image");
+    let uploadImg = document.getElementById("upload-image");
+    var removeImg = document.getElementById('remove-image');
+
+
+    uploadBtn.onchange = () => {
+        let reader = new FileReader();
+        reader.readAsDataURL(uploadBtn.files[0]);
+        reader.onload = () => {
+            chosenImg.setAttribute("src", reader.result);
+
+        }
+    }
+
+    uploadImg.onclick = () => {
+        removeImg.style.display = "block";
+        uploadImg.style.display = "none";
+    
+    }
+
+
+    if(uploadImg.id == "remove_image"){
+        console.log('green');
+        uploadImg.style.backgroundColor = "green";
+    }
+
+    removeImg.onclick = () => {
+       
+        removeImg.style.display = "none";
+        uploadImg.style.display = "block"
+
+        uploadImg.style.backgroundColor = "#002f4b";
+        uploadImg.innerHTML = 'Upload Image';
+            chosenImg.setAttribute("src", "https://hrms.appdemoserver.com/assets/img/avatars/profile_image.jpg ");
+
+        
+    }
+
+   
+    function uploadImage(){
+        console.log("upload");
+        fetch(`http://127.0.0.1:3000/employee-data/upload`);
+    }
+
+
+
+
+</script>
 
 </html>
