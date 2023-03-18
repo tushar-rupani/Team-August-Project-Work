@@ -26,70 +26,8 @@
 
 <body>
     <div class="container">
-        <aside class="sidebar" id="sidebar">
 
-            <!-- top sidebar -->
-            <div class="sidebar__header">
-                <img class="sidebar__image" src="/assets/espark_logo.png" alt="logo_admin">
-                
-            </div>
-            <div class="sidebar__close" id="close-btn">
-                <span class="material-icons-sharp">close</span>
-            </div>
-            <!-- content sidebar -->
-            <div class="sidebar__content">
-
-                <a class="sidebar__item sidebar__item--active" href="#">
-                    <span class="material-icons-sharp sidebar__item-icon sidebar__item-icon--active">grid_view</span>
-                    <h3 class="sidebar__item-text">Dashboard</h3>
-                </a>
-
-                <a class="sidebar__item" href="#">
-                    <span class="material-symbols-outlined sidebar__item-icon">person_search</span>
-                    <h3 class="sidebar__item-text">Hotline</h3>
-                </a>
-
-                <a class="sidebar__item" href="#">
-                    <span class="material-symbols-outlined sidebar__item-icon">calendar_month</span>
-                    <h3 class="sidebar__item-text">Calender</h3>
-                </a>
-
-                <a class="sidebar__item" href="#">
-                    <span class="material-symbols-outlined sidebar__item-icon">newspaper</span>
-                    <h3 class="sidebar__item-text">News</h3>
-                    <!-- <span class="sidebar__message-count">26</span> -->
-                </a>
-
-                <a class="sidebar__item" href="#">
-                    <span class="material-symbols-outlined sidebar__item-icon">schedule</span>
-                    <h3 class="sidebar__item-text">Attandance</h3>
-
-                </a>
-
-                <a class="sidebar__item" href="#">
-                    <span class="material-icons-sharp sidebar__item-icon">inventory</span>
-                    <h3 class="sidebar__item-text">Leaves</h3>
-                </a>
-
-                <a class="sidebar__item" href="#">
-                    <span class="material-symbols-outlined sidebar__item-icon">forum</span>
-                    <h3 class="sidebar__item-text">Sensation</h3>
-                </a>
-
-                <a class="sidebar__item" href="#">
-                    <span class="material-icons-sharp sidebar__item-icon">settings</span>
-                    <h3 class="sidebar__item-text">Settings</h3>
-                </a>
-
-                <a class="sidebar__item" href="#">
-                    <span class="material-icons-sharp sidebar__item-icon">logout</span>
-                    <h3 class="sidebar__item-text">Logout</h3>
-                </a>
-
-            </div>
-        </aside>
-        <!-- END OF SIDEBAR -->
-
+        <%- include('./common/sidebar') %>
         <main>
 
             <div class="dashboard">
@@ -156,110 +94,82 @@
                     <div class="card">
                         <div class="head">
                             <div>
-                                <h3>Today's Employee Activities</h3>
+                                <h3 class="card-title">Today's Employee Activities</h3>
                             </div>
-                            <div>
-                                <input type="text" placeholder="Search..">
-                            </div>
-                            <div>
-                                <span class="material-icons-sharp">autorenew</span>
+                            <div class="activity-search">
+                                <input type="text" placeholder="Search here..">
+                                <div class="material-icons-sharp">autorenew</div>
                             </div>
                         </div>
+                        <div class="hr-line"></div>
                         <div class="scroll">
-                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam iure asperiores natus
-                                reprehenderit, deleniti quas molestiae non? Fuga dolorum quis iusto tempora accusantium
-                                modi esse alias quam, sunt cumque? Id sed repellendus voluptatum cumque. Optio minima et
-                                quaerat, nulla omnis praesentium rerum repudiandae quod veniam ut soluta maxime
-                                consequatur, doloribus blanditiis culpa distinctio vel? Cupiditate ex quam veritatis
-                                praesentium atque! Rerum laborum reprehenderit atque? Modi dignissimos doloremque
-                                exercitationem itaque sed, libero minima accusantium? Deserunt porro tempora voluptates
-                                rerum recusandae, deleniti quo minima incidunt reiciendis eveniet doloremque
-                                voluptatibus repudiandae voluptas unde enim aperiam id asperiores quidem excepturi?
-                                Minima id magnam quibusdam aliquid aspernatur. Quos vel vitae ab maiores fugiat
-                                praesentium amet consequuntur aliquid voluptatibus accusamus, illum non sunt facere.
-                                Cupiditate aliquam laboriosam, iste inventore consectetur dicta enim quidem earum.
-                                Praesentium, rerum quae impedit beatae tempora voluptate corrupti id veniam minima
-                                consectetur esse deleniti tempore magni doloribus optio molestiae deserunt possimus,
-                                facere quisquam mollitia omnis. Aliquam molestiae ipsam ipsa enim mollitia porro!
-                                Officia aspernatur eligendi obcaecati nulla consequatur! Ipsum consequatur sequi ipsa,
-                                doloribus debitis magni similique reiciendis hic incidunt fugit animi facilis odit
-                                pariatur adipisci dolores dolorum blanditiis, impedit voluptas ex maiores, facere natus.
-                                Vitae, expedita itaque magni id accusamus nihil fugiat quo maiores tempore in magnam
-                                obcaecati nesciunt debitis asperiores cumque, rerum quos facere ad. Temporibus rem modi
-                                consectetur, animi reiciendis suscipit facere qui expedita, quibusdam dicta mollitia
-                                odit exercitationem eius quas quam nisi ipsam assumenda! Provident error voluptatem iste
-                                molestiae id magnam veritatis! Natus voluptate quidem repellendus! Perspiciatis dicta
-                                quis nam maxime repellendus! A, eius veritatis quidem corporis amet enim sequi facere
-                                tenetur necessitatibus eligendi odit fuga beatae reiciendis. Animi distinctio unde,
-                                quaerat atque explicabo amet earum nam numquam laudantium aliquam consequatur molestiae
-                                nobis architecto dolorum iure ratione quia eius sapiente! Est accusantium facilis
-                                similique praesentium officiis vel nisi illum nihil, magnam animi molestias, temporibus
-                                iste laudantium natus voluptates deserunt quas dolore, sint ratione perspiciatis
-                                consequuntur deleniti quae voluptatem. Necessitatibus facere explicabo nam ab magni. Eum
-                                voluptatibus itaque placeat voluptatum! Earum corrupti voluptatibus eius obcaecati,
-                                placeat temporibus consequuntur ex ipsum, impedit enim in quam velit aperiam ad,
-                                adipisci libero consectetur facilis repellat laborum deleniti sapiente saepe explicabo
-                                natus. Repellendus laborum blanditiis impedit esse porro voluptatum perferendis eveniet
-                                cum ex debitis nihil error nesciunt adipisci alias est ipsa accusamus aut, sint animi
-                                perspiciatis quae unde eum tempore. Illo exercitationem quidem placeat, provident saepe
-                                eos! Deleniti illo nulla quas, labore explicabo obcaecati et eum aliquam sunt animi sed
-                                magnam doloribus, expedita placeat molestias consequuntur. Nesciunt animi provident
-                                dolor maxime non. Impedit voluptatibus mollitia ducimus iste sequi cumque non, velit
-                                quasi illo commodi amet, animi dicta labore tempore dignissimos repudiandae modi
-                                dolorum, magnam voluptatum praesentium vel. Ducimus exercitationem corrupti eos placeat
-                                dolorem ullam tempore, officiis quidem, explicabo quod nostrum nulla temporibus
-                                reiciendis deserunt, commodi facilis nesciunt! Provident, est quas incidunt natus a
-                                dolore doloremque tempore facilis dolor, consequatur modi et reiciendis suscipit alias
-                                iusto quis voluptatibus similique dolores necessitatibus quia ipsam nihil. At cum
-                                sapiente eos laborum, aliquid reiciendis rem maiores labore quo exercitationem fuga
-                                expedita accusamus provident, earum perferendis sit. Provident magnam nobis, autem
-                                praesentium placeat minus facilis illum eveniet consectetur eos obcaecati aliquid eius
-                                quod. At, velit beatae ratione blanditiis maxime delectus quas nobis sed natus modi
-                                incidunt earum quia ea debitis harum magnam. Ad animi consequuntur adipisci. Illum
-                                molestias nihil, voluptas ipsam maxime, adipisci quibusdam aperiam omnis dolores
-                                ducimus, dignissimos praesentium obcaecati architecto incidunt! Harum ab recusandae
-                                deleniti similique accusamus eligendi vitae doloremque consequuntur animi quo illum,
-                                eius corrupti delectus quidem consectetur ea fugit voluptas. Itaque soluta mollitia
-                                autem beatae modi quo explicabo culpa repellendus inventore qui nisi veritatis et nobis,
-                                sapiente, omnis corporis? Eveniet minima aut asperiores deleniti nisi voluptas culpa,
-                                debitis ipsa illo ipsum error natus maiores commodi, dicta non expedita necessitatibus
-                                quaerat nemo rem! A eos voluptatem odit recusandae sapiente sunt sed ratione, earum
-                                eaque accusantium tempora, totam, in amet quo maiores quidem provident unde nihil
-                                voluptas fugiat illum ab minus beatae fuga? Iusto itaque, voluptas dicta placeat dolorum
-                                sint incidunt quisquam minima natus quis blanditiis assumenda laboriosam vel cum modi
-                                aperiam id nam iste, doloremque nemo pariatur nostrum! Veritatis officiis tempore
-                                molestiae cumque inventore adipisci, saepe pariatur corrupti nobis, nihil voluptas sequi
-                                et autem eligendi nemo explicabo. Ducimus repellendus, quia vero minus accusantium
-                                distinctio? Explicabo reiciendis officia blanditiis tempora suscipit! Earum, illum.
-                                Natus officia tempore cupiditate! Veritatis illum, adipisci repellendus dignissimos
-                                animi voluptate provident ea sit. Reprehenderit repellat nulla modi quo ratione, et id
-                                obcaecati voluptate ex, sapiente, perferendis libero mollitia repellendus cumque nihil
-                                iusto? Nemo non obcaecati, porro quibusdam molestias ipsa, eius exercitationem velit
-                                itaque, fugiat aliquam corporis? Blanditiis esse quis ipsum soluta adipisci amet, eum
-                                rerum sequi facilis possimus excepturi quod tenetur. Sed, corporis magni hic laudantium
-                                numquam dolorem eius excepturi tenetur voluptatibus esse asperiores vero soluta,
-                                accusantium quae doloribus harum officiis? Vel asperiores veritatis illum? Sapiente id
-                                placeat ratione ipsa saepe at nesciunt doloremque non eum rem explicabo voluptatibus
-                                temporibus quos possimus et laboriosam maiores aperiam iste, excepturi dolorem animi?
-                                Asperiores voluptatibus consequuntur molestias suscipit quos impedit, vel rerum deserunt
-                                architecto alias facilis! Voluptatum nesciunt magnam perspiciatis, cupiditate assumenda
-                                impedit aspernatur architecto corporis odit vero nam tenetur sint reiciendis, doloribus
-                                animi iure in soluta fuga fugit explicabo necessitatibus nobis. Ducimus ipsa, ullam
-                                repudiandae accusantium harum iusto cum vel non fuga, dolorum nostrum omnis aperiam
-                                eaque amet assumenda mollitia hic fugit? Laudantium officia perspiciatis qui! Ipsam at
-                                minus hic nulla nisi quidem consequatur a blanditiis asperiores fuga suscipit tenetur
-                                enim inventore, quam reprehenderit veritatis soluta animi est nesciunt, deserunt
-                                accusantium libero. Reprehenderit nemo deserunt eveniet nesciunt tempore veniam
-                                blanditiis pariatur aut eaque quisquam ipsa eius illo vel voluptate eos magnam repellat
-                                et quae iure, odit maiores doloremque sequi nulla recusandae! Magnam vel ipsam sit
-                                sapiente culpa provident reprehenderit animi quo molestiae minus illo earum tempora
-                                repellat, possimus deleniti optio ratione aliquam, autem doloremque nulla sint? Itaque
-                                numquam placeat error temporibus, natus, minus fugiat nostrum repudiandae nobis dicta
-                                veniam distinctio praesentium est nesciunt quos sunt iste impedit. Tempora ad ex
-                                doloremque aspernatur quae ab placeat.
+                            <div class="activity-logs-container">
+                                <div class="activity-log">
+                                    <div class="card-title-small">Tushar Rupani</div>
+                                    <div class="checkin-text activity-log-text">Checked In</div>
+                                    <div class="log-time">10:05 AM</div>
+                                </div>
+                                <div class="activity-log">
+                                    <div class="card-title-small">Chirag Talpada</div>
+                                    <div class="checkin-text activity-log-text">Checked In</div>
+                                    <div class="log-time">10:15 AM</div>
+                                </div>
+                                <div class="activity-log">
+                                    <div class="card-title-small">Rathod Bhavesh</div>
+                                    <div class="checkin-text activity-log-text">Checked In</div>
+                                    <div class="log-time">10:25 AM</div>
+                                </div>
 
-                            </p>
+                                <div class="activity-log">
+                                    <div class="card-title-small">Tushar Rupani</div>
+                                    <div class="breakin-text activity-log-text">Break In</div>
+                                    <div class="log-time">10:05 AM</div>
+                                </div>
+                                <div class="activity-log">
+                                    <div class="card-title-small">Chirag Talpada</div>
+                                    <div class="breakin-text activity-log-text">Break In</div>
+                                    <div class="log-time">10:15 AM</div>
+                                </div>
+                                <div class="activity-log">
+                                    <div class="card-title-small">Rathod Bhavesh</div>
+                                    <div class="breakin-text activity-log-text">Break In</div>
+                                    <div class="log-time">10:25 AM</div>
+                                </div>
 
+                                <div class="activity-log">
+                                    <div class="card-title-small">Tushar Rupani</div>
+                                    <div class="breakout-text activity-log-text">Break Out</div>
+                                    <div class="log-time">10:05 AM</div>
+                                </div>
+                                <div class="activity-log">
+                                    <div class="card-title-small">Chirag Talpada</div>
+                                    <div class="breakout-text activity-log-text">Break Out</div>
+                                    <div class="log-time">10:15 AM</div>
+                                </div>
+                                <div class="activity-log">
+                                    <div class="card-title-small">Rathod Bhavesh</div>
+                                    <div class="breakout-text activity-log-text">Break Out</div>
+                                    <div class="log-time">10:25 AM</div>
+                                </div>
+
+                                <div class="activity-log">
+                                    <div class="card-title-small">Tushar Rupani</div>
+                                    <div class="checkout-text activity-log-text">Checked Out</div>
+                                    <div class="log-time">10:05 AM</div>
+                                </div>
+                                <div class="activity-log">
+                                    <div class="card-title-small">Chirag Talpada</div>
+                                    <div class="checkout-text activity-log-text">Checked Out</div>
+                                    <div class="log-time">10:15 AM</div>
+                                </div>
+                                <div class="activity-log">
+                                    <div class="card-title-small">Rathod Bhavesh</div>
+                                    <div class="checkout-text activity-log-text">Checked Out</div>
+                                    <div class="log-time">10:25 AM</div>
+                                </div>
+                                
+                                
+                            </div>
                         </div>
 
                     </div>

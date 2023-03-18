@@ -7,7 +7,7 @@
     --color-warning: #ffbb55;
     --color-white: #fff;
     --color-info-dark: #7d8da1;
-    --color-info-light: #dce1eb;
+    --color-info-light: #b2b9c3;
     --color-dark: #363949;
     --color-light: rgba(132, 139, 200, 0.18);
     --color-primary-variant: #111e88;
@@ -78,7 +78,7 @@ main {
     margin: 0 auto;
     gap: 20px;
     grid-template-columns: 14rem auto 23rem;
-    padding-right: 10px;
+    padding-right: 5px;
 }
 
 a {
@@ -287,11 +287,13 @@ b {
 .card-title {
     font-weight: 600;
     font-size: 17px;
+    color: #2a3f5a;
 }
 
 .card-title-small {
     font-weight: 500;
     font-size: 14px;
+    color: #4e5f74;
 }
 
 
@@ -373,18 +375,17 @@ b {
 }
 
 .head {
-    display: grid;
-    grid-template-columns: 60% 30% 5%;
+    display: flex;
     justify-content: space-between;
-    margin-bottom: 20px;
-    padding-bottom: 10px;
-    border-bottom: 1px solid var(--color-info-dark);
-
-
+    margin-bottom: 15px;
+    align-items: center;
+    margin-right: 20px;
 }
 
-.head h3 {
-    font-size: 20px;
+.activity-search {
+    display: flex;
+    align-items: center;
+    gap: 15px;
 }
 
 .head input {
@@ -392,26 +393,45 @@ b {
     border: 1px solid var(--color-info-dark);
     border-radius: 10px;
     font-size: 14px;
+    width: 250px;
 }
 
 .head .material-icons-sharp {
-    background-color: #0d65ff;
-    padding: 7px;
-    border-radius: 7px;
+    background-color: #6785e6;
+    padding: 9px 10px;
+    cursor: pointer;
+    color: #fff;
+    font-size: 20px;
+    border-radius: 8px;
 }
 
 div.scroll {
     margin: 4px, 4px;
     padding: 4px;
-
     width: 100%;
-    height: 500px;
+    height: 335px;
     overflow-x: hidden;
     overflow-y: auto;
     text-align: justify;
 }
 
+/* width */
+::-webkit-scrollbar {
+    width: 7px;
+}
 
+/* Track */
+::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 5px grey;
+    border-radius: 10px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background-image: linear-gradient(180deg, #9e9e9e 0%, #9e9e9e 99%);
+    box-shadow: inset 2px 2px 5px 0 rgba(#fff, 0.5);
+    border-radius: 100px;
+}
 
 
 /* ========== Right Side ==========*/
@@ -538,11 +558,11 @@ button .text {
     background-color: var(--break-out);
 }
 
-.attendance-backlog{
+.attendance-backlog {
     color: #fff;
 }
 
-.attendance-backlog span{
+.attendance-backlog span {
     padding-left: 10px;
 }
 
@@ -568,9 +588,9 @@ button .text {
     width: 15px;
 }
 
-.sidebar__image{
+.sidebar__image {
     height: 100%;
-    width: auto;    
+    width: auto;
 }
 
 .sidebar__header {
@@ -581,4 +601,41 @@ button .text {
     height: 96px;
     display: flex;
     justify-content: center;
+}
+
+.activity-logs-container{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 5px;
+}
+
+.activity-log{
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.checkin-text{
+    color: var(--check-in);
+}
+.checkout-text{
+    color: var(--check-out);
+}
+.breakin-text{
+    color: var(--break-in);
+}
+.breakout-text{
+    color: var(--break-out);
+}
+
+.activity-log-text{
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.log-time{
+    color: #939ba5;
+    font-size: 13px;
+    font-weight: 500;
 }
