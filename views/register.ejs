@@ -23,12 +23,11 @@
         <form action="/register" method="post" id="my-form">
           <img src="/assets/espark_logo.png" alt="espark logo">
 
-          <h1 style="margin-bottom: 5px;">Create an Account</h1>
+          <h1 style="margin-bottom: 5px; font-size: 21px;">Create an Account</h1>
          
-          <span style="margin-bottom: 15px;">Register your information here</span>
           <input type="email" placeholder="Email" name="email" id="email" onkeyup="checkIfExistsEmail(this)" autocomplete="false"/>
           <span class="mtop-30 messgae hidden green" id="email_available">This email is available</span>
-          <span class="mtop-30 messgae hidden red" id="email_unavailable" >This email is not available</span>
+          <span class="mtop-30 messgae hidden red left" id="email_unavailable" >This email is not available</span>
 
           <input type="password" placeholder="Password" id="password" name="password"/>
           <span id="perror" class="hidden"></span>
@@ -36,17 +35,17 @@
           <input type="password" placeholder="Retype Password" id="repassword" />
           <span id="reerror" class="hidden"></span>
 
-          <input type="submit" value="Submit" class="hidden" id="submit-btn">
+          <input type="submit" value="Submit" id="submit-btn">
         </form>
       </div>
       <div class="form-container sign-in-container">
-        <form action="#">
+        <form action="/login" method="POST">
           <img src="/assets/espark_logo.png" alt="espark logo">
           <h1 style="margin-bottom: 0px;">Sign in</h1>
           <p style="margin-bottom: 20px; color: #8a8484;">Enter your credentials to get started</p>
          
-          <input type="email" placeholder="Email" />
-          <input type="password" placeholder="Password" />
+          <input type="email" placeholder="Email" name="email" />
+          <input type="password" placeholder="Password" name="password"/>
           <a href="#">Forgot your password?</a>
           <button>Sign In</button>
         </form>

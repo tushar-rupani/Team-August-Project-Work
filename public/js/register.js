@@ -1,13 +1,30 @@
 let form = document.getElementById("my-form");
-form.addEventListener("submit", (e) => {
-    e.preventDefault();
-})
+// form.addEventListener("submit", (e) => {
+//     e.preventDefault();
+// })
 
 
 let submitBtn = document.getElementById("submit-btn");
+function disableButton(){
+    submitBtn.disabled = true;
+    submitBtn.style.opacity = 0.5;
+    submitBtn.addEventListener("mouseenter", (e) => {
+        e.target.style.cursor = "not-allowed"
+    })
+}
+
+function activateButton(){
+    submitBtn.disabled = false;
+    submitBtn.style.opacity = 1;
+    submitBtn.addEventListener("mouseenter", (e) => {
+        e.target.style.cursor = "pointer"
+    })
+}
+disableButton();
+
 let success = false;
 let repass_success = false;
-submitBtn.style.display = "none";
+
 
 let password = document.getElementById("password");
 let errorSpan, pval, passwordValidationRegex, isPasswordCorrect;
@@ -87,9 +104,11 @@ async function checkIfExistsEmail(e, event) {
 
 function activateSubmitButton(){
     if(success && emailExists && repass_success){
-        submitBtn.style.display = "block"
+        // submitBtn.disabled = false;  
+        activateButton();      
     }else{
-        submitBtn.style.display = "none"
+        disableButton();
+        // submitBtn.disabled = true;
     }
 }
 

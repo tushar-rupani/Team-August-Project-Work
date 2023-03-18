@@ -1,37 +1,24 @@
 const express = require("express");
-const app = express();
-const mysql = require("mysql2/promise");
-const bcrypt = require("bcryptjs");
-var connection = require("../connection/connection");
+const app = express.Router();
+const { handleLogin, checkIfLoggedIn } = require("../middlewares/authMiddlewares");
+const {loginController, registerController, checkEmailExistController, logoutController} = require("../controllers/authControllers")
+const {activateLinkController, renderActivatePage} = require("../controllers/validationControllers");
 
 
-app.get("/", (req, res) => {
+app.get("/", checkIfLoggedIn, (req, res) => {
     res.render("register")
 })
 
+app.post("/register", registerController);
 
-app.post("/register", async(req, res) => {
-    let {email, password} = req.body;
-    password = await bcrypt.hash(password, 10);
-    const sqlQuery = `INSERT INTO register (email, password) VALUES('${email}', '${password}')`;
-    const executeInsert = await connection.execute(sqlQuery);
-    let lastInsertId = executeInsert[0].insertId;
-    if(executeInsert){
-        
-    }
-})
+app.post("/login", loginController);
 
-app.post("/check-user-email", async (req, res) => {
-    let getEmail = req.body.email;
-    let sqlQuery = `SELECT * FROM register where email = '${getEmail}'`;
-    let results = await connection.execute(sqlQuery);
-    if (results[0].length) {
-        return res.json({ status: "exist" })
-    }
-    else {
-        return res.json({ status: "not" })
-    }
-})
+app.get("/activate", renderActivatePage);
 
+app.get("/activate-account/:token", activateLinkController);
+
+app.post("/check-user-email", checkEmailExistController);
+
+app.get("/logout", logoutController)
 
 module.exports = app;
