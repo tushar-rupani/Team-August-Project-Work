@@ -6,7 +6,6 @@
 .tab-content {
     margin-top: -1px;
     background: #fff;
-    /* border: 1px solid #c8ced3; */
     border-radius: 5px;
 }
 
@@ -63,10 +62,8 @@ label {
 }
 
 .card-header{
-    /* background-color: #5c6873; */
     background-image: linear-gradient(to right bottom,#132f4c,#123957,#0e4363,#084e6e,#005978);
     color: white;
-    /* font-size: 16px; */
 }
 .card-header h4{
     font-size: 16px;
@@ -117,8 +114,7 @@ input[type= button]{
     margin: 0 auto;
     }
     .basic-info {
-    /* border: 1px solid rgba(0,0,0,0.4); */
-    /* height:300px; */
+    
     margin-top: 2rem;
     }
     .all{
@@ -235,7 +231,6 @@ input[type= button]{
         }
         #remove-image{
             display: none;
-            /* display: block; */
             position: relative;
             background-color: #e93b35;
             color: white;
@@ -250,7 +245,6 @@ input[type= button]{
         .photo{
             display: flex;
             flex-direction: column;
-            /* text-align: center; */
             align-items: center;
         }
         .photo div{
@@ -266,7 +260,6 @@ input[type= button]{
         }
         
         .nav-pills .nav-link.active{
-            /* background-color: #002f4b; */
     background-image: linear-gradient(to right bottom,#132f4c,#123957,#0e4363,#084e6e,#005978);
 
             
@@ -284,24 +277,12 @@ input[type= button]{
         .navbuttons{
             display: grid;
             grid-template-columns: 50% 10%;
-             /* display: flex; */
             justify-content: space-between; 
             margin-top: 30px;
         }
         .col-sm-3 {
             flex: 0 0 0%;
-            /* flex: 0 0 0%; */
         }
         #btnPrevious{
             margin-right: 0;
         }
-
-        /* .nav-item:hover{
-            background-color: #002f4b;
-
-        } */
-
-        
-
-
-

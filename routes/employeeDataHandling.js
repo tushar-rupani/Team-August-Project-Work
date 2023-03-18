@@ -7,7 +7,7 @@ const bcrypt = require("bcryptjs");
 const multer = require("multer");
 const path = require("path");
 var connection = require("../connection/connection");
-
+app.use(express.json())
 const storage = multer.diskStorage({
     destination: (req, file, cb)=>{
         // cb(null, Date.now()+ path.extname(file.originalname))
@@ -26,12 +26,14 @@ app.get("/", (req, res) => {
 });
 
 app.post("/insert", async (req, res) => {
+    console.log(req.body);
     //  for basic info------------------------------------
     console.log("hello");
-    // var employee_id = req.query.employee_id;
-    // console.log(employee_id);
+   
     var fullname = req.body.name;
+    console.log(fullname);
     var gender = req.body.gender;
+    console.log(gender);
     var dob = req.body.dob;
     var status = req.body.status;
     var wfh = req.body.wfh;
@@ -68,7 +70,7 @@ app.post("/insert", async (req, res) => {
 
     // query to insert into social information table------------------------------------
 
-    var social_query = `UPDATE social_information SET twitter = '${tname}', facebook = '${fname}', linkedin = '${lname}',github = '${gname}' WHERE employee_id=1`;
+    var social_query = `UPDATE social_information SET twitter = '${tname}', linkedin = '${lname}',github = '${gname}' WHERE employee_id=1`;
     console.log(social_query);
     const execute_social = await connection.execute(social_query);
     console.log(execute_social[0]);
