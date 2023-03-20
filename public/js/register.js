@@ -83,9 +83,7 @@ async function checkIfExistsEmail(e, event) {
         })
     })
     let data = await ans.json();
-    console.log(data);
    if (data["status"] == "not" && userEntered != "") {
-        // document.getElementById("email_available").classList.remove("hidden")
         document.getElementById("email_unavailable").classList.add("hidden")
         emailExists = true;
         activateSubmitButton();

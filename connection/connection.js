@@ -4,7 +4,7 @@ const connection = mysql.createPool(
         host: 'localhost',
         user: 'root',
         database: 'HRMS',
-        password: 'root'
+        password: 'tushar2408'
     }
 )
 

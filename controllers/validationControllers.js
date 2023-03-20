@@ -2,7 +2,6 @@ const jwt = require("jsonwebtoken");
 var connection = require("../connection/connection");
 
 const activateLinkController = async(req, res) => {
-    console.log("hrllo");
     let token = req.params.token;
     let decode = jwt.verify(token, "JWT_SECRET");
     let email = decode.email;
