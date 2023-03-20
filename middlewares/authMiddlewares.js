@@ -21,7 +21,7 @@ function handleLogin(req, res, next){
 function checkIfLoggedIn(req, res, next){
     console.log(req.session.user);
     if(req.session.user){
-        return res.redirect("/home")
+        return res.redirect("/self/home")
     }
     next();
 }
