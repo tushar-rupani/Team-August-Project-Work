@@ -1,4 +1,3 @@
-console.log("working");
 const MenuBtn = document.querySelector("#menu-btn");
 const SideMenu = document.querySelector("#sidebar");
 const CloseBtn = document.querySelector("#close-btn");
@@ -37,6 +36,15 @@ CloseBtn.addEventListener('click', () => {
 /**
  * Change theme
  */
+
+/*const dropdownTrigger = document.querySelector('#dropdown-trigger');
+const dropdownMenu = document.querySelector('#dropdown-menu');
+
+dropdownTrigger.addEventListener('click', () => {
+    console.log("test");
+  dropdownMenu.classList.toggle('show');
+});*/
+
 ThemeToggler.addEventListener("click", () => {
     document.body.classList.toggle('dark-theme-variables')
 

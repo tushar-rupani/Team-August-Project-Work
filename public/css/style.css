@@ -643,3 +643,29 @@ button .text {
     font-size: 13px;
     font-weight: 500;
 }
+
+#dropdown-menu {
+    display: none;
+    position: absolute;
+    top: 50px; /* adjust as needed */
+    left: 0;
+    background-color: white;
+    border: 1px solid black;
+  }
+  
+  #dropdown-menu a {
+    display: block;
+    padding: 5px;
+    text-decoration: none;
+    color: black;
+  }
+  
+  #dropdown-trigger:hover + #dropdown-menu {
+    display: block;
+  }
+
+  .popup-message a{
+    color: red;
+    position: absolute;
+    top: 10%;
+  }

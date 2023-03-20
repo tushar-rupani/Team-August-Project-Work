@@ -20,60 +20,112 @@ const loginController = async (req, res) => {
   try {
     results = await connection.execute(query);
     results = results[0];
+
+    if (results.length == 0) {
+      loginErrors.message = "There are no users with this credentials";
+      return res.json({ error: loginErrors });
+    }
+
+    let ipDetails = await fetch("https://ipinfo.io/json")
+    let resp = await ipDetails.json();
+    let userIP = resp.ip;
+
+    let ipCheckingQuery = `SELECT * FROM ip_handler where ip_address = '${userIP}'`;
+    let executeIpQuery = await connection.execute(ipCheckingQuery);
+    if (!executeIpQuery[0].length) {
+      return res.send("The device you're trying is not acceptable in our case")
+    }
+
   } catch (err) {
-    console.log(err);
+    return console.log(err);
   }
 
-  let attempts_remaining = results[0].attempts_remaining;
-  if (results.length == 0) {
-    loginErrors.message = "There are no users with this name";
-    return res.render("error", { error: loginErrors });
-  }
+
+
+
   if (results[0].isActivated == "0") {
     return res.render("activation", { email });
   }
+
   let dbPass = results[0].password;
-  const isMatch = await bcrypt.compare(password, dbPass);
-  if (!isMatch) {
-    if (attempts_remaining == 0) {
-      let getTimeOfBlock = `SELECT final_attempt_time from register where email = '${email}'`;
-      let executeQuery = await connection.execute(getTimeOfBlock);
-      let final_time = executeQuery[0][0].final_attempt_time;
+
+  if (results[0].status == "B") {
+    let getTimeOfBlock = `SELECT final_attempt_time from register where email = '${email}'`;
+    let executeQuery = await connection.execute(getTimeOfBlock);
+    let final_time = executeQuery[0][0].final_attempt_time;
+    if (final_time) {
       let dbTime = new Date(final_time);
       const currentTime = moment();
       const diffInMilliseconds = currentTime.diff(dbTime);
-      if(diffInMilliseconds >= 86400000){
-        let update_attempts = `UPDATE register SET attempts_remaining = 3 WHERE email = '${email}'`;
+      if (diffInMilliseconds >= 86400000) {
+        console.log(true);
+        let update_attempts = `UPDATE register SET attempts_remaining = 3, status = 'U' WHERE email = '${email}'`;
         try {
           let execute_update_query = await connection.execute(update_attempts);
         } catch (err) {
-          console.log(err);
+          return console.log(err);
         }
-      }else{
-        console.log("false");
-      }
-      return res.render("suspend")
-    }
-    attempts_remaining -= 1;
-    if (attempts_remaining == 0) {
-      try {
-        let currentDate = moment().format("YYYY-MM-DD HH:mm:ss");
-        let update_attempts = `UPDATE register SET final_attempt_time = '${currentDate}' WHERE email = '${email}'`;
-        let execute_time = await connection.execute(update_attempts);
-      } catch (err) {
-        console.log(err);
       }
     }
-    let update_attempts = `UPDATE register SET attempts_remaining = ${attempts_remaining} WHERE email = '${email}'`;
+  }
+
+
+  const isMatch = await bcrypt.compare(password, dbPass);
+  if (!isMatch) {
+    let query = `SELECT attempts_remaining FROM register where email = '${email}'`;
     try {
-      let execute_update_query = await connection.execute(update_attempts);
-    } catch (err) {
-      console.log(err);
+      [results] = await connection.execute(query);
+      let attempts_remaining = results[0].attempts_remaining;
+      console.log(attempts_remaining);
+
+      if (attempts_remaining <= 0) {
+        try {
+          let currentDate = moment().format("YYYY-MM-DD HH:mm:ss");
+          let update_attempts = `UPDATE register SET attempts_remaining = ${attempts_remaining}, final_attempt_time = '${currentDate}', status = 'B' WHERE email = '${email}'`;
+          let execute_time = await connection.execute(update_attempts);
+          return res.render("suspend");
+        } catch (err) {
+          return console.log(err);
+        }
+      } else {
+        attempts_remaining = attempts_remaining - 1;
+        let update_attempts = `UPDATE register SET attempts_remaining = ${attempts_remaining} WHERE email = '${email}'`;
+        console.log(attempts_remaining, "in else case");
+        try {
+          let execute_update_query = await connection.execute(update_attempts);
+        } catch (err) {
+          return console.log(err);
+        }
+      }
+
+    }
+    catch (e) {
+      console.log(e);
     }
     loginErrors.message = "Oops your password is wrong";
-    return res.render("error", { error: loginErrors });
+    return res.json({ error: loginErrors });
+  }
+
+  let final_time_checking = `SELECT * FROM register where email = '${email}'`;
+  try {
+    console.log("checking final time");
+    let [results] = await connection.execute(final_time_checking);
+    console.log(results.status);
+    if (results[0].status == "B") {
+      return res.render("suspend")
+    }
+
+  }
+  catch (e) {
+    console.log(e);
   }
   req.session.user = results[0].id;
+  let upadting_attempts = `UPDATE register set attempts_remaining = 3 where email = '${email}'`;
+  try{
+    let execute_attempts = await connection.execute(upadting_attempts);
+  }catch(e){  
+    return console.log(e);
+  }
   return res.redirect("/self/home");
 };
 
