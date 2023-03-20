@@ -74,6 +74,8 @@ app.post("/insert", async (req, res) => {
     console.log(social_query);
     const execute_social = await connection.execute(social_query);
     console.log(execute_social[0]);
+
+    
 });
 
 app.post('/upload',upload.single("image"), (req,res)=>{

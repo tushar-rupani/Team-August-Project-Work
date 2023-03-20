@@ -5,7 +5,7 @@
 }
 .tab-content {
     margin-top: -1px;
-    background: #fff;
+    /* background: #fff; */
     border-radius: 5px;
 }
 
@@ -213,9 +213,6 @@ input[type= button]{
         padding: 0.5rem;
         }
 
-        input[type="file"]{
-            display: none;
-        }
         #upload-image{
             display: block;
             position: relative;
@@ -258,6 +255,9 @@ input[type= button]{
             width: 200px;
             height: 200px;
         }
+        .nav-pills .nav-link{
+            color: black;
+        }
         
         .nav-pills .nav-link.active{
     background-image: linear-gradient(to right bottom,#132f4c,#123957,#0e4363,#084e6e,#005978);
@@ -286,3 +286,41 @@ input[type= button]{
         #btnPrevious{
             margin-right: 0;
         }
+
+        #upload-button{
+            display: none;
+        }
+
+
+        .tabControl{
+            border: 1px solid #c8ced3;
+            background-color: white;
+        }
+
+        .btn-select{
+            border: 1px solid #c8ced3;
+            text-align: left;
+            width: 400px;
+            display: none;
+
+        }
+        input[type = "file"]{
+            border: 1px solid #c8ced3;
+            text-align: left;
+            width: 400px;
+        }
+       #btnPrevious{
+            color: white;
+        }
+        #btnNext{
+            color: white;
+        }
+        .btnNext{
+            background-color: #e93b35;
+        }
+
+        .err_msg{
+            color: red;
+            padding-top: 5px;
+        }
+       
