@@ -166,30 +166,28 @@ async function sendData(data){
     let cheque=document.querySelector('#cheque_doc').files[0];
     let resume=document.querySelector('#resume_doc').files[0];
 
-    let form=new FormData();
+    let myForm=new FormData();
 
-    form.append("profile",profile);
-    form.append("aadhar",aadhar);
-    form.append("pan",pan);
-    form.append("cheque",cheque);
-    form.append("resume",resume);
+    data=JSON.stringify(data);
+
+    myForm.append("file",profile);
+    myForm.append("file",aadhar);
+    myForm.append("file",pan);
+    myForm.append("file",cheque);
+    myForm.append("file",resume);
+    myForm.append("data",data);
     
 
     try {
         const response = await fetch(`http://localhost:3000/employee-form`, {
             method: 'POST',
-            // body: JSON.stringify({data: data}),
-            body:form
+            body:myForm
         });
 
         let res = await response.json();
 
-        if (res.status === 403) {
-            email_err.innerHTML = 'Email already exists';
-        }
-        else if (res.status === 200) {
-            location.assign('/home')
-        }
+        console.log(res);
+        
 
 
     } catch (err) {

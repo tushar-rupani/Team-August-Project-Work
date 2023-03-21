@@ -301,6 +301,7 @@ input[type=button] {
 .photo img {
     display: block;
     position: relative;
+    object-fit: cover;
     border: none;
     width: 200px;
     height: 200px;
