@@ -57,16 +57,25 @@ var nameErr = document.getElementById("name_msg");
 var emailErr = document.getElementById("email_msg");
 var dobErr = document.getElementById("dobErr");
 
+console.log(document.querySelectorAll(".btnNext"));
 
 function require_validate(element, valid) {
     var data = element.value;
 
-
     if (data == "") {
         document.getElementById(valid).innerHTML = "Kindly add the information";
+        document.querySelector(".btnNext").disabled=true;
         return false;
     }
-}
+
+    else{
+        document.getElementById(valid).innerHTML = " ";
+        document.querySelector(".btnNext").disabled=false;
+        console.log(document.querySelectorAll(".btnNext"));
+        return true;
+    }
+    }
+
 
 
 
@@ -132,10 +141,12 @@ function num_validate(ele, id){
     // console.log(contact);
     if(contact.length<10 || contact.match(sp_char) || contact.match(alphabet) || !contact.match(num)){
         document.getElementById(id).innerHTML ='please enter valid contact number';
+        document.getElementById("contactnextbtn").disabled = true;
         return false;
     }
     else {
         document.getElementById(id).innerHTML ="";
+        document.getElementById("contactnextbtn").disabled = false;
         return true;
     }
     
@@ -149,7 +160,13 @@ function person_validate(){
 
     if(!person.match(alphabet) ){
         document.getElementById("emergency_person_msg").innerHTML ="Input data should be alphabet only!";
+        document.getElementById("contactnextbtn").disabled = true;
         return false;
+    }
+    else{
+        document.getElementById('emergency_person_msg').innerHTML ="";
+        document.getElementById("contactnextbtn").disabled = false;
+        return true;
     }
 
 }
@@ -162,10 +179,12 @@ function aadhar_validate(){
     var aadhar_num = document.getElementById("aadhar_num").value;
     if(aadhar_num.length <12 ||  aadhar_num.match(sp_char) || aadhar_num.match(alphabet) || !aadhar_num.match(num)){
         document.getElementById("aadhar_num_msg").innerHTML = "Please enter valid aadhar number";
+        document.getElementById("docnextBtn").disabled = true;
         return false;
     }
     else{
         document.getElementById("aadhar_num_msg").innerHTML = "";
+        document.getElementById("docnextBtn").disabled = false;
         return true;
     }
 }
@@ -176,10 +195,12 @@ function pan_validate(){
 
    if(!pan_num.match(regex) || pan_num.length<10){
        document.getElementById("pan_msg").innerHTML = "Enter valid PAN Number";
+       document.getElementById("docnextBtn").disabled = true;
        return false;
    }
    else{
        document.getElementById("pan_msg").innerHTML = "";
+       document.getElementById("docnextBtn").disabled = false;
        return true;
    }
 }
@@ -192,10 +213,12 @@ function cheque_validate(){
 
     if(!cheque_num.match(num) ){
         document.getElementById("cheque_msg").innerHTML = "Please enter valid cheque number";
+        document.getElementById("docnextBtn").disabled = true;
         return false;
     }
     else{
         document.getElementById("cheque_msg").innerHTML = "";
+        document.getElementById("docnextBtn").disabled = false;
         return true;
     }
     
