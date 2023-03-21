@@ -19,78 +19,13 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp" rel="stylesheet">
 
     <!-- stylesheet -->
-    <link rel="stylesheet" href="/public/css/news.css">
+    <link rel="stylesheet" href="/css/news.css">
 
 </head>
 
 <body>
     <div class="container">
-        <aside class="sidebar" id="sidebar">
-
-            <!-- top sidebar -->
-            <div class="sidebar__header">
-                <div class="sidebar__logo">
-                    <img class="sidebar__image" src="/public/assets/logo.png" alt="logo_admin">
-                    <h2 class="sidebar__title"> <span class="text--danger">Esparkbiz</span></h2>
-                </div>
-
-                <div class="sidebar__close" id="close-btn">
-                    <span class="material-icons-sharp">close</span>
-                </div>
-            </div>
-
-            <!-- content sidebar -->
-            <div class="sidebar__content">
-
-                <a class="sidebar__item " href="#">
-                    <span class="material-icons-sharp sidebar__item-icon sidebar__item-icon--active">grid_view</span>
-                    <h3 class="sidebar__item-text">Dashboard</h3>
-                </a>
-
-                <a class="sidebar__item " href="#">
-                    <span class="material-symbols-outlined">person_search</span>
-                    <h3 class="sidebar__item-text">Hotline</h3>
-                </a>
-
-                <a class="sidebar__item" href="#">
-                    <span class="material-symbols-outlined">calendar_month</span>
-                    <h3 class="sidebar__item-text">Calender</h3>
-                </a>
-
-                <a class="sidebar__item sidebar__item--active" href="#">
-                    <span class="material-symbols-outlined">newspaper</span>
-                    <h3 class="sidebar__item-text">News</h3>
-                    <span class="sidebar__message-count">26</span>
-                </a>
-
-                <a class="sidebar__item" href="#">
-                    <span class="material-symbols-outlined">schedule</span>
-                    <h3 class="sidebar__item-text">Attandance</h3>
-
-                </a>
-
-                <a class="sidebar__item" href="#">
-                    <span class="material-icons-sharp sidebar__item-icon">inventory</span>
-                    <h3 class="sidebar__item-text">Leaves</h3>
-                </a>
-
-                <a class="sidebar__item" href="#">
-                    <span class="material-symbols-outlined">forum</span>
-                    <h3 class="sidebar__item-text">Sensation</h3>
-                </a>
-
-                <a class="sidebar__item" href="#">
-                    <span class="material-icons-sharp sidebar__item-icon">settings</span>
-                    <h3 class="sidebar__item-text">Settings</h3>
-                </a>
-
-                <a class="sidebar__item" href="#">
-                    <span class="material-icons-sharp sidebar__item-icon">logout</span>
-                    <h3 class="sidebar__item-text">Logout</h3>
-                </a>
-
-            </div>
-        </aside>
+        <%- include('./common/sidebar') %>
         <!-- END OF SIDEBAR -->
 
         <main>
@@ -123,7 +58,7 @@
                                 <small class="text-muted">SDL-1</small>
                             </div>
                             <div>
-                                <img class="profile__photo" src="/public/assets/profile-3.jpg" alt="profile-picture">
+                                <img class="profile__photo" src="/assets/profile-3.jpg" alt="profile-picture">
                             </div>
                         </div>
                     </div>
@@ -138,72 +73,30 @@
 
                 <!-- CARD OF SALES -->
                 <div class="card">
-                  
-                    <div class="row">
-                        <div class="img-news">
-                            <img src="/public/assets/news.jpg">
-                        </div>
-                        <div class="details">
-                            <div class="heading">
-                                <b>
-                                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quidem a in dicta!</p>
-                                </b>
+                    <% for(var i=0;i<data.length;i++){%>
+                        <div class="row">
+                            <div class="img-news">
+                                <img src="<%= data[i].image%>">
                             </div>
-                            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Laboriosam vitae dolorem quo
-                                tempora, in aliquam sed ullam, reprehenderit nemo molestias corporis est similique
-                                doloribus obcaecati. Iusto, fugit rem! Esse saepe nostrum quis, facere fuga dolore
-                                neque, laudantium corrupti laboriosam dolorem dicta a nam reiciendis. Cupiditate fugiat
-                                ullam nulla veniam? Consectetur.</p>
-                        </div>
-                        
-                    </div>
-                    <div class="row">
-                        <div class="img-news">
-                            <img src="/public/assets/news.jpg">
-                        </div>
-                        <div class="details">
-                            <div class="heading">
-                                <b>
-                                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quidem a in dicta!</p>
-                                </b>
+                            <div class="details">
+                                <div class="heading">
+                                    <b>
+                                        <p>
+                                            <%= data[i].title%>
+                                        </p>
+                                    </b>
+                                </div>
+                                <p>
+                                    <%= data[i].description%>
+                                </p>
                             </div>
-                            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Laboriosam vitae dolorem quo
-                                tempora, in aliquam sed ullam, reprehenderit nemo molestias corporis est similique
-                                doloribus obcaecati. Iusto, fugit rem! Esse saepe nostrum quis, facere fuga dolore
-                                neque, laudantium corrupti laboriosam dolorem dicta a nam reiciendis. Cupiditate fugiat
-                                ullam nulla veniam? Consectetur.</p>
+
                         </div>
-                        
-                    </div>
-                    <div class="row">
-                        <div class="img-news">
-                            <img src="/public/assets/news.jpg">
-                        </div>
-                        <div class="details">
-                            <div class="heading">
-                                <b>
-                                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quidem a in dicta!</p>
-                                </b>
-                            </div>
-                            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Laboriosam vitae dolorem quo
-                                tempora, in aliquam sed ullam, reprehenderit nemo molestias corporis est similique
-                                doloribus obcaecati. Iusto, fugit rem! Esse saepe nostrum quis, facere fuga dolore
-                                neque, laudantium corrupti laboriosam dolorem dicta a nam reiciendis. Cupiditate fugiat
-                                ullam nulla veniam? Consectetur.</p>
-                        </div>
-                        
-                    </div>
+                    <% }%>
+                           
+
+                           
                 </div>
-
-
-
-
-
-
-
-
-
-
 
             </div>
 
@@ -218,7 +111,7 @@
     </main>
 
 
-    <script src="./main.js"></script>
+    <script src="/js/theme.js"></script>
 </body>
 
 </html>

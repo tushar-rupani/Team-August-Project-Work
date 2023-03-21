@@ -13,7 +13,7 @@
     --color-primary-variant: #111e88;
     --color-dark-variant: #677483;
     --color-background: #f6f6f9;
-    --color-details:#e6ecf5;
+    --color-details: #e6ecf5;
 
     --card-border-radius: 2rem;
     --border-radius-1: 0.4rem;
@@ -33,8 +33,9 @@
     --color-white: #202528;
     --color-dark: #edeffd;
     --color-dark-variant: #a3bdcc;
-    --color-details:#484949;
+    --color-details: #484949;
     --color-light: rgba(0, 0, 0, 0.4);
+    --color-primary: #edeffd;
     --box-shadow: 0 2rem 3rem var(--color-light);
 }
 
@@ -63,11 +64,6 @@ body {
     overflow-x: hidden;
     color: var(--color-dark);
 }
-@media only screen and (min-width: 1500px) {
-    body {
-     font-size: medium;
-    }
-  }
 
 main {
     margin-top: 1.4rem;
@@ -88,7 +84,7 @@ a {
 }
 
 img {
-    
+
     width: 100%;
 }
 
@@ -247,6 +243,7 @@ b {
     font-size: 11px;
     border-radius: var(--border-radius-1);
 }
+
 /* ========== END sidebar ========== */
 
 
@@ -274,29 +271,80 @@ b {
     transition: all 300ms ease;
 
 }
-.card .row{
-    display: grid;
-    padding: 20px;
-    grid-template-columns: 30% 65%;
-    justify-content: space-between;
-    border-bottom: 1px solid var(--color-info-dark) ;
+
+.profile-page {
+    display: flex;
+
 }
 
-.news-details{
+.profile-img {
+    width: 300px;
+    background-color: var(--color-details);
+    padding: 10px;
+
+    border-radius: 10px;
+}
+.profile-img .img{
     padding: 20px;
 }
-.img-news img{
+
+.edit-profile {
     width: 100%;
+    padding: 10px;
+    border-radius: 10px;
+    font-size: 18px;
+    background-color: var(--color-primary);
+    border-color: var(--color-primary);
+    color: #363949;
+}
 
-}
-.details .heading p{
-    padding-bottom: 20px;
-    font-size: 15px;
-}
-.details{
-    
+.basic-info {
+
+    width: calc(100% - 30px);
+    margin-left: 30px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, .14);
+    border-radius: 10px;
+    margin-bottom: 20px;
+    padding: 30px;
    
-    width: 100%;
+    height: auto;
+}
+
+.basic-heading {
+
+    border-bottom: 1px solid #484949;
+    margin-bottom: 20px;
+    display: grid;
+    grid-template-columns: 13% 85%;
+
+}
+
+.profile-details {
+    display: grid;
+    grid-template-columns: 50% 50%;
+    width: 80%;
+   
+}
+.basic-heading .material-symbols-outlined{
+    padding-top: 3px;
+}
+
+.basic-heading .basic {
+    font-size: 19px;
+    padding-bottom: 5px;
+
+}
+
+.basic-details .row1 {
+    font-size: 13px;
+    display: grid;
+    grid-template-columns: 50% 50%;
+    margin-top: 10px;
+}
+
+.basic-details .row1 .left {
+    font-weight: bold;
+
 }
 
 
@@ -353,4 +401,3 @@ b {
     gap: 2rem;
     text-align: right;
 }
-
