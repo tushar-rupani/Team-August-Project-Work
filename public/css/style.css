@@ -669,3 +669,10 @@ button .text {
     position: absolute;
     top: 10%;
   }
+
+  .disabling{
+    opacity: 0.4;
+  }
+  .disabling:hover{
+    cursor: not-allowed;
+  }

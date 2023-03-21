@@ -53,3 +53,24 @@ let attempts_remaining = results[0].attempts_remaining;
   }
   req.session.user = results[0].id;
   return res.redirect("/self/home");
+
+
+
+
+
+
+   <% activity.forEach(act) { %>
+                                            
+                                            <% if(act?.break_in) { %>
+                                                <div class="break_in">
+                                                    <span>Breaked In : <%= act.break_in %></span>
+                                                </div>
+                                                <% } %>
+
+                                            <% if(act?.break_out !="0" ) { %>
+                                                <div class="break_out">
+                                                    <span>Breaked Out : <%= act.break_out %></span>
+                                                </div>
+                                            <% } %>
+
+                                        <% } %>

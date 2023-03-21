@@ -14,6 +14,16 @@ const checkInHandler = async (req, res) => {
    }
    let currentEmployee = req.session.user;
 
+   let alreadyOnBreak = await checkIfUserIsonBreak(currentEmployee);
+   if(alreadyOnBreak == false){
+      return res.json({status: "ERROR", message: "You are already on a break"})
+   }
+
+
+   let didUserCheckout = await checkIfUserCheckedOut(currentEmployee);
+   if(didUserCheckout == false){
+      return res.json({status: "ERROR", message: "You have already checked out!"})
+   }
 
    let checkIfalreadyExist = `SELECT * FROM attendence_manager where employee_id = ${currentEmployee} and date = '${currentDate}'`;
 
@@ -40,6 +50,21 @@ const checkInHandler = async (req, res) => {
 
 const checkOutHandler = async (req, res) => {
    let currentEmployee = req.session.user;
+   let didUserCheckedIn = await checkIfUserCheckedIn(currentEmployee); 
+   if(didUserCheckedIn == false){
+      return res.json({status: "ERROR", message: "Please Check In First"})
+   }
+
+   let didUserCheckout = await checkIfUserCheckedOut(currentEmployee);
+   if(didUserCheckout == false){
+      return res.json({status: "ERROR", message: "You have already checked out!"})
+   }
+
+   let alreadyOnBreak = await checkIfUserIsonBreak(currentEmployee);
+   if(alreadyOnBreak == false){
+      return res.json({status: "ERROR", message: "You are already on a break"})
+   }
+
 
    let checkIfalreadyExist = `SELECT count(*) as length FROM attendence_manager where employee_id = ${currentEmployee} and date = '${currentDate}' and check_out <> 0`;
    try{
@@ -69,10 +94,34 @@ const checkOutHandler = async (req, res) => {
 
 const breakInHandler = async (req, res) => {
    let currentEmployee = req.session.user;
+   let didUserCheckedIn = await checkIfUserCheckedIn(currentEmployee); 
+
+   if(didUserCheckedIn == false){
+      return res.json({status: "ERROR", message: "Please Check-In First"})
+   }
+
+   let checkUser = `SELECT check_out FROM attendence_manager where employee_id = ${currentEmployee} and date = '${currentDate}' and check_out = '0'`;
+   let [executeCheckUser] = await connection.execute(checkUser);
+   console.log(executeCheckUser, "checking checkout");
+
+   if(executeCheckUser.length == 0){
+      return res.json({status: "ERROR", message: "You have already checked out!"});
+   }
+  
+   let didUserCheckout = await checkIfUserCheckedOut(currentEmployee);
+   if(didUserCheckout == false){
+      return res.json({status: "ERROR", message: "You have already checked out!"})
+   }
    
+   let alreadyOnBreak = await checkIfUserIsonBreak(currentEmployee);
+   if(alreadyOnBreak == false){
+      return res.json({status: "ERROR", message: "You are already on a break"})
+   }
+
+
    let time = moment().format("HH:mm:ss");
    
-   let insertQueryForBreak = `INSERT INTO break_manager (employee_id, break_in) VALUES (${currentEmployee}, '${time}')`;
+   let insertQueryForBreak = `INSERT INTO break_manager (employee_id, break_in, created_date) VALUES (${currentEmployee}, '${time}', '${currentDate}')`;
    
    try{
       let [executeInsertForBreak] = await connection.execute(insertQueryForBreak);
@@ -90,21 +139,77 @@ const breakInHandler = async (req, res) => {
 
 const breakOutHander = async (req, res) => {
    let currentEmployee = req.session.user;
+   let didUserCheckedIn = await checkIfUserCheckedIn(currentEmployee); 
+   if(didUserCheckedIn == false){
+      return res.json({status: "ERROR", message: "Please Check In First"})
+   }
    let getLastDataofUser = `SELECT * FROM break_manager where employee_id = ${currentEmployee} order by id desc LIMIT 1`;
+
+   let didUserCheckout = await checkIfUserCheckedOut(currentEmployee);
+   if(didUserCheckout == false){
+      return res.json({status: "ERROR", message: "You have already checked out!"})
+   }
+
 
    try{
       let [executeForLastData] = await connection.execute(getLastDataofUser);
+      console.log(executeForLastData);
       let returnedData = executeForLastData[0];
       let breakedInTime = returnedData.break_in;
       var startTime = moment(breakedInTime, "hh:mm:ss");
       var currentTime = moment();
-      var hoursDiff = currentTime.diff(startTime, "hours");
       var minsDiff = currentTime.diff(startTime, "minutes");
+      let time = moment().format("HH:mm:ss");
 
-      console.log(minsDiff, hoursDiff);
 
+      let updateBreakOut = `UPDATE break_manager SET break_out = '${time}', duration = '${minsDiff}' where employee_id = ${currentEmployee} and id = ${executeForLastData[0].id}`;
+
+      let executeUpdate = await connection.execute(updateBreakOut);
+
+      if(executeUpdate){
+         return res.json({status: "DONE", breakOutTime: time});
+      }
    }catch(e){
       console.log(e)
    }
 }
-module.exports = {checkInHandler, checkOutHandler, breakInHandler, breakOutHander}
+
+
+const checkIfUserCheckedIn = async (getUserId) => {
+   let checkUser = `SELECT * FROM attendence_manager where employee_id = ${getUserId} and date = '${currentDate}'`;
+   let [executeCheckUser] = await connection.execute(checkUser);
+   if(executeCheckUser.length == 0){
+      return false;
+   }
+   return true;
+}
+
+const checkIfUserCheckedOut = async (getUserId) => {
+   let checkUser = `SELECT check_out FROM attendence_manager where employee_id = ${getUserId} and date = '${currentDate}' and check_out = '0'`;
+   let [executeCheckUser] = await connection.execute(checkUser);
+   console.log("checking what got returned", executeCheckUser);
+
+   if(executeCheckUser?.check_out == "0"){
+      return false;
+   }
+   return true;
+   
+}
+
+const checkIfUserIsonBreak = async (getUserId) => {
+   let checkUser = `SELECT * FROM break_manager where employee_id = ${getUserId} order by id desc LIMIT 1`;
+   let [executeCheckUser] = await connection.execute(checkUser);
+   if(executeCheckUser[0]?.break_out == "00:00:00"){
+      return false;
+   }return true;
+}
+
+
+const checkIfUserIsBreakedOut = async (getUserId) => {
+   let checkUser = `SELECT * FROM break_manager where employee_id = ${getUserId} order by id desc LIMIT 1`;
+   let [executeCheckUser] = await connection.execute(checkUser);
+   if(executeCheckUser[0]?.break_out != "00:00:00"){
+      return true;
+   }return false;
+}
+module.exports = {checkInHandler, checkOutHandler, breakInHandler, breakOutHander, checkIfUserIsonBreak, checkIfUserIsBreakedOut}
