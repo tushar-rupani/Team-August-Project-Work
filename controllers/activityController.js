@@ -102,7 +102,6 @@ const breakInHandler = async (req, res) => {
 
    let checkUser = `SELECT check_out FROM attendence_manager where employee_id = ${currentEmployee} and date = '${currentDate}' and check_out = '0'`;
    let [executeCheckUser] = await connection.execute(checkUser);
-   console.log(executeCheckUser, "checking checkout");
 
    if(executeCheckUser.length == 0){
       return res.json({status: "ERROR", message: "You have already checked out!"});
@@ -153,7 +152,6 @@ const breakOutHander = async (req, res) => {
 
    try{
       let [executeForLastData] = await connection.execute(getLastDataofUser);
-      console.log(executeForLastData);
       let returnedData = executeForLastData[0];
       let breakedInTime = returnedData.break_in;
       var startTime = moment(breakedInTime, "hh:mm:ss");
@@ -187,7 +185,6 @@ const checkIfUserCheckedIn = async (getUserId) => {
 const checkIfUserCheckedOut = async (getUserId) => {
    let checkUser = `SELECT check_out FROM attendence_manager where employee_id = ${getUserId} and date = '${currentDate}' and check_out = '0'`;
    let [executeCheckUser] = await connection.execute(checkUser);
-   console.log("checking what got returned", executeCheckUser);
 
    if(executeCheckUser?.check_out == "0"){
       return false;

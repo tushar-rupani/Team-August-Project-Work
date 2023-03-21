@@ -30,9 +30,12 @@ router.get("/home", handleLogin, async(req, res) => {
         console.log(e);
     }
     name = "dummy"
-    res.render("index", {name: name, attendance: executeAttendance[0], activity: executeActivity, breakAns, hasCheckedIn, breakoutAns});
+    let activatePage = "home"
+    res.render("index", {name: name, attendance: executeAttendance[0], activity: executeActivity, breakAns, hasCheckedIn, breakoutAns, activatePage});
 })
 
+router.get("/hotline", handleLogin, (req, res) => {
+    res.render("hotline",{activatePage:"hotline"});
+});
 
 module.exports = router;
-

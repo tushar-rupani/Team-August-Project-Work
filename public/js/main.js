@@ -44,7 +44,6 @@ checkOut.addEventListener("click", async(e) => {
       });
 })
 
-console.log(checkIn);
 checkIn.addEventListener("click", async (e) => {
     let ans = await fetch("http://localhost:3000/activity/check-in");
     let data = await ans.json();
@@ -64,7 +63,6 @@ checkIn.addEventListener("click", async (e) => {
 })
 
 breakIn.addEventListener("click", async(e) => {
-  console.log("clicking");
     swal("Are you sure you want to Break In?", {
         buttons: {
           cancel: "Cancel!",
