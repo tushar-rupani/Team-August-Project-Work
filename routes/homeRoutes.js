@@ -1,9 +1,14 @@
+const { handleLogin } = require("../middlewares/authMiddlewares");
 const express = require("express");
-const router=express.Router();
+const app = express.Router();
 
-
-router.get("/",(req,res)=>{
-    res.render("index");
+app.get("/home", handleLogin, (req, res) => {
+    res.render("index")
 });
 
-module.exports = router;
+app.get("/hotline", handleLogin, (req, res) => {
+    res.render("hotline");
+});
+
+
+module.exports = app;

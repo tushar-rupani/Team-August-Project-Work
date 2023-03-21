@@ -2,346 +2,418 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Register your information</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css"
-        integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Forms</title>
+  <link rel="stylesheet" href="/css/employee_form.css">
+  <link rel="stylesheet" href="http://code.jquery.com/ui/1.9.1/themes/base/jquery-ui.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css"
+    integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-    <link href="/css/employee_form.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
-    <style>
-        button {
-            color: white
-        }
-    </style>
-
+  <style>
+    .btnPrevious,
+    .btnNext {
+      display: inline-block;
+      border: 1px solid #444348;
+      border-radius: 3px;
+      margin: 5px;
+      color: #444348;
+      font-size: 14px;
+      padding: 10px 15px;
+      cursor: pointer;
+    }
+  </style>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 
-<body>
-    <div class="container">
-        <form action="">
-
-            <div class="info_form">
+<body style="margin-bottom: 30px;">
 
 
-                <div class="main-body">
 
+  <nav class="navbar">
+    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="#">
+      <div class="sidebar-brand-logo">
+        <img src="" class="logo-full">
+      </div>
+    </a>
+  </nav>
+  <div id="wrapper">
+    <form action="/employee-data/insert" method="post">
 
-                    <nav>
-                        <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                            <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab"
-                                data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home"
-                                aria-selected="true"><i class="fa-solid fa-circle-exclamation"></i> Basic Info</button>
-                            <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab"
-                                data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile"
-                                aria-selected="false"><i class="fa-solid fa-phone"></i> Contact
-                                Info</button>
-                            <button class="nav-link" id="nav-contact-tab" data-bs-toggle="tab"
-                                data-bs-target="#nav-contact" type="button" role="tab" aria-controls="nav-contact"
-                                aria-selected="false"><i class="fa-solid fa-file"></i> Documentation</button>
-                            <button class="nav-link" id="nav-social-tab" data-bs-toggle="tab"
-                                data-bs-target="#nav-social" type="button" role="tab" aria-controls="nav-social"
-                                aria-selected="false"><i class="fa-solid fa-share-nodes"></i> Social
-                                Network</button>
+      <div id="content-wrapper" class="container d-flex flex-column">
+        <div id="content">
+          <div class="container-fluid">
+            <div class="tabControl">
+              <div class="container">
+                <div class="tabs">
+                  <ul class="nav nav-pills nav-fill" id="pills-tab" role="tablist">
+                    <li class="nav-item">
+                      <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-1" role="tab"><i
+                          class="fa-solid fa-circle-exclamation"></i>
+                        Basic Info</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-2" role="tab"><i
+                          class="fa-solid fa-phone"></i> Contact
+                        Info</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#pills-3" role="tab"><i
+                          class="fa-solid fa-file"></i>
+                        Documentation</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#pills-4" role="tab"><i
+                          class="fa-solid fa-share-nodes"></i>
+                        Social
+                        Network</a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <div class="tab-content" id="pills-tabContent">
+                <div class="tab-pane fade show active" id="pills-1" role="tabpanel" aria-labelledby="pills-home-tab">
+                  <div class="basic-info">
+                    <div class="all">
+                      <div class="image">
+                        <div class="card-header">
+                          <h4> <i class="fa-regular fa-face-smile"></i> Photo</h4>
+                        </div>
+                        <div class="photo">
+
+                          <div><img src="https://hrms.appdemoserver.com/assets/img/avatars/profile_image.jpg"
+                              alt="profile DP" id="chosen-image"></div>
+                          <div class="round">
+                            <input type="file" name="dp" id="upload-button" accept="image/*">
+
+                            <label for="upload-button" id="upload-image" onclick="uploadImage()">Upload Image</label>
+                            <label for="remove-button" id="remove-image">Remove</label>
+
+                          </div>
 
                         </div>
-                    </nav>
-                    <div class="tab-content" id="nav-tabContent">
-                        <div class="tab-pane fade show active" id="nav-home" role="tabpanel"
-                            aria-labelledby="nav-home-tab">
-
-                            <div class="basic-info">
-                                <div class="all">
-                                    <div class="image">
-                                        <div class="card-header">
-                                            <h4> Photo</h4>
-                                        </div>
-                                        <div class="photo">
-                                            <img src="" alt="">
-                                            <!-- <input type="file" class="btn btn-select" value="Choose File"> -->
-
-                                            <input class="btn-style" type="button" value="Remove">
-                                        </div>
-                                    </div>
-                                    <div class="info">
-                                        <div class="card-header">
-                                            <h4> Basic information</h4>
-                                        </div>
-                                        <div class="form">
-                                            <div class="part">
-                                                <label for="name">Full_Name</label>
-                                                <input class="btn-style in-width" type="text" name="name">
-                                                <label for="email">Email</label>
-                                                <input class="in-width" type="email" name="email">
-                                                <label for="gender">Gender</label>
-                                                <select name="gender" id="gender">
-                                                    <option value="male">Male</option>
-                                                    <option value="female">Female</option>
-                                                    <option value="other">Other</option>
-                                                </select>
-                                            </div>
-                                            <div class="part">
-                                                <label for="bdate">Date of Birth</label>
-                                                <input type="date" name="bdate">
-                                                <label for="status">Marital status</label>
-                                                <!-- <input type="checkbox"> -->
-                                                <select name="status" id="status">
-                                                    <option value="Married">Married</option>
-                                                    <option value="Unmarried">Unmarried</option>
-                                                </select>
-                                                <!-- <input type="checkbox" name="toggle" id="toggle"> -->
-                                                <label for="WFH">Work From Home</label>
-                                                <div class="toggle">
-                                                    <div class="work"> <input class="wfh" type="radio" name="wfh"
-                                                            class="toggle" id="wfh">Yes </div>
-                                                    <div class="work"><input class="wfh" type="radio" name="wfh"
-                                                            class="toggle" id="wfh">No</div>
-                                                </div>
-
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                </div>
-
-                            </div>
+                      </div>
+                      <div class="info">
+                        <div class="card-header">
+                          <h4> Basic information</h4>
                         </div>
+                        <div class="form">
+                          <div class="part">
+                            <label for="name">Full Name</label>
+                            <input class="btn-style in-width" type="text" name="name" id="fullname" maxlength="40"
+                              onkeyup="return validateFullName()">
+                            <br><span id="nameErr"></span>
+                            <label for="email">Email</label>
+                            <input class="in-width" type="email" name="email" id="email"
+                              onkeyup="return validateEmail()">
+                            <br><span id="emailErr"></span>
 
-
-                        <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
-
-                            <div class="tab-content">
-                                <!-- <div class="tab-container"> -->
-                                <!-- <div class="tab-pan"> -->
-                                <div class="card">
-                                    <div class="card-header">
-                                        <h4>
-                                            <i class="fa-solid fa-phone"></i>
-                                            Contact Information
-                                        </h4>
-                                    </div>
-
-                                    <div class="card-body">
-                                        <div class="row">
-                                            <div class="col col1">
-                                                <div class="form-group">
-                                                    <label for="current_address">Current Address</label>
-                                                    <textarea name="current_address" class="form-control"
-                                                        id="current_address" cols="30" rows="3"></textarea>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="parmanent_address">Parmanent Address</label>
-                                                    <textarea name="parmanent_address" class="form-control"
-                                                        id="parmanent_address" cols="30" rows="3"></textarea>
-                                                </div>
-                                            </div>
-
-                                            <div class="col col2">
-                                                <div class="form-group">
-                                                    <label for="Contact Number">Contact Number</label>
-                                                    <input type="text" name="phone" class="form-control" id="phone">
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="emergency_contact">Emergency Contact Number</label>
-                                                    <input type="text" name="emergency_contact" class="form-control"
-                                                        id="emergency_contact">
-
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="emergency_contact">Emergency Contact Person</label>
-                                                    <input type="text" name="emergency_contact" class="form-control"
-                                                        id="emergency_contact">
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- </div> -->
-                                    <!-- </div> -->
-
-                                </div>
-
+                            <label for="gender">Gender</label>
+                            <select name="gender" id="gender">
+                              <option selected value="male">Male</option>
+                              <option value="female">Female</option>
+                              <option value="other">Other</option>
+                            </select>
+                          </div>
+                          <div class="part">
+                            <label for="bdate">Date of Birth</label>
+                            <input type="text" name="dob" id="dob">
+                            <label for="status">Marital status</label>
+                            <select name="status" id="m_status">
+                              <option selected value="Married">Married</option>
+                              <option value="Unmarried">Unmarried</option>
+                            </select>
+                            <label for="WFH">Work From Home</label>
+                            <div class="toggle">
+                              Yes<div class="work"> <input class="wfh" type="radio" name="wfh" class="toggle"
+                                  id="wfh_yes" value="1">
+                              </div>
+                              No<div class="work"><input class="wfh" type="radio" name="wfh" class="toggle" id="wfh_no"
+                                  value="0" checked></div>
                             </div>
 
+                          </div>
                         </div>
 
-                        <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
-                            <div class="tab-content">
-                                <!-- <div class="tab-container"> -->
-                                <!-- <div class="tab-pan"> -->
-                                <div class="section1">
-                                    <div class="card">
-                                        <div class="card-header">
-                                            <h4>
-                                                Aadhar Card
-                                            </h4>
-                                        </div>
+                      </div>
 
-                                        <div class="card-body">
-                                            <div class="row">
-                                                <div class="col col1">
-                                                    <label for="aadhar_num">Number</label>
-                                                    <input type="text" name="aadhar_num" id="aadhar_num">
-                                                </div>
+                    </div>
+                  </div>
+                  <div class="col-6 col-sm-3" id="btnNext">
+                    <a class="btn btn-primary btnNext">Next</a>
+                  </div>
+                </div>
+                <div class="tab-pane fade" id="pills-2" role="tabpanel" aria-labelledby="pills-profile-tab">
 
-                                                <div class="col col2">
-                                                    <label for="scan_copy">Scan Copy</label>
-                                                    <input type="file" class="btn btn-select" value="Choose File">
-                                                </div>
-                                            </div>
+                  <div class="tab-content">
 
-                                        </div>
+                    <div class="card">
+                      <div class="card-header">
+                        <h4>
+                          <i class="fa-solid fa-phone"></i>
+                          Contact Information
+                        </h4>
+                      </div>
 
-                                    </div>
+                      <div class="card-body">
+                        <div class="row">
+                          <div class="col col1">
+                            <div class="form-group">
+                              <label for="current_address">Current Address</label>
+                              <textarea name="current_address" class="form-control" id="current_address" cols="30"
+                                rows="3"></textarea>
+                            </div>
+                            <div class="form-group">
+                              <label for="parmanent_address">Permanent Address</label>
+                              <textarea name="permanent_address" class="form-control" id="permanent_address" cols="30"
+                                rows="3"></textarea>
+                            </div>
+                          </div>
+
+                          <div class="col col2">
+                            <div class="form-group">
+                              <label for="Contact Number">Contact Number</label>
+                              <input type="text" name="contact" class="form-control" id="contact">
+                            </div>
+                            <div class="form-group">
+                              <label for="emergency_contact">Emergency Contact
+                                Number</label>
+                              <input type="text" name="emergency_contact" class="form-control" id="emergency_contact">
+
+                            </div>
+                            <div class="form-group">
+                              <label for="emergency_person">Emergency Contact
+                                Person</label>
+                              <input type="text" name="emergency_person" class="form-control" id="emergency_person">
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                    </div>
+
+                  </div>
+
+                  <div class="navbuttons">
+                    <div class="col-6 col-sm-3" id="btnPrevious">
+                      <a class="btn btn-primary btnPrevious">Previous</a>
+                    </div>
+                    <div class="col-6 col-sm-3" id="btnNext">
+                      <a class="btn btn-primary btnNext">Next</a>
+                    </div>
+                  </div>
+                </div>
+                <div class="tab-pane fade" id="pills-3" role="tabpanel" aria-labelledby="pills-contact-tab">
+                  <div class="tab-content">
+
+                    <div class="section1">
+                      <div class="card">
+                        <div class="card-header">
+                          <h4>
+                            Aadhar Card
+                          </h4>
+                        </div>
+
+                        <div class="card-body">
+                          <div class="row">
+                            <div class="col col1">
+                              <label for="aadhar_num">Aadhar Number</label>
+                              <input type="text" name="aadhar_num" id="aadhar_num">
+                            </div>
+
+                            <div class="col col2">
+                              <label for="scan_copy">Scan Copy</label>
+
+                              <div class="upload-doc">
+                                <!-- <label for="upload-aadhar" >Select</label> -->
+                                <input type="file" class="btn btn-select upload-btn" id="aadhar_doc" value="Choose File">
+                              </div>
+
+                            </div>
+                          </div>
+
+                        </div>
+
+                      </div>
 
 
 
+                    </div>
+
+
+                    <div class="section2">
+                      <div class="card">
+                        <div class="card-header">
+                          <h4>
+                            PAN Card
+                          </h4>
+                        </div>
+
+                        <div class="card-body">
+                          <div class="row">
+                            <div class="col col1">
+                              <label for="aadhar_num">PAN Number</label>
+                              <input type="text" name="aadhar_num" id="pan_num">
+                            </div>
+
+                            <div class="col col2">
+                              <label for="scan_copy">Scan Copy</label>
+                              <input type="file" class="btn btn-select" id="pan_doc" value="Choose File">
+                            </div>
+                          </div>
+
+                        </div>
+
+
+
+                      </div>
+                      <div class="section2">
+                        <div class="card">
+                          <div class="card-header">
+                            <h4>
+                              Cheque
+                            </h4>
+                          </div>
+
+                          <div class="card-body">
+                            <div class="row">
+                              <div class="col col1">
+                                <label for="cheque_num">Cheque Number</label>
+                                <input type="text" name="cheque_num" id="cheque_num">
+                              </div>
+
+                              <div class="col col2">
+                                <label for="scan_copy">Scan Copy</label>
+                                <input type="file" class="btn btn-select" id="cheque_doc" value="Choose File">
+                              </div>
+                            </div>
+
+                          </div>
+
+
+
+                        </div>
+                        <div class="section2">
+                          <div class="card">
+                            <div class="card-header">
+                              <h4>
+                                Resume
+                              </h4>
+                            </div>
+
+                            <div class="card-body">
+                              <div class="row">
+
+
+                                <div class="col col2">
+                                  <label for="scan_copy">Scan Copy</label>
+                                  <input type="file" class="btn btn-select" id="resume_doc" value="Choose File">
                                 </div>
+                              </div>
 
-
-                                <div class="section2">
-                                    <div class="card">
-                                        <div class="card-header">
-                                            <h4>
-                                                PAN Card
-                                            </h4>
-                                        </div>
-
-                                        <div class="card-body">
-                                            <div class="row">
-                                                <div class="col col1">
-                                                    <label for="aadhar_num">Number</label>
-                                                    <input type="text" name="aadhar_num" id="aadhar_num">
-                                                </div>
-
-                                                <div class="col col2">
-                                                    <label for="scan_copy">Scan Copy</label>
-                                                    <input type="file" class="btn btn-select" value="Choose File">
-                                                </div>
-                                            </div>
-
-                                        </div>
-
-
-
-                                    </div>
-                                    <div class="section2">
-                                        <div class="card">
-                                            <div class="card-header">
-                                                <h4>
-                                                    Cheque
-                                                </h4>
-                                            </div>
-
-                                            <div class="card-body">
-                                                <div class="row">
-                                                    <div class="col col1">
-                                                        <label for="cheque_num">Number</label>
-                                                        <input type="text" name="cheque_num" id="cheque_num">
-                                                    </div>
-
-                                                    <div class="col col2">
-                                                        <label for="scan_copy">Scan Copy</label>
-                                                        <input type="file" class="btn btn-select" value="Choose File">
-                                                    </div>
-                                                </div>
-
-                                            </div>
-
-
-
-                                        </div>
-                                        <div class="section2">
-                                            <div class="card">
-                                                <div class="card-header">
-                                                    <h4>
-                                                        Resume
-                                                    </h4>
-                                                </div>
-
-                                                <div class="card-body">
-                                                    <div class="row">
-
-
-                                                        <div class="col col2">
-                                                            <label for="scan_copy">Scan Copy</label>
-                                                            <input type="file" class="btn btn-select"
-                                                                value="Choose File">
-                                                        </div>
-                                                    </div>
-
-                                                </div>
-
-
-
-                                            </div>
-
-                                        </div>
-
-                                    </div>
-                                </div>
                             </div>
 
 
 
-                      
-
-
-
+                          </div>
 
                         </div>
 
-                        <div class="tab-pane fade" id="nav-social" role="tabpanel" aria-labelledby="nav-social-tab">
-                            <div class="social-network">
-                                <form action="#">
-                                    <div class="content">
-                                        <p>Social Network</p>
-                                    </div>
-                                    <div class="media">
-                                        <div class="media-1">
-                                            <label for="twitter">Twitter</label>
-                                            <input type="text" name="tname" placeholder="Username">
-                                        </div>
-                                        <div class="media-1">
-                                            <label for="linkedin">LinkedIn</label>
-                                            <input type="text" name="lname" placeholder="Username">
-                                        </div>
-                                        <div class="media-1">
-                                            <label for="github">Github</label>
-                                            <input type="text" name="gname" placeholder="Username">
-                                        </div>
-                                        <div class="media-1">
-                                            <label for="facebook">Facebook</label>
-                                            <input type="text" name="fname" placeholder="Username">
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                          
-                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="navbuttons">
+                    <div class="col-6 col-sm-3" id="btnPrevious">
+                      <a class="btn btn-primary btnPrevious">Previous</a>
+                    </div>
 
-
-
+                    <div class="col-6 col-sm-3" id="btnNext">
+                      <a class="btn btn-primary btnNext">Next</a>
+                    </div>
+                  </div>
+                </div>
+                <div class="tab-pane fade" id="pills-4" role="tabpanel" aria-labelledby="pills-contact-tab">
+                  <div class="social-network">
+                    <div class="content">
+                      <p>Social Network</p>
+                    </div>
+                    <div class="media">
+                      <div class="media-1">
+                        <label for="twitter">Twitter username</label>
+                        <input type="text" name="tname" id="twitter">
+                      </div>
+                      <div class="media-1">
+                        <label for="linkedin">LinkedIn username</label>
+                        <input type="text" name="lname" id="linkedin">
+                      </div>
+                      <div class="media-1">
+                        <label for="github">Github username</label>
+                        <input type="text" name="gname" id="github">
+                      </div>
+                      <div class="media-1">
+                        <label for="facebook">Facebook username</label>
+                        <input type="text" name="fname" id="facebook">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="navbuttons">
+                    <div class="col-6 col-sm-3" id="btnPrevious">
+                      <a class="btn btn-primary btnPrevious">Previous</a>
                     </div>
                     <div class="card-footer">
-                        <div>
-                            <i class="fa fa-angle-left"></i>Back
-                        </div>
-                        <div>
-                            <input type="submit" value="Update" class="update">
-                        </div>
+
+                      <div>
+                        <input type="submit" value="Submit" class="update">
+                      </div>
                     </div>
-        </form>
-    </div>
-</body>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+
+                  </div>
+
+                </div>
+
+
+              </div>
+
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+      </div>
+    </form>
+
+
+
+  </div>
+
+
+
+  <!-- Bootstrap -->
+
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
+
+    </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+    integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
     crossorigin="anonymous"></script>
 
-<script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+
+  <script src="https://kit.fontawesome.com/1b59bc20c8.js"></script>
+  
+  <script src="http://code.jquery.com/jquery-1.8.2.js"></script>
+  <script src="http://code.jquery.com/ui/1.9.1/jquery-ui.js"></script>
+  <script src="./js/employee-form.js"></script>
+
+</body>
 
 </html>
