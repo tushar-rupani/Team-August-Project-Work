@@ -40,9 +40,6 @@ const loginController = async (req, res) => {
     return console.log(err);
   }
 
-
-
-
   if (results[0].isActivated == "0") {
     return res.render("activation", { email });
   }

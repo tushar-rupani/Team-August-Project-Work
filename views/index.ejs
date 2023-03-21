@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Dashboard</title>
+    <title>eSparkBiz | HRMS</title>
 
     <!-- Google Fonts Poppins-->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -245,25 +245,25 @@
                     </div>
 
                     <div class="button">
-                        <button class="checkin action-btn">
+                        <button class="checkin action-btn" id="check-in">
                             <i class="fa-solid fa-arrow-right-to-bracket"></i>
                             <div class="check">
                                 Check In
                             </div>
                         </button>
-                        <button class="breakin action-btn">
+                        <button class="breakin action-btn" id="break-in">
                             <i class="fa-solid fa-utensils"></i>
                             <div class="check">
                                 Break In
                             </div>
                         </button>
-                        <button class="checkout action-btn">
+                        <button class="checkout action-btn" id="check-out">
                             <i class="fa-solid fa-right-from-bracket"></i>
                             <div class="check">
                                 Check Out
                             </div>
                         </button>
-                        <button class="breakout action-btn">
+                        <button class="breakout action-btn" id="break-out">
                             <!-- <i class="fa-solid fa-right-from-bracket"></i>
                              -->
                             <img class="img-breakout"
@@ -287,19 +287,29 @@
 
                     <div style="margin-bottom: 15px;" class="hr-line"></div>
 
-                    <div class="attendance-backlog">
-                        <div class="check_in">
-                            <span>Checked In : 09:35 AM</span>
-                        </div>
-                        <div class="break_in">
+                    <div class="attendance-backlog" id="backlog">
+                        <% if(attendance) { %>
+
+                        
+                        <% if(attendance?.check_in) {%>
+                            <div class="check_in">
+                                <span>Checked In : <%= attendance?.check_in %></span>
+                            </div>
+                            <% } %>
+                        <!-- <div class="break_in">
                             <span>Breaked In : 10:29 AM</span>
                         </div>
                         <div class="break_out">
                             <span>Breaked Out : 10:37 AM</span>
-                        </div>
+                        </div> -->
+
+                        <% if(attendance?.check_out != "0") {%>
                         <div class="check_out">
-                            <span>Checked Out : 07:00 PM</span>
+                            <span>Checked Out : <%= attendance?.check_out %> </span>
                         </div>
+                        <% } %>
+
+                        <% } %>
                     </div>
 
                 </div>
@@ -320,9 +330,5 @@
 
 
 
-<script type = "text/javascript" >  
-    function preventBack() { window.history.forward(); }  
-    setTimeout("preventBack()", 0);  
-    window.onunload = function () { null };  
-</script> 
+
 
