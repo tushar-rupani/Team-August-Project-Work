@@ -1,8 +1,24 @@
-const MenuBtn  = document.querySelector("#menu-btn");
+const MenuBtn = document.querySelector("#menu-btn");
 const SideMenu = document.querySelector("#sidebar");
 const CloseBtn = document.querySelector("#close-btn");
 const ThemeToggler = document.querySelector(".theme-toggler");
+const date = new Date().toLocaleDateString();
 
+
+const dateLabel = document.getElementById("current-date");
+const timeLabel = document.getElementById("current-time");
+
+const time = new Date().toLocaleTimeString();
+timeLabel.innerHTML = time;
+
+setInterval(() => {
+    const time = new Date().toLocaleTimeString();
+    timeLabel.innerHTML = time;
+
+}, 1000);
+
+
+dateLabel.innerHTML = date;
 /**
  * Show sidebar
  */
@@ -20,6 +36,15 @@ CloseBtn.addEventListener('click', () => {
 /**
  * Change theme
  */
+
+/*const dropdownTrigger = document.querySelector('#dropdown-trigger');
+const dropdownMenu = document.querySelector('#dropdown-menu');
+
+dropdownTrigger.addEventListener('click', () => {
+    console.log("test");
+  dropdownMenu.classList.toggle('show');
+});*/
+
 ThemeToggler.addEventListener("click", () => {
     document.body.classList.toggle('dark-theme-variables')
 
