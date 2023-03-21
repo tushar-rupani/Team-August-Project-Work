@@ -5,8 +5,7 @@
 }
 .tab-content {
     margin-top: -1px;
-    background: #fff;
-    /* border: 1px solid #c8ced3; */
+    /* background: #fff; */
     border-radius: 5px;
 }
 
@@ -63,10 +62,8 @@ label {
 }
 
 .card-header{
-    /* background-color: #5c6873; */
     background-image: linear-gradient(to right bottom,#132f4c,#123957,#0e4363,#084e6e,#005978);
     color: white;
-    /* font-size: 16px; */
 }
 .card-header h4{
     font-size: 16px;
@@ -117,8 +114,7 @@ input[type= button]{
     margin: 0 auto;
     }
     .basic-info {
-    border: 1px solid rgba(0,0,0,0.4);
-    /* height:300px; */
+    
     margin-top: 2rem;
     }
     .all{
@@ -127,7 +123,7 @@ input[type= button]{
     width:100%;
     }
     .image{
-    width:18%;
+    width:22%;
     border: 1px solid rgba(0,0,0,0.4);
     }
  
@@ -136,7 +132,7 @@ input[type= button]{
     }
    
     .info {
-    width: 78%;
+    width: 70%;
     border: 1px solid rgba(0,0,0,0.4);
     margin-left: 2rem;
     }
@@ -216,7 +212,115 @@ input[type= button]{
         font-weight: bold;
         padding: 0.5rem;
         }
+
+        #upload-image{
+            display: block;
+            position: relative;
+            background-color: #002f4b;
+            color: white;
+            font-size: 16px;
+            text-align: center;
+            width: 200px;
+            padding: 10px 0;
+            border-radius: 5px;
+            margin: auto;
+            cursor: pointer;
+        }
+        #remove-image{
+            display: none;
+            position: relative;
+            background-color: #e93b35;
+            color: white;
+            font-size: 16px;
+            text-align: center;
+            width: 200px;
+            padding: 10px 0;
+            border-radius: 5px;
+            margin: auto;
+            cursor: pointer;
+        }
+        .photo{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .photo div{
+            margin: 10px;
+        }
+
+        .photo img{
+            display: block;
+            position: relative;
+            border: none;
+            width: 200px;
+            height: 200px;
+        }
+        .nav-pills .nav-link{
+            color: black;
+        }
         
+        .nav-pills .nav-link.active{
+    background-image: linear-gradient(to right bottom,#132f4c,#123957,#0e4363,#084e6e,#005978);
+
+            
+        }
+        .btn-primary{
+    background-image: linear-gradient(to right bottom,#132f4c,#123957,#0e4363,#084e6e,#005978);
+            border: #132f4c;
+            margin-top: 30px;
+
+        }
+
+        .nav-link{
+            color: #fff;
+        }
+        .navbuttons{
+            display: grid;
+            grid-template-columns: 50% 10%;
+            justify-content: space-between; 
+            margin-top: 30px;
+        }
+        .col-sm-3 {
+            flex: 0 0 0%;
+        }
+        #btnPrevious{
+            margin-right: 0;
+        }
+
+        #upload-button{
+            display: none;
+        }
 
 
+        .tabControl{
+            border: 1px solid #c8ced3;
+            background-color: white;
+        }
 
+        .btn-select{
+            border: 1px solid #c8ced3;
+            text-align: left;
+            width: 400px;
+            display: none;
+
+        }
+        input[type = "file"]{
+            border: 1px solid #c8ced3;
+            text-align: left;
+            width: 400px;
+        }
+       #btnPrevious{
+            color: white;
+        }
+        #btnNext{
+            color: white;
+        }
+        .btnNext{
+            background-color: #e93b35;
+        }
+
+        .err_msg{
+            color: red;
+            padding-top: 5px;
+        }
+       
