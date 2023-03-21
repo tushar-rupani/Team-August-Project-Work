@@ -186,7 +186,12 @@ async function sendData(data){
 
         let res = await response.json();
 
-        console.log(res);
+        if(res.status==200){
+            location.assign('/self/home')
+        }else{
+            alert(res.msg);
+            
+        }
         
 
 
@@ -205,7 +210,12 @@ document.querySelector('form').addEventListener('submit', function (e) {
     let basic_details={};
 
     basic_details.fullname=document.querySelector('#fullname').value;
-    basic_details.dob=document.querySelector('#dob').value;
+
+    let raw_dob=document.querySelector('#dob').value;
+    let dob=raw_dob.split('/');
+
+    basic_details.dob=`${dob[2]}-${dob[1]}-${dob[0]}`;
+
     basic_details.email=document.querySelector('#email').value;
     basic_details.gender=document.querySelector('#gender').value;
     basic_details.m_status=document.querySelector('#m_status').value;

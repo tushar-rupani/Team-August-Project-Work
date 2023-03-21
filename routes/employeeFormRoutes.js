@@ -1,6 +1,7 @@
 const { handleLogin } = require("../middlewares/authMiddlewares");
 const express = require("express");
 const router = express.Router();
+const {v4 : uuidv4} = require('uuid')
 
 const {saveData,renderForm}=require('../controllers/employee-dataController')
 
@@ -12,7 +13,8 @@ const storage=multer.diskStorage({
         cb(null,'public/upload_uncompressed');
     },
     filename:(req,file,cb)=>{
-        cb(null,Date.now()+path.extname(file.originalname));
+        const imgID = uuidv4()
+        cb(null,Date.now()+imgID+path.extname(file.originalname));
     }
 })
 
