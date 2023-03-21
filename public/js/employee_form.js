@@ -46,7 +46,7 @@ function uploadImage() {
 
 
 
-
+ 
 
 
 // ------------------validation---------------------
@@ -57,21 +57,22 @@ var nameErr = document.getElementById("name_msg");
 var emailErr = document.getElementById("email_msg");
 var dobErr = document.getElementById("dobErr");
 
-console.log(document.querySelectorAll(".btnNext"));
+// console.log(document.querySelectorAll(".btnNext"));
 
 function require_validate(element, valid) {
     var data = element.value;
 
     if (data == "") {
         document.getElementById(valid).innerHTML = "Kindly add the information";
-        document.querySelector(".btnNext").disabled=true;
+        document.querySelector(".btn").disabled=true;
         return false;
     }
 
     else{
         document.getElementById(valid).innerHTML = " ";
-        document.querySelector(".btnNext").disabled=false;
-        console.log(document.querySelectorAll(".btnNext"));
+        document.querySelector(".btn").disabled=false;
+        // console.log(document.querySelectorAll(".btnNext"));
+        // return true;
         return true;
     }
     }

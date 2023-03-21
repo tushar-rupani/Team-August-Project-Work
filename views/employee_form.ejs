@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Forms</title>
+    <title>Form</title>
     <link rel="stylesheet" href="/css/employee_form.css">
     <link rel="stylesheet" href="http://code.jquery.com/ui/1.9.1/themes/base/jquery-ui.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css"
@@ -179,7 +179,7 @@
                                                         <div class="form-group">
                                                             <label for="current_address">Current Address</label>
                                                             <textarea name="current_address" class="form-control"
-                                                                id="current_address" cols="30" rows="3" onblur="return require_validate(this, 'current_address_msg')" ></textarea>
+                                                                id="current_address" cols="30" rows="3"  onblur="return require_validate(this, 'current_address_msg')" ></textarea>
                                                                 <span id="current_address_msg" class="err_msg"></span>
                                                         </div>
                                                         <div class="form-group">
@@ -202,7 +202,7 @@
                                                             <label for="emergency_contact">Emergency Contact
                                                                 Number</label>
                                                             <input type="text" name="emergency_contact"
-                                                                class="form-control" id="emergency_contact" onblur="return require_validate(this, 'emergency_contact_msg')" onkeyup="return num_validate(this, 'emergency_contact_msg') ">
+                                                                class="form-control" id="emergency_contact" onblur="return require_validate(this, 'emergency_contact_msg')"maxlength="10" onkeyup="return num_validate(this, 'emergency_contact_msg') ">
                                                                 <span id="emergency_contact_msg" class="err_msg"></span>
 
                                                         </div>
