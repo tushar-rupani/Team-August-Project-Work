@@ -178,7 +178,7 @@
                                                         <div class="form-group">
                                                             <label for="current_address">Current Address</label>
                                                             <textarea name="current_address" class="form-control"
-                                                                id="current_address" cols="30" rows="3" onblur="return require_validate(this, 'current_address_msg')"></textarea>
+                                                                id="current_address" cols="30" rows="3" onblur="return require_validate(this, 'current_address_msg')" ></textarea>
                                                                 <span id="current_address_msg" class="err_msg"></span>
                                                         </div>
                                                         <div class="form-group">
@@ -194,14 +194,14 @@
                                                         <div class="form-group">
                                                             <label for="Contact Number">Contact Number</label>
                                                             <input type="text" name="contact" class="form-control"
-                                                                id="contact"onblur="return require_validate(this, 'contact_msg')" >
+                                                                id="contact"onblur="return require_validate(this, 'contact_msg')" maxlength="10" onkeyup="return num_validate(this, 'contact_msg')"  >
                                                                 <span id="contact_msg" class="err_msg"></span>
                                                         </div>
                                                         <div class="form-group">
                                                             <label for="emergency_contact">Emergency Contact
                                                                 Number</label>
                                                             <input type="text" name="emergency_contact"
-                                                                class="form-control" id="emergency_contact" onblur="return require_validate(this, 'emergency_contact_msg')">
+                                                                class="form-control" id="emergency_contact" onblur="return require_validate(this, 'emergency_contact_msg')" onkeyup="return num_validate(this, 'emergency_contact_msg') ">
                                                                 <span id="emergency_contact_msg" class="err_msg"></span>
 
                                                         </div>
@@ -209,7 +209,7 @@
                                                             <label for="emergency_person">Emergency Contact
                                                                 Person</label>
                                                             <input type="text" name="emergency_person"
-                                                                class="form-control" id="emergency_person" onblur="return require_validate(this, 'emergency_person_msg')">
+                                                                class="form-control" id="emergency_person" onblur="return require_validate(this, 'emergency_person_msg')"  onkeyup="return person_validate()">
                                                                 <span id="emergency_person_msg" class="err_msg"></span>
                                                         </div>
                                                     </div>
@@ -248,7 +248,7 @@
                                                     <div class="row">
                                                         <div class="col col1">
                                                             <label for="aadhar_num">Number</label>
-                                                            <input type="text" name="aadhar_num" id="aadhar_num" onblur="return require_validate(this, 'aadhar_num_msg')">
+                                                            <input type="text" name="aadhar_num" id="aadhar_num" onblur="return require_validate(this, 'aadhar_num_msg')" maxlength ="12" onkeyup="return aadhar_validate()">
                                                             <span id="aadhar_num_msg" class="err_msg"></span>
                                                         </div>
 
@@ -287,7 +287,7 @@
                                                     <div class="row">
                                                         <div class="col col1">
                                                             <label for="pan_num">Number</label>
-                                                            <input type="text" name="pan_num" id="pan_num" onblur="return require_validate(this, 'pan_msg')">
+                                                            <input type="text" name="pan_num" id="pan_num" onblur="return require_validate(this, 'pan_msg')" maxlength="10" onkeyup="return pan_validate()">
                                                             <span id="pan_msg" class="err_msg"></span>
                                                         </div>
 
@@ -316,7 +316,7 @@
                                                         <div class="row">
                                                             <div class="col col1">
                                                                 <label for="cheque_num">Number</label>
-                                                                <input type="text" name="cheque_num" id="cheque_num" onblur="return require_validate(this, 'cheque_msg')">
+                                                                <input type="text" name="cheque_num" id="cheque_num" onblur="return require_validate(this, 'cheque_msg')" maxlength="6" onkeyup="return cheque_validate()">
                                                                 <span id="cheque_msg" class="err_msg"></span>
                                                             </div>
 

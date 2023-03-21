@@ -121,6 +121,85 @@ function validateEmail() {
 
 }
 
+function num_validate(ele, id){
+    console.log(id);
+     var num =/^[0-9]*$/;
+    var alphabet =/^[a-zA-Z]+$/
+    var sp_char =/[\!\@\#\$\%\^\&\*\)\(\+\=\.\<\>\{\}\[\]\:\;\'\"\|\~\`\_\-]/g;
+    var contact = ele.value;
+    console.log(contact);
+    
+    // console.log(contact);
+    if(contact.length<10 || contact.match(sp_char) || contact.match(alphabet) || !contact.match(num)){
+        document.getElementById(id).innerHTML ='please enter valid contact number';
+        return false;
+    }
+    else {
+        document.getElementById(id).innerHTML ="";
+        return true;
+    }
+    
+    
+}
+function person_validate(){
+    // var num =/^[0-9]*$/;
+    var alphabet =/^[a-zA-Z]+$/
+
+    var person = document.getElementById("emergency_person").value;
+
+    if(!person.match(alphabet) ){
+        document.getElementById("emergency_person_msg").innerHTML ="Input data should be alphabet only!";
+        return false;
+    }
+
+}
+
+function aadhar_validate(){
+     var num =/^[0-9]*$/;
+    var alphabet =/^[a-zA-Z]+$/
+    var sp_char =/[\!\@\#\$\%\^\&\*\)\(\+\=\.\<\>\{\}\[\]\:\;\'\"\|\~\`\_\-]/g;
+
+    var aadhar_num = document.getElementById("aadhar_num").value;
+    if(aadhar_num.length <12 ||  aadhar_num.match(sp_char) || aadhar_num.match(alphabet) || !aadhar_num.match(num)){
+        document.getElementById("aadhar_num_msg").innerHTML = "Please enter valid aadhar number";
+        return false;
+    }
+    else{
+        document.getElementById("aadhar_num_msg").innerHTML = "";
+        return true;
+    }
+}
+
+function pan_validate(){
+    var regex = "[A-Z]{5}[0-9]{4}[A-Z]{1}";
+    var pan_num =document.getElementById("pan_num").value;
+
+   if(!pan_num.match(regex) || pan_num.length<10){
+       document.getElementById("pan_msg").innerHTML = "Enter valid PAN Number";
+       return false;
+   }
+   else{
+       document.getElementById("pan_msg").innerHTML = "";
+       return true;
+   }
+}
+
+function cheque_validate(){
+    var num =/^[0-9]*$/;
+    // var alphabet =/^[a-zA-Z]+$/
+    // var sp_char =/[\!\@\#\$\%\^\&\*\)\(\+\=\.\<\>\{\}\[\]\:\;\'\"\|\~\`\_\-]/g;
+    var cheque_num = document.getElementById("cheque_num").value;
+
+    if(!cheque_num.match(num) ){
+        document.getElementById("cheque_msg").innerHTML = "Please enter valid cheque number";
+        return false;
+    }
+    else{
+        document.getElementById("cheque_msg").innerHTML = "";
+        return true;
+    }
+    
+}
 
 
 
