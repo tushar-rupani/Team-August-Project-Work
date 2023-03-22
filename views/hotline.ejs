@@ -19,78 +19,18 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp" rel="stylesheet">
 
     <!-- stylesheet -->
-    <link rel="stylesheet" href="/public/css/hotline.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/hotline.css">
 
 </head>
 
 <body>
     <div class="container">
-        <aside class="sidebar" id="sidebar">
 
-            <!-- top sidebar -->
-            <div class="sidebar__header">
-                <div class="sidebar__logo">
-                    <img class="sidebar__image" src="/public/assets/logo.png" alt="logo_admin">
-                    <h2 class="sidebar__title"> <span class="text--danger">Esparkbiz</span></h2>
-                </div>
+           
+        <%- include('./common/sidebar') %>
 
-                <div class="sidebar__close" id="close-btn">
-                    <span class="material-icons-sharp">close</span>
-                </div>
-            </div>
 
-            <!-- content sidebar -->
-            <div class="sidebar__content">
-
-                <a class="sidebar__item " href="#">
-                    <span class="material-icons-sharp sidebar__item-icon sidebar__item-icon--active">grid_view</span>
-                    <h3 class="sidebar__item-text">Dashboard</h3>
-                </a>
-
-                <a class="sidebar__item sidebar__item--active" href="#">
-                    <span class="material-symbols-outlined">person_search</span>
-                    <h3 class="sidebar__item-text">Hotline</h3>
-                </a>
-
-                <a class="sidebar__item" href="#">
-                    <span class="material-symbols-outlined">calendar_month</span>
-                    <h3 class="sidebar__item-text">Calender</h3>
-                </a>
-
-                <a class="sidebar__item" href="#">
-                    <span class="material-symbols-outlined">newspaper</span>
-                    <h3 class="sidebar__item-text">News</h3>
-                    <span class="sidebar__message-count">26</span>
-                </a>
-
-                <a class="sidebar__item" href="#">
-                    <span class="material-symbols-outlined">schedule</span>
-                    <h3 class="sidebar__item-text">Attandance</h3>
-
-                </a>
-
-                <a class="sidebar__item" href="#">
-                    <span class="material-icons-sharp sidebar__item-icon">inventory</span>
-                    <h3 class="sidebar__item-text">Leaves</h3>
-                </a>
-
-                <a class="sidebar__item" href="#">
-                    <span class="material-symbols-outlined">forum</span>
-                    <h3 class="sidebar__item-text">Sensation</h3>
-                </a>
-
-                <a class="sidebar__item" href="#">
-                    <span class="material-icons-sharp sidebar__item-icon">settings</span>
-                    <h3 class="sidebar__item-text">Settings</h3>
-                </a>
-
-                <a class="sidebar__item" href="#">
-                    <span class="material-icons-sharp sidebar__item-icon">logout</span>
-                    <h3 class="sidebar__item-text">Logout</h3>
-                </a>
-
-            </div>
-        </aside>
         <!-- END OF SIDEBAR -->
 
         <main>
@@ -123,7 +63,7 @@
                                 <small class="text-muted">SDL-1</small>
                             </div>
                             <div>
-                                <img class="profile__photo" src="/public/assets/profile-3.jpg" alt="profile-picture">
+                                <img class="profile__photo" src="/assets/profile-3.jpg" alt="profile-picture">
                             </div>
                         </div>
                     </div>
@@ -183,9 +123,10 @@
                         </div>
                         <div class="count-leave">
                             <div class="img">
-                                <span class="material-symbols-outlined">
+                                <!-- <span class="material-symbols-outlined">
                                     person_add_disabled
-                                </span>
+                                </span> -->
+                                <img src="/assets/employee-leave.svg" alt="">
                             </div>
                             <div class="text">
                                 <span>On Leave</span>
@@ -212,21 +153,19 @@
                     <div class="display">
                         <div class="person">
                             <div class="head">
-                                <div>
-                                    <span class="material-symbols-outlined">
-                                        home
-                                    </span>
+                                <div class="hotline-office">
+                                    <i class="fa-solid fa-building"></i>
                                 </div>
-                                <div class="off">
-                                    <span>Offline</span>
+                                <div class="on">
+                                    <span>Online</span>
                                 </div>
                             </div>
                             <div class="person-img">
                                 <div class="p-img">
-                                    <img src="/public/assets/profile-3.jpg">
+                                    <img src="/assets/profile-3.jpg">
                                 </div>
                                 <span>Jyotsana Chauhan</span>
-                                <p>Jr. Software Developer</p>
+                                <p class="hotline-designation">Jr. Software Developer</p>
                             </div>
                             <div class="details">
                                 <div class="row1">
@@ -240,15 +179,15 @@
                                     </div>
                                 </div>
                                 <div class="row2">
-                                    <div>
+                                    <div class="hotline-person-icon">
                                         <span class="material-symbols-outlined">
                                             mail
                                             </span>
                                     </div>
-                                    <div>jyotsana@gmail.com</div>
+                                    <div class="hotline-mail-text">jyotsana@gmail.com</div>
                                 </div>
                                 <div class="row2">
-                                    <div>
+                                    <div class="hotline-person-icon">
                                         <span class="material-symbols-outlined">
                                             call
                                             </span>
@@ -260,20 +199,20 @@
                         <div class="person">
                             <div class="head">
                                 <div>
-                                    <span class="material-symbols-outlined">
-                                        home
-                                    </span>
+                                    <div class="hotline-office">
+                                        <i class="fa-solid fa-building"></i>
+                                    </div>
                                 </div>
-                                <div class="off">
-                                    <span>Offline</span>
+                                <div class="on">
+                                    <span>Online</span>
                                 </div>
                             </div>
                             <div class="person-img">
                                 <div class="p-img">
-                                    <img src="/public/assets/profile-3.jpg">
+                                    <img src="/assets/profile-3.jpg">
                                 </div>
                                 <span>Jyotsana Chauhan</span>
-                                <p>Jr. Software Developer</p>
+                                <p class="hotline-designation">Jr. Software Developer</p>
                             </div>
                             <div class="details">
                                 <div class="row1">
@@ -287,15 +226,62 @@
                                     </div>
                                 </div>
                                 <div class="row2">
-                                    <div>
+                                    <div class="hotline-person-icon">
                                         <span class="material-symbols-outlined">
                                             mail
                                             </span>
                                     </div>
-                                    <div>jyotsana@gmail.com</div>
+                                    <div class="hotline-mail-text">jyotsana@gmail.com</div>
                                 </div>
                                 <div class="row2">
+                                    <div class="hotline-person-icon">
+                                        <span class="material-symbols-outlined">
+                                            call
+                                            </span>
+                                    </div>
+                                    <div>9737484107</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="person">
+                            <div class="head">
+                                <div >
+                                    <div class="hotline-office">
+                                        <i class="fa-solid fa-building"></i>
+                                    </div>
+                                </div>
+                                <div class="off">
+                                    <span>Offline</span>
+                                </div>
+                            </div>
+                            <div class="person-img">
+                                <div class="p-img">
+                                    <img src="/assets/profile-3.jpg">
+                                </div>
+                                <span>Jyotsana Chauhan</span>
+                                <p class="hotline-designation">Jr. Software Developer</p>
+                            </div>
+                            <div class="details">
+                                <div class="row1">
                                     <div>
+                                        <p>Departement</p>
+                                        <span>Development</span>
+                                    </div>
+                                    <div>
+                                        <p>Date Hired</p>
+                                        <span>23-01-2023</span>
+                                    </div>
+                                </div>
+                                <div class="row2">
+                                    <div class="hotline-person-icon">
+                                        <span class="material-symbols-outlined">
+                                            mail
+                                            </span>
+                                    </div>
+                                    <div class="hotline-mail-text">jyotsana@gmail.com</div>
+                                </div>
+                                <div class="row2">
+                                    <div class="hotline-person-icon">
                                         <span class="material-symbols-outlined">
                                             call
                                             </span>
@@ -307,9 +293,9 @@
                         <div class="person">
                             <div class="head">
                                 <div>
-                                    <span class="material-symbols-outlined">
-                                        home
-                                    </span>
+                                    <div class="hotline-office">
+                                        <i class="fa-solid fa-building"></i>
+                                    </div>
                                 </div>
                                 <div class="off">
                                     <span>Offline</span>
@@ -317,10 +303,10 @@
                             </div>
                             <div class="person-img">
                                 <div class="p-img">
-                                    <img src="/public/assets/profile-3.jpg">
+                                    <img src="/assets/profile-3.jpg">
                                 </div>
                                 <span>Jyotsana Chauhan</span>
-                                <p>Jr. Software Developer</p>
+                                <p class="hotline-designation">Jr. Software Developer</p>
                             </div>
                             <div class="details">
                                 <div class="row1">
@@ -334,15 +320,15 @@
                                     </div>
                                 </div>
                                 <div class="row2">
-                                    <div>
+                                    <div class="hotline-person-icon">
                                         <span class="material-symbols-outlined">
                                             mail
                                             </span>
                                     </div>
-                                    <div>jyotsana@gmail.com</div>
+                                    <div class="hotline-mail-text">jyotsana@gmail.com</div>
                                 </div>
                                 <div class="row2">
-                                    <div>
+                                    <div class="hotline-person-icon">
                                         <span class="material-symbols-outlined">
                                             call
                                             </span>
@@ -354,9 +340,9 @@
                         <div class="person">
                             <div class="head">
                                 <div>
-                                    <span class="material-symbols-outlined">
-                                        home
-                                    </span>
+                                    <div class="hotline-office">
+                                        <i class="fa-solid fa-building"></i>
+                                    </div>
                                 </div>
                                 <div class="off">
                                     <span>Offline</span>
@@ -364,10 +350,10 @@
                             </div>
                             <div class="person-img">
                                 <div class="p-img">
-                                    <img src="/public/assets/profile-3.jpg">
+                                    <img src="/assets/profile-3.jpg">
                                 </div>
                                 <span>Jyotsana Chauhan</span>
-                                <p>Jr. Software Developer</p>
+                                <p class="hotline-designation">Jr. Software Developer</p>
                             </div>
                             <div class="details">
                                 <div class="row1">
@@ -381,15 +367,15 @@
                                     </div>
                                 </div>
                                 <div class="row2">
-                                    <div>
+                                    <div class="hotline-person-icon">
                                         <span class="material-symbols-outlined">
                                             mail
                                             </span>
                                     </div>
-                                    <div>jyotsana@gmail.com</div>
+                                    <div class="hotline-mail-text">jyotsana@gmail.com</div>
                                 </div>
                                 <div class="row2">
-                                    <div>
+                                    <div class="hotline-person-icon">
                                         <span class="material-symbols-outlined">
                                             call
                                             </span>
@@ -413,9 +399,8 @@
 
     </div>
     </main>
+    <script src="https://kit.fontawesome.com/30e122f54b.js" crossorigin="anonymous"></script>
 
-
-    <script src="./main.js"></script>
 </body>
 
 </html>
