@@ -25,23 +25,23 @@ setInterval(() => {
 }, 1000);
 
 
-checkOut.addEventListener("click", async(e) => {
+checkOut.addEventListener("click", async (e) => {
     swal("Are you sure you want to Check Out?", {
         buttons: {
-          cancel: "Cancel!",
-          catch: {
-            text: "Yes Do it!",
-            value: "Yes",
-          },
+            cancel: "Cancel!",
+            catch: {
+                text: "Yes Do it!",
+                value: "Yes",
+            },
         },
-      })
-      .then((value) => {
-        switch (value) {
-          case "Yes":
-            checkOutData();
-            break;
-        }
-      });
+    })
+        .then((value) => {
+            switch (value) {
+                case "Yes":
+                    checkOutData();
+                    break;
+            }
+        });
 })
 
 checkIn.addEventListener("click", async (e) => {
@@ -56,50 +56,50 @@ checkIn.addEventListener("click", async (e) => {
         checkIn.classList.add("disabling");
         checkIn.disabled = true;
     }
-    else if(data["status"] == "ERROR"){
+    else if (data["status"] == "ERROR") {
         swal(data.message)
     }
 
 })
 
-breakIn.addEventListener("click", async(e) => {
+breakIn.addEventListener("click", async (e) => {
     swal("Are you sure you want to Break In?", {
         buttons: {
-          cancel: "Cancel!",
-          catch: {
-            text: "Yes Do it!",
-            value: "Yes",
-          },
+            cancel: "Cancel!",
+            catch: {
+                text: "Yes Do it!",
+                value: "Yes",
+            },
         },
-      })
-      .then((value) => {
-        switch (value) {
-          case "Yes":
-            breakInData();
-            break;
-        }
-      });
+    })
+        .then((value) => {
+            switch (value) {
+                case "Yes":
+                    breakInData();
+                    break;
+            }
+        });
 })
 
-breakOut.addEventListener("click", async(e) => {
+breakOut.addEventListener("click", async (e) => {
 
     swal("Are you sure you want to Break Out?", {
         buttons: {
-          cancel: "Cancel!",
-          catch: {
-            text: "Yes Do it!",
-            value: "Yes",
-          },
+            cancel: "Cancel!",
+            catch: {
+                text: "Yes Do it!",
+                value: "Yes",
+            },
         },
-      })
-      .then((value) => {
-        switch (value) {
-          case "Yes":
-            breakOutData();
-            break;
-        }
-      });
-   
+    })
+        .then((value) => {
+            switch (value) {
+                case "Yes":
+                    breakOutData();
+                    break;
+            }
+        });
+
 })
 
 async function checkOutData() {
@@ -112,56 +112,56 @@ async function checkOutData() {
         <span>Checked Out : ${data["checkOutTime"]}</span>
     </div> `
     }
-    else if(data["status"] == "ERROR"){
+    else if (data["status"] == "ERROR") {
         swal(data.message)
     }
 }
-async function breakOutData(){
+async function breakOutData() {
     let ans = await fetch("http://localhost:3000/activity/break-out");
     let data = await ans.json();
-    if(data["status"] == "DONE"){
+    if (data["status"] == "DONE") {
         let checkInSpan = document.getElementById("backlog");
         checkInSpan.innerHTML += ` <div class="break_out">
         <span>Breaked Out : ${data["breakOutTime"]}</span>
     </div>`;
-    checkOut.classList.remove("disabling");
-    checkOut.disabled = false;
-    breakIn.classList.remove("disabling")
-    breakIn.disabled = false;
-    breakOut.classList.add("disabling")
-    breakOut.disabled = true;
+        checkOut.classList.remove("disabling");
+        checkOut.disabled = false;
+        breakIn.classList.remove("disabling")
+        breakIn.disabled = false;
+        breakOut.classList.add("disabling")
+        breakOut.disabled = true;
     }
-    else if(data["status"] == "ERROR"){
+    else if (data["status"] == "ERROR") {
         swal(data.message)
     }
 }
 
-async function breakInData(){
+async function breakInData() {
     let ans = await fetch("http://localhost:3000/activity/break-in");
     let data = await ans.json();
-    if(data["status"] == "DONE"){
+    if (data["status"] == "DONE") {
         let checkInSpan = document.getElementById("backlog");
         checkInSpan.innerHTML += ` <div class="break_in">
         <span>Breaked In : ${data["breakInTime"]}</span>
     </div>`
-    addingClass();
+        addingClass();
     }
-    else if(data["status"] == "ERROR"){
+    else if (data["status"] == "ERROR") {
         swal(data.message)
     }
 }
 
 
 
-function addingClass(){
-  checkOut.classList.add("disabling");
-  checkOut.disabled = true
-  breakIn.classList.add("disabling");
-  breakIn.disabled = true
-  checkIn.classList.add("disabling");
-  checkIn.disabled = true
-  breakOut.classList.remove("disabling");
-  breakOut.disabled = false;
+function addingClass() {
+    checkOut.classList.add("disabling");
+    checkOut.disabled = true
+    breakIn.classList.add("disabling");
+    breakIn.disabled = true
+    checkIn.classList.add("disabling");
+    checkIn.disabled = true
+    breakOut.classList.remove("disabling");
+    breakOut.disabled = false;
 
 }
 MenuBtn.addEventListener('click', () => {
@@ -194,3 +194,40 @@ dropdownTrigger.addEventListener('click', () => {
     console.log("test");
   dropdownMenu.classList.toggle('show');
 });*/
+
+function addcomment() {
+
+    let comment = document.getElementById("text").value;
+    console.log("comment");
+
+
+    const ans = fetch(`http://localhost:3000/comments`, {
+        method: "POST",
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            data: comment
+        })
+
+    })
+
+        .then(function (res) {
+            return res.json()
+        })
+    location.reload();
+}
+function validate_comment() {
+    var value=document.getElementById("text").value;
+    if (value == "") {
+        document.getElementById("submit").disabled = false;
+        return false;
+    }
+
+
+    else {
+        document.getElementById("submit").disabled = false;
+        return true;
+    }
+
+}

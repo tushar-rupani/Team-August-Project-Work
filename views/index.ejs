@@ -20,7 +20,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
 
 
-    
+
     <!-- stylesheet -->
     <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous"> -->
     <link rel="stylesheet" href="/css/style.css">
@@ -80,12 +80,19 @@
                             <div class="hr-line"></div>
                             <div class="add_comment">
                                 <div class="input">
-                                    <input type="text" placeholder="Type here..">
+                                    <input type="text" id="text" placeholder="Type here.." onclick="validate_comment()">
                                 </div>
                                 <div>
-                                    <button>Comment</button>
+                                    <button  id="submit" onclick="addcomment()" disabled>Comment</button>
                                 </div>
                             </div>
+
+                            <% for(var i=0;i<result.length;i++){%>
+                                <div class="see-comment" id="see-comment">
+
+                                   <p> <%= result[i].comment %></p>
+                                </div>
+                                <%}%>
                         </div>
 
 
@@ -250,32 +257,36 @@
                         </div>
 
                         <div class="button">
-                            <button class="checkin action-btn <% if(hasCheckedIn) { %> disabling<% } %>" id="check-in" <% if(hasCheckedIn) { %> disabled <% } %>>
-                                <i class="fa-solid fa-arrow-right-to-bracket"></i>
-                                <div class="check">
-                                    Check In
-                                </div>
+                            <button class="checkin action-btn <% if(hasCheckedIn) { %> disabling<% } %>" id="check-in"
+                                <% if(hasCheckedIn) { %> disabled <% } %>>
+                                    <i class="fa-solid fa-arrow-right-to-bracket"></i>
+                                    <div class="check">
+                                        Check In
+                                    </div>
                             </button>
-                            <button class="breakin action-btn <% if(breakAns == false) { %> disabling<% } %>" id="break-in" <% if(breakAns == false) { %> disabled<% } %>>
-                                <i class="fa-solid fa-utensils"></i>
-                                <div class="check">
-                                    Break In
-                                </div>
+                            <button class="breakin action-btn <% if(breakAns == false) { %> disabling<% } %>"
+                                id="break-in" <% if(breakAns==false) { %> disabled<% } %>>
+                                    <i class="fa-solid fa-utensils"></i>
+                                    <div class="check">
+                                        Break In
+                                    </div>
                             </button>
-                            <button class="checkout action-btn <% if(breakAns == false) { %> disabling<% } %>" id="check-out" <% if(breakAns == false) { %> disabled<% } %>>
-                                <i class="fa-solid fa-right-from-bracket"></i>
-                                <div class="check">
-                                    Check Out
-                                </div>
+                            <button class="checkout action-btn <% if(breakAns == false) { %> disabling<% } %>"
+                                id="check-out" <% if(breakAns==false) { %> disabled<% } %>>
+                                    <i class="fa-solid fa-right-from-bracket"></i>
+                                    <div class="check">
+                                        Check Out
+                                    </div>
                             </button>
-                            <button class="breakout action-btn <% if(breakoutAns) { %> disabling<% } %>" id="break-out" <% if(breakoutAns) { %> disabled <% } %> >
-                                <!-- <i class="fa-solid fa-right-from-bracket"></i>
+                            <button class="breakout action-btn <% if(breakoutAns) { %> disabling<% } %>" id="break-out"
+                                <% if(breakoutAns) { %> disabled <% } %> >
+                                    <!-- <i class="fa-solid fa-right-from-bracket"></i>
                              -->
-                                <img class="img-breakout"
-                                    src="https://hrms.appdemoserver.com/assets/img/icons/break-out.svg" alt="">
-                                <div class="check">
-                                    Break Out
-                                </div>
+                                    <img class="img-breakout"
+                                        src="https://hrms.appdemoserver.com/assets/img/icons/break-out.svg" alt="">
+                                    <div class="check">
+                                        Break Out
+                                    </div>
                             </button>
                         </div>
 
@@ -302,35 +313,36 @@
                                     </div>
                                     <% } %>
 
-                                    <% if(activity) { %>
+                                        <% if(activity) { %>
 
-                                        <% for(let i=0; i<activity.length; i++) { %>
-                                            <% if(activity[i].break_in) { %>
-                                                <div class="break_in">
-                                                    <span>Breaked In : <%= activity[i].break_in %>
-                                                    </span>
-                                                </div>
-                                            <% } %>
+                                            <% for(let i=0; i<activity.length; i++) { %>
+                                                <% if(activity[i].break_in) { %>
+                                                    <div class="break_in">
+                                                        <span>Breaked In : <%= activity[i].break_in %>
+                                                        </span>
+                                                    </div>
+                                                    <% } %>
 
-                                            <% if(activity[i].break_out != "00:00:00") { %>
-                                                <div class="break_out">
-                                                    <span>Breaked Out : <%= activity[i].break_out %>
-                                                    </span>
-                                                </div>
-                                            <% } %>
-                                            
-                                        <% } %>
+                                                        <% if(activity[i].break_out !="00:00:00" ) { %>
+                                                            <div class="break_out">
+                                                                <span>Breaked Out : <%= activity[i].break_out %>
+                                                                </span>
+                                                            </div>
+                                                            <% } %>
 
-                                    <% } %>
+                                                                <% } %>
 
-                                        <% if(attendance?.check_out !="0" ) {%>
-                                            <div class="check_out ">
-                                                <span>Checked Out : <%= attendance?.check_out %>
-                                                </span>
-                                            </div>
-                                            <% } %>  
+                                                                    <% } %>
 
-                                    <% } %>
+                                                                        <% if(attendance?.check_out !="0" ) {%>
+                                                                            <div class="check_out ">
+                                                                                <span>Checked Out : <%=
+                                                                                        attendance?.check_out %>
+                                                                                </span>
+                                                                            </div>
+                                                                            <% } %>
+
+                                                                                <% } %>
                         </div>
 
                     </div>
@@ -346,7 +358,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct"
         crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
     <script src="/js/main.js"></script>
 
 
