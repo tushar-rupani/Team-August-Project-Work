@@ -280,3 +280,16 @@ footer a {
   color: #3c97bf;
   text-decoration: none;
 }
+
+#email_unavailable{
+  margin-right: auto;
+}
+
+#perror{
+  text-align: left;
+}
+
+#reerror{
+  text-align: left;
+}
+
