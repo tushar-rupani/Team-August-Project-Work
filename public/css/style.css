@@ -326,8 +326,13 @@ b {
     font-weight: bold;
     color: #fff;
     cursor: pointer;
+    display: block;
 }
-
+.see-comment {
+    margin-top: 1rem;
+    font-size: larger;
+    font-weight: bold;
+}
 
 
 .add_comment {

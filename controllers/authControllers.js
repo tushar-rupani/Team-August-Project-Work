@@ -40,9 +40,6 @@ const loginController = async (req, res) => {
     return console.log(err);
   }
 
-
-
-
   if (results[0].isActivated == "0") {
     return res.render("activation", { email });
   }
@@ -58,7 +55,7 @@ const loginController = async (req, res) => {
       const currentTime = moment();
       const diffInMilliseconds = currentTime.diff(dbTime);
       if (diffInMilliseconds >= 86400000) {
-        
+        console.log(true);
         let update_attempts = `UPDATE register SET attempts_remaining = 3, status = 'U' WHERE email = '${email}'`;
         try {
           let execute_update_query = await connection.execute(update_attempts);
@@ -76,7 +73,7 @@ const loginController = async (req, res) => {
     try {
       [results] = await connection.execute(query);
       let attempts_remaining = results[0].attempts_remaining;
-     
+      console.log(attempts_remaining);
 
       if (attempts_remaining <= 0) {
         try {
@@ -90,7 +87,7 @@ const loginController = async (req, res) => {
       } else {
         attempts_remaining = attempts_remaining - 1;
         let update_attempts = `UPDATE register SET attempts_remaining = ${attempts_remaining} WHERE email = '${email}'`;
-        
+        console.log(attempts_remaining, "in else case");
         try {
           let execute_update_query = await connection.execute(update_attempts);
         } catch (err) {
@@ -110,7 +107,7 @@ const loginController = async (req, res) => {
   try {
     console.log("checking final time");
     let [results] = await connection.execute(final_time_checking);
-    
+    console.log(results.status);
     if (results[0].status == "B") {
       return res.render("suspend")
     }
