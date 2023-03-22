@@ -16,20 +16,26 @@ app.use(express.static(__dirname + '/public'));
 
 app.use(cookieParser());
 app.use(session({
-    secret:"secret key",
-    resave:false,
-    saveUninitialized:true
-  }));
+  secret: "secret key",
+  resave: false,
+  saveUninitialized: false,
+  cookie: {
+    httpOnly: false,
+    secure: false,
+  }
+}));
+
 
 
 app.use("/", authRoutes);
 app.use("/self", homeRoutes);
-app.use("/",employeeFormRoutes)
+app.use("/", employeeFormRoutes)
+
 
 app.get("*", (req, res) => {
   res.render("404")
 })
 
 app.listen(3000, () => {
-    console.log("App is runnig");
+  console.log("App is runnig");
 })

@@ -19,14 +19,16 @@ const saveData = async (req, res) => {
         uncompressed_files.forEach(async function(file){
             let file_path = path.join(upload_uncompressed_path,"/"+file);
             let new_file_path = path.join(upload_compressed_path,"/"+file);
-            await sharp(file_path).resize().jpeg({quality:50}).toFile(new_file_path);
+            let extension = path.extname(file);
+            if(extension == ".png" || extension == ".jpg" || extension == ".jpeg"){
+                await sharp(file_path).resize().jpeg({quality:50}).toFile(new_file_path);
+            }
         });
         
     } catch (err) {
         console.log(err);
         
     }
-    //================================
 
     
 

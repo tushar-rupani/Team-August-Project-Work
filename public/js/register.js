@@ -3,6 +3,8 @@ let form = document.getElementById("my-form");
 //     e.preventDefault();
 // })
 
+const loginFrom=document.querySelector('#login-form');
+let emailExists;
 
 let submitBtn = document.getElementById("submit-btn");
 function disableButton(){
@@ -109,5 +111,43 @@ function activateSubmitButton(){
         // submitBtn.disabled = true;
     }
 }
+
+
+loginFrom.addEventListener('submit',async function(e){
+    e.preventDefault();
+    
+    let email=document.querySelector('#lg-email').value;
+    let password=document.querySelector('#lg-password').value;
+    
+
+    try {
+        const response = await fetch(`http://localhost:3000/login`, {
+            method: 'POST',
+            headers: {
+                'Content-type': 'application/json'
+            },
+            credentials: 'same-origin',
+            body:JSON.stringify({email,password})
+        });
+
+        let res = await response.json();
+
+        if(res.ans=="error"){
+            alert(res.msg);
+        }
+        if(res.msg=="redirected"){
+            location.assign(`/${res.ans}`);
+        }
+        if(res.msg=="success"){
+            location.assign(`/self/home`);
+        }
+        
+        
+
+    } catch (err) {
+        console.log(err);
+    }
+    
+});
 
 

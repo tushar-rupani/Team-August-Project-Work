@@ -11,12 +11,12 @@
     <!-- content sidebar -->
     <div class="sidebar__content">
 
-        <a class="sidebar__item sidebar__item--active" href="#">
+        <a class="sidebar__item <% if(activatePage=="home") {%>sidebar__item--active<%}%>" href="/self/home">
             <span class="material-icons-sharp sidebar__item-icon sidebar__item-icon--active">grid_view</span>
             <h3 class="sidebar__item-text">Dashboard</h3>
         </a>
 
-        <a class="sidebar__item" href="#">
+        <a class="sidebar__item <% if(activatePage=="hotline") {%>sidebar__item--active<%}%>" href="/self/hotline">
             <span class="material-symbols-outlined sidebar__item-icon">person_search</span>
             <h3 class="sidebar__item-text">Hotline</h3>
         </a>
@@ -53,7 +53,7 @@
             <h3 class="sidebar__item-text">Settings</h3>
         </a>
 
-        <a class="sidebar__item" href="#">
+        <a class="sidebar__item" href="/logout">
             <span class="material-icons-sharp sidebar__item-icon">logout</span>
             <h3 class="sidebar__item-text">Logout</h3>
         </a>

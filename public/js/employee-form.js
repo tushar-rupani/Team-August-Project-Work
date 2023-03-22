@@ -35,7 +35,6 @@ uploadImg.onclick = () => {
 
 
 if (uploadImg.id == "remove_image") {
-    console.log('green');
     uploadImg.style.backgroundColor = "green";
 }
 
@@ -53,7 +52,6 @@ removeImg.onclick = () => {
 
 
 function uploadImage() {
-    console.log("upload");
     fetch(`http://127.0.0.1:3000/employee-data/upload`);
 }
 
@@ -65,7 +63,6 @@ function uploadImage() {
 // ------------------validation---------------------
 var name = document.getElementById("fullname").value;
 var nameErr = document.getElementById("nameErr");
-console.log(name);
 
 // validateFullName = (name) => {
 //     const fullName = name.split(" ");
@@ -99,12 +96,10 @@ function validateFullName() {
     }
 
     else if (!pattern.test(name)) {
-        console.log("validatename");
         nameErr.innerHTML = "please enter your full name";
         return false;
     }
     else if (name.maxLength >= 40) {
-        console.log("namelength");
         nameErr.innerHTML = "name should contain upto 40 chars";
         return false;
     }
@@ -214,7 +209,7 @@ document.querySelector('form').addEventListener('submit', function (e) {
     let raw_dob=document.querySelector('#dob').value;
     let dob=raw_dob.split('/');
 
-    basic_details.dob=`${dob[2]}-${dob[1]}-${dob[0]}`;
+    basic_details.dob=`${dob[2]}-${dob[0]}-${dob[1]}`;
 
     basic_details.email=document.querySelector('#email').value;
     basic_details.gender=document.querySelector('#gender').value;
