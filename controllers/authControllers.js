@@ -15,7 +15,7 @@ var transporter = nodemailer.createTransport({
 const loginController = async (req, res) => {
   const loginErrors = {};
   const { email, password } = req.body;
-  console.log(email, password);
+  
   
   
   let results;
@@ -71,8 +71,6 @@ const loginController = async (req, res) => {
 
 
   const isMatch = await bcrypt.compare(password, dbPass);
-
-  console.log(password,dbPass, isMatch);
   
 
   if (!isMatch) {
@@ -121,6 +119,7 @@ const loginController = async (req, res) => {
   catch (e) {
     console.log(e);
   }
+
   req.session.user = results[0].id;
   let upadting_attempts = `UPDATE register set attempts_remaining = 3 where email = '${email}'`;
   try{
@@ -128,6 +127,24 @@ const loginController = async (req, res) => {
   }catch(e){  
     console.log(e);
   }
+
+
+  //check whether the user entered their details or not
+
+  let emp_id=results[0].id;
+  let check_emp_details = `select * from basic_information where employee_id = '${emp_id}'`;
+  try{
+    let [hasData] = await connection.execute(check_emp_details);
+
+    if(hasData.length===0){
+      return res.status(200).json({ msg: "redirected",ans:"employee-form" });
+    }
+    
+
+  }catch(e){  
+    console.log(e);
+  }
+
   return res.status(200).json({ msg: "success",ans:"home" });
   // return res.redirect("/self/home");
 };

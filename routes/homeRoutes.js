@@ -19,7 +19,7 @@ router.get("/home", handleLogin, async(req, res) => {
     try{
         let getAttendanceDetails = `SELECT * FROM attendence_manager where employee_id = ${user_id} and date = '${currentDate}'`;
         [executeAttendance] = await connection.execute(getAttendanceDetails);
-        console.log(executeAttendance.length);
+        
         if(executeAttendance.length != 0 ){
             hasCheckedIn = true;
         }
