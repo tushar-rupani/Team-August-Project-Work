@@ -20,6 +20,8 @@ timeLabel.innerHTML = time;
 
 dateLabel.innerHTML = date;
 
+const renew = document.getElementById("renew");
+
 setInterval(() => {
     const time = new Date().toLocaleTimeString();
     timeLabel.innerHTML = time;
@@ -42,6 +44,7 @@ checkOut.addEventListener("click", async(e) => {
         switch (value) {
           case "Yes":
             checkOutData();
+            // gettingLogData();
             break;
         }
       });
@@ -67,6 +70,8 @@ checkIn.addEventListener("click", async (e) => {
         checkOut.classList.remove("disabling")
         checkOut.disabled = false;
 
+        // gettingLogData();
+
     }
     else if(data["status"] == "ERROR"){
         swal(data.message)
@@ -91,6 +96,7 @@ breakIn.addEventListener("click", async(e) => {
         switch (value) {
           case "Yes":
             breakInData();
+            // gettingLogData();
             break;
         }
       });
@@ -116,6 +122,7 @@ breakOut.addEventListener("click", async(e) => {
         switch (value) {
           case "Yes":
             breakOutData();
+            // gettingLogData();
             break;
         }
       });
@@ -213,10 +220,50 @@ ThemeToggler.addEventListener("click", () => {
     ThemeToggler.querySelector('.theme-toggler__button--dark').classList.toggle('theme-toggler__button--active')
 })
 
-/*const dropdownTrigger = document.querySelector('#dropdown-trigger');
-const dropdownMenu = document.querySelector('#dropdown-menu');
 
-dropdownTrigger.addEventListener('click', () => {
-    console.log("test");
-  dropdownMenu.classList.toggle('show');
-});*/
+async function gettingLogData(){
+  let res = await fetch(`http://localhost:3000/self/logs`);
+  let data = await res.json();
+  let logs = data["logs"];
+  console.log(logs);
+  if(data){
+      let container = document.getElementById("logs-container");
+      container.innerHTML = ``;
+      logs.forEach(log => {
+          console.log(log.activity);
+          if(log.activity == "Checked In"){
+              container.innerHTML += `<div class="activity-log">
+              <div class="card-title-small">${log.full_name}</div>
+              <div class="checkin-text activity-log-text">Checked In</div>
+              <div class="log-time">${log.time}</div>
+          </div>`}
+          else if(log.activity == "Checked Out"){
+              container.innerHTML += `<div class="activity-log">
+              <div class="card-title-small">${log.full_name}</div>
+              <div class="checkout-text activity-log-text">Checked Out</div>
+              <div class="log-time">${log.time}</div>
+          </div>`}
+          else if(log.activity == "Breaked Out"){
+              container.innerHTML += `<div class="activity-log">
+              <div class="card-title-small">${log.full_name}</div>
+              <div class="breakout-text activity-log-text">Breaked Out</div>
+              <div class="log-time">${log.time}</div>
+          </div>`
+          }
+          else if(log.activity == "Breaked In"){
+              container.innerHTML += `<div class="activity-log">
+              <div class="card-title-small">${log.full_name}</div>
+              <div class="breakin-text activity-log-text">Breaked In</div>
+              <div class="log-time">${log.time}</div>
+          </div>`
+          }
+      });
+  }
+}
+gettingLogData();
+
+renew.addEventListener("click", (e) => {
+  gettingLogData();
+})
+
+

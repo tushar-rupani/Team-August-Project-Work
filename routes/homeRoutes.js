@@ -30,13 +30,11 @@ router.get("/home", handleLogin, async(req, res) => {
         let hasUserCheckedOutQuery = `SELECT check_out FROM attendence_manager where employee_id = ${user_id} and date = '${currentDate}'`;
         let [hasUserCheckedOut] = await connection.execute(hasUserCheckedOutQuery);
         var checked_out = "not";
-        console.log(hasUserCheckedOut);
         if(hasUserCheckedOut.length){
             if(hasUserCheckedOut[0].check_out != "0"){
                 checked_out = "checkout";
             }
         } 
-        console.log(checked_out);
     }catch(e){
         console.log(e);
     }
@@ -44,6 +42,24 @@ router.get("/home", handleLogin, async(req, res) => {
     let activatePage = "home"
     res.render("index", {name: name, attendance: executeAttendance[0], activity: executeActivity, breakAns, hasCheckedIn, breakoutAns, activatePage, checked_out});
 })
+
+router.get("/logs", handleLogin, async (req, res) => {
+    let currentDate = moment().format("YYYY-MM-DD");
+    let getDailyLogs = `
+        select full_name, activity, date, time from daily_logs d 
+        INNER JOIN basic_information b
+        ON b.employee_id = d.employee_id
+        where date = '${currentDate}'
+        order by time desc`;
+        try{
+            var [executeDailyLogs] = await connection.execute(getDailyLogs);
+
+        }catch(e){
+            console.log(e);
+        }
+
+        return res.status(200).json({logs: executeDailyLogs});
+    })
 
 router.get("/hotline", handleLogin, (req, res) => {
     res.render("hotline",{activatePage:"hotline"});

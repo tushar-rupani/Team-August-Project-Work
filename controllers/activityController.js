@@ -39,6 +39,10 @@ const checkInHandler = async (req, res) => {
 
    try{
       let [executeInsert] = await connection.execute(insertQuery);
+      if(executeInsert){
+         let insertIntoLogs = `INSERT INTO daily_logs(employee_id, activity, date, time) VALUES (${currentEmployee}, "Checked In", '${currentDate}', '${time}')`;
+         let [executeLogs] = await connection.execute(insertIntoLogs); 
+      }
       return res.json({status: "DONE", checkInTime: time})
       
    }
@@ -82,6 +86,8 @@ const checkOutHandler = async (req, res) => {
    try{
       let [executeUpdateQuery] = await connection.execute(updateQuery);
       if(executeUpdateQuery){
+         let insertIntoLogs = `INSERT INTO daily_logs(employee_id, activity, date, time) VALUES (${currentEmployee}, "Checked Out", '${currentDate}', '${time}')`;
+         let [executeLogs] = await connection.execute(insertIntoLogs); 
          return res.json({status: "DONE", checkOutTime: time});
       }
    }catch(e){
@@ -126,6 +132,8 @@ const breakInHandler = async (req, res) => {
       let [executeInsertForBreak] = await connection.execute(insertQueryForBreak);
       
       if(executeInsertForBreak){
+         let insertIntoLogs = `INSERT INTO daily_logs(employee_id, activity, date, time) VALUES (${currentEmployee}, "Breaked In", '${currentDate}', '${time}')`;
+         let [executeLogs] = await connection.execute(insertIntoLogs); 
          return res.json({status: "DONE", breakInTime: time});
       }
    }
@@ -149,22 +157,25 @@ const breakOutHander = async (req, res) => {
       return res.json({status: "ERROR", message: "You have already checked out!"})
    }
 
-
    try{
       let [executeForLastData] = await connection.execute(getLastDataofUser);
       let returnedData = executeForLastData[0];
       let breakedInTime = returnedData.break_in;
       var startTime = moment(breakedInTime, "hh:mm:ss");
       var currentTime = moment();
-      var minsDiff = currentTime.diff(startTime, "minutes");
+      var secDiff = currentTime.diff(startTime, "seconds");
+      console.log("sec differemce",secDiff);
       let time = moment().format("HH:mm:ss");
 
 
-      let updateBreakOut = `UPDATE break_manager SET break_out = '${time}', duration = '${minsDiff}' where employee_id = ${currentEmployee} and id = ${executeForLastData[0].id}`;
+      let insertIntoLogs = `INSERT INTO daily_logs(employee_id, activity, date, time) VALUES (${currentEmployee}, "Breaked Out", '${currentDate}', '${time}')`;
+      let [executeLogs] = await connection.execute(insertIntoLogs); 
+
+      let updateBreakOut = `UPDATE break_manager SET break_out = '${time}', duration = '${secDiff}' where employee_id = ${currentEmployee} and id = ${executeForLastData[0].id}`;
 
       let executeUpdate = await connection.execute(updateBreakOut);
 
-      if(executeUpdate){
+      if(executeUpdate && executeLogs){
          return res.json({status: "DONE", breakOutTime: time});
       }
    }catch(e){

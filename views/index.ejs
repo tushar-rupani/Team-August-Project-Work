@@ -20,7 +20,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
 
 
-    
+
     <!-- stylesheet -->
     <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous"> -->
     <link rel="stylesheet" href="/css/style.css">
@@ -102,76 +102,13 @@
                                 </div>
                                 <div class="activity-search">
                                     <input type="text" placeholder="Search here..">
-                                    <div class="material-icons-sharp">autorenew</div>
+                                    <div class="material-icons-sharp" id="renew">autorenew</div>
                                 </div>
                             </div>
                             <div class="hr-line"></div>
                             <div class="scroll">
-                                <div class="activity-logs-container">
-                                    <div class="activity-log">
-                                        <div class="card-title-small">Tushar Rupani</div>
-                                        <div class="checkin-text activity-log-text">Checked In</div>
-                                        <div class="log-time">10:05 AM</div>
-                                    </div>
-                                    <div class="activity-log">
-                                        <div class="card-title-small">Chirag Talpada</div>
-                                        <div class="checkin-text activity-log-text">Checked In</div>
-                                        <div class="log-time">10:15 AM</div>
-                                    </div>
-                                    <div class="activity-log">
-                                        <div class="card-title-small">Rathod Bhavesh</div>
-                                        <div class="checkin-text activity-log-text">Checked In</div>
-                                        <div class="log-time">10:25 AM</div>
-                                    </div>
-
-                                    <div class="activity-log">
-                                        <div class="card-title-small">Tushar Rupani</div>
-                                        <div class="breakin-text activity-log-text">Break In</div>
-                                        <div class="log-time">10:05 AM</div>
-                                    </div>
-                                    <div class="activity-log">
-                                        <div class="card-title-small">Chirag Talpada</div>
-                                        <div class="breakin-text activity-log-text">Break In</div>
-                                        <div class="log-time">10:15 AM</div>
-                                    </div>
-                                    <div class="activity-log">
-                                        <div class="card-title-small">Rathod Bhavesh</div>
-                                        <div class="breakin-text activity-log-text">Break In</div>
-                                        <div class="log-time">10:25 AM</div>
-                                    </div>
-
-                                    <div class="activity-log">
-                                        <div class="card-title-small">Tushar Rupani</div>
-                                        <div class="breakout-text activity-log-text">Break Out</div>
-                                        <div class="log-time">10:05 AM</div>
-                                    </div>
-                                    <div class="activity-log">
-                                        <div class="card-title-small">Chirag Talpada</div>
-                                        <div class="breakout-text activity-log-text">Break Out</div>
-                                        <div class="log-time">10:15 AM</div>
-                                    </div>
-                                    <div class="activity-log">
-                                        <div class="card-title-small">Rathod Bhavesh</div>
-                                        <div class="breakout-text activity-log-text">Break Out</div>
-                                        <div class="log-time">10:25 AM</div>
-                                    </div>
-
-                                    <div class="activity-log">
-                                        <div class="card-title-small">Tushar Rupani</div>
-                                        <div class="checkout-text activity-log-text">Checked Out</div>
-                                        <div class="log-time">10:05 AM</div>
-                                    </div>
-                                    <div class="activity-log">
-                                        <div class="card-title-small">Chirag Talpada</div>
-                                        <div class="checkout-text activity-log-text">Checked Out</div>
-                                        <div class="log-time">10:15 AM</div>
-                                    </div>
-                                    <div class="activity-log">
-                                        <div class="card-title-small">Rathod Bhavesh</div>
-                                        <div class="checkout-text activity-log-text">Checked Out</div>
-                                        <div class="log-time">10:25 AM</div>
-                                    </div>
-
+                                <div class="activity-logs-container" id="logs-container">
+                                    <!-- activity logs will come here -->
 
                                 </div>
                             </div>
@@ -249,41 +186,49 @@
 
                         </div>
 
-                        <% if(checked_out == "not") { %> 
-                        <div class="button" id="buttons">
-                            <button class="checkin action-btn <% if(hasCheckedIn) { %> disabling<% } %>" id="check-in" <% if(hasCheckedIn) { %> disabled <% } %>>
-                                <i class="fa-solid fa-arrow-right-to-bracket"></i>
-                                <div class="check">
-                                    Check In
-                                </div>
-                            </button>
-                            <button class="breakin action-btn <% if(breakAns == false || hasCheckedIn == false) { %> disabling<% } %>" id="break-in" <% if(breakAns == false) { %> disabled<% } %>>
-                                <i class="fa-solid fa-utensils"></i>
-                                <div class="check">
-                                    Break In
-                                </div>
-                            </button>
-                            <button class="checkout action-btn <% if(breakAns == false || hasCheckedIn == false) { %> disabling<% } %>" id="check-out" <% if(breakAns == false) { %> disabled<% } %>>
-                                <i class="fa-solid fa-right-from-bracket"></i>
-                                <div class="check">
-                                    Check Out
-                                </div>
-                            </button>
-                            <button class="breakout action-btn <% if(breakoutAns || hasCheckedIn == false) { %> disabling<% } %>" id="break-out" <% if(breakoutAns) { %> disabled <% } %> >
-                                <!-- <i class="fa-solid fa-right-from-bracket"></i>
+                        <% if(checked_out=="not" ) { %>
+                            <div class="button" id="buttons">
+                                <button class="checkin action-btn <% if(hasCheckedIn) { %> disabling<% } %>"
+                                    id="check-in" <% if(hasCheckedIn) { %> disabled <% } %>>
+                                        <i class="fa-solid fa-arrow-right-to-bracket"></i>
+                                        <div class="check">
+                                            Check In
+                                        </div>
+                                </button>
+                                <button
+                                    class="breakin action-btn <% if(breakAns == false || hasCheckedIn == false) { %> disabling<% } %>"
+                                    id="break-in" <% if(breakAns==false) { %> disabled<% } %>>
+                                        <i class="fa-solid fa-utensils"></i>
+                                        <div class="check">
+                                            Break In
+                                        </div>
+                                </button>
+                                <button
+                                    class="checkout action-btn <% if(breakAns == false || hasCheckedIn == false) { %> disabling<% } %>"
+                                    id="check-out" <% if(breakAns==false) { %> disabled<% } %>>
+                                        <i class="fa-solid fa-right-from-bracket"></i>
+                                        <div class="check">
+                                            Check Out
+                                        </div>
+                                </button>
+                                <button
+                                    class="breakout action-btn <% if(breakoutAns || hasCheckedIn == false) { %> disabling<% } %>"
+                                    id="break-out" <% if(breakoutAns) { %> disabled <% } %> >
+                                        <!-- <i class="fa-solid fa-right-from-bracket"></i>
                              -->
-                                <img class="img-breakout"
-                                    src="https://hrms.appdemoserver.com/assets/img/icons/break-out.svg" alt="">
-                                <div class="check">
-                                    Break Out
-                                </div>
-                            </button>
-                        </div>
-                        <% } %>
+                                        <img class="img-breakout"
+                                            src="https://hrms.appdemoserver.com/assets/img/icons/break-out.svg" alt="">
+                                        <div class="check">
+                                            Break Out
+                                        </div>
+                                </button>
+                            </div>
+                            <% } %>
 
-                        <% if(checked_out == "checkout") {  %>
-                           <div class="final_message"><i class="fa-solid fa-face-smile" style="color: #ffffff;"></i> Thank you for your presence</div> 
-                        <% } %>
+                                <% if(checked_out=="checkout" ) { %>
+                                    <div class="final_message"><i class="fa-solid fa-face-smile"
+                                            style="color: #ffffff;"></i> Thank you for your presence</div>
+                                    <% } %>
 
                     </div>
                 </div>
@@ -308,35 +253,35 @@
                                     </div>
                                     <% } %>
 
-                                    <% if(activity) { %>
+                                        <% if(activity) { %>
 
-                                        <% for(let i=0; i<activity.length; i++) { %>
-                                            <% if(activity[i].break_in) { %>
-                                                <div class="break_in">
-                                                    <span>Breaked In : <%= activity[i].break_in %>
-                                                    </span>
-                                                </div>
-                                            <% } %>
+                                            <% for(let i=0; i<activity.length; i++) { %>
+                                                <% if(activity[i].break_in) { %>
+                                                    <div class="break_in">
+                                                        <span>Breaked In : <%= activity[i].break_in %>
+                                                        </span>
+                                                    </div>
+                                                    <% } %>
 
-                                            <% if(activity[i].break_out != "00:00:00") { %>
-                                                <div class="break_out">
-                                                    <span>Breaked Out : <%= activity[i].break_out %>
-                                                    </span>
-                                                </div>
-                                            <% } %>
-                                            
+                                                <% if(activity[i].break_out !="00:00:00" ) { %>
+                                                    <div class="break_out">
+                                                        <span>Breaked Out : <%= activity[i].break_out %>
+                                                        </span>
+                                                    </div>
+                                                <% } %>
+
+                                                <% } %>
+
                                         <% } %>
 
-                                    <% } %>
-
-                                        <% if(attendance?.check_out !="0" ) {%>
-                                            <div class="check_out ">
-                                                <span>Checked Out : <%= attendance?.check_out %>
-                                                </span>
-                                            </div>
-                                            <% } %>  
-
-                                    <% } %>
+                                                <% if(attendance?.check_out !="0" ) {%>
+                                                        <div class="check_out ">
+                                                            <span>Checked Out : 
+                                                                <%= attendance?.check_out %>
+                                                            </span>
+                                                        </div>
+                                                <% } %>
+                                <% } %>
                         </div>
 
                     </div>
@@ -352,7 +297,8 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct"
         crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
+    <!-- <script src="/js/home.js"></script> -->
     <script src="/js/main.js"></script>
 
 
