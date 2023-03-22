@@ -481,8 +481,10 @@ div.scroll {
 }
 
 .profile__photo {
-    border-radius: 100%;
-    width: 3rem;
+    border-radius: 50%;
+    height: 43px;
+    width: 43px;
+    object-fit: cover;
 }
 
 .profile {

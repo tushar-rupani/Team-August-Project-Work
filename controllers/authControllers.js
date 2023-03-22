@@ -145,6 +145,9 @@ const loginController = async (req, res) => {
     console.log(e);
   }
 
+  const user = jwt.sign(emp_id, "JWT_SECRET");
+  res.cookie("user", user);
+  
   return res.status(200).json({ msg: "success",ans:"home" });
   // return res.redirect("/self/home");
 };

@@ -1,6 +1,7 @@
 const express = require("express");
 const router=express.Router();
-const moment = require("moment")
+const moment = require("moment");
+const jwt=require("jsonwebtoken");
 const { handleLogin } = require("../middlewares/authMiddlewares");
 const {checkIfUserIsonBreak, checkIfUserIsBreakedOut } = require("../controllers/activityController");
 
@@ -48,5 +49,26 @@ router.get("/home", handleLogin, async(req, res) => {
 router.get("/hotline", handleLogin, (req, res) => {
     res.render("hotline",{activatePage:"hotline"});
 });
+
+router.get('/get-user',handleLogin,async (req, res) => {
+
+    let user = jwt.verify(req.cookies.user,"JWT_SECRET");
+
+    try {
+        
+        let query=`select * from basic_information where employee_id=${user}`;
+
+        let [[user_data]]=await connection.execute(query);
+
+        return res.status(200).json({msg:"done",user_data})    
+
+    } catch (err) {
+        console.log(err);
+        return res.redirect("/"); 
+    }
+
+    
+
+})
 
 module.exports = router;
