@@ -231,7 +231,7 @@
 
                 <!-- Recents Updates -->
                 <div class="recent-updates">
-                    <div class="recent-updates__container">
+                    <div class="recent-updates__container" id="recents">
 
 
                         <h2 class="card-title">Today's Action</h2>
@@ -249,26 +249,27 @@
 
                         </div>
 
-                        <div class="button">
+                        <% if(checked_out == "not") { %> 
+                        <div class="button" id="buttons">
                             <button class="checkin action-btn <% if(hasCheckedIn) { %> disabling<% } %>" id="check-in" <% if(hasCheckedIn) { %> disabled <% } %>>
                                 <i class="fa-solid fa-arrow-right-to-bracket"></i>
                                 <div class="check">
                                     Check In
                                 </div>
                             </button>
-                            <button class="breakin action-btn <% if(breakAns == false) { %> disabling<% } %>" id="break-in" <% if(breakAns == false) { %> disabled<% } %>>
+                            <button class="breakin action-btn <% if(breakAns == false || hasCheckedIn == false) { %> disabling<% } %>" id="break-in" <% if(breakAns == false) { %> disabled<% } %>>
                                 <i class="fa-solid fa-utensils"></i>
                                 <div class="check">
                                     Break In
                                 </div>
                             </button>
-                            <button class="checkout action-btn <% if(breakAns == false) { %> disabling<% } %>" id="check-out" <% if(breakAns == false) { %> disabled<% } %>>
+                            <button class="checkout action-btn <% if(breakAns == false || hasCheckedIn == false) { %> disabling<% } %>" id="check-out" <% if(breakAns == false) { %> disabled<% } %>>
                                 <i class="fa-solid fa-right-from-bracket"></i>
                                 <div class="check">
                                     Check Out
                                 </div>
                             </button>
-                            <button class="breakout action-btn <% if(breakoutAns) { %> disabling<% } %>" id="break-out" <% if(breakoutAns) { %> disabled <% } %> >
+                            <button class="breakout action-btn <% if(breakoutAns || hasCheckedIn == false) { %> disabling<% } %>" id="break-out" <% if(breakoutAns) { %> disabled <% } %> >
                                 <!-- <i class="fa-solid fa-right-from-bracket"></i>
                              -->
                                 <img class="img-breakout"
@@ -278,6 +279,11 @@
                                 </div>
                             </button>
                         </div>
+                        <% } %>
+
+                        <% if(checked_out == "checkout") {  %>
+                           <div class="final_message"><i class="fa-solid fa-face-smile" style="color: #ffffff;"></i> Thank you for your presence</div> 
+                        <% } %>
 
                     </div>
                 </div>

@@ -253,6 +253,17 @@ b {
     font-weight: 500;
 }
 
+.final_message{
+    margin-top: 20px;
+    background-color: #0f7c3e;
+    color: rgb(191, 216, 187);
+    text-align: center;
+    padding: 5px;
+    border-radius: 20px;
+    opacity: 0.5;
+    font-weight: 700;
+}
+
 .sidebar__message-count {
     background: var(--color-danger);
     color: var(--color-white);

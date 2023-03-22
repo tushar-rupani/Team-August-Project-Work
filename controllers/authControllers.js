@@ -55,7 +55,6 @@ const loginController = async (req, res) => {
       const currentTime = moment();
       const diffInMilliseconds = currentTime.diff(dbTime);
       if (diffInMilliseconds >= 86400000) {
-        console.log(true);
         let update_attempts = `UPDATE register SET attempts_remaining = 3, status = 'U' WHERE email = '${email}'`;
         try {
           let execute_update_query = await connection.execute(update_attempts);
@@ -104,7 +103,6 @@ const loginController = async (req, res) => {
   let final_time_checking = `SELECT * FROM register where email = '${email}'`;
   try {
     let [results] = await connection.execute(final_time_checking);
-    console.log(results.status);
     if (results[0].status == "B") {
       return res.render("suspend")
     }
@@ -146,7 +144,7 @@ const registerController = async (req, res) => {
         if (error) {
           console.log(error);
         } else {
-          console.log("Email sent: " + info.response);
+          // console.log("Email sent: " + info.response);
         }
       });
       return res.render("activation", { email: sessionEmail });

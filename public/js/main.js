@@ -13,8 +13,9 @@ const checkOut = document.getElementById("check-out");
 const breakIn = document.getElementById("break-in");
 const breakOut = document.getElementById("break-out");
 
-
+const buttons = document.getElementById("buttons");
 const time = new Date().toLocaleTimeString();
+const recent = document.getElementById("recents");
 timeLabel.innerHTML = time;
 
 dateLabel.innerHTML = date;
@@ -23,6 +24,8 @@ setInterval(() => {
     const time = new Date().toLocaleTimeString();
     timeLabel.innerHTML = time;
 }, 1000);
+
+if(checkOut){
 
 
 checkOut.addEventListener("click", async(e) => {
@@ -43,6 +46,8 @@ checkOut.addEventListener("click", async(e) => {
         }
       });
 })
+}
+if(checkIn){
 
 checkIn.addEventListener("click", async (e) => {
     let ans = await fetch("http://localhost:3000/activity/check-in");
@@ -55,12 +60,22 @@ checkIn.addEventListener("click", async (e) => {
         </div> `
         checkIn.classList.add("disabling");
         checkIn.disabled = true;
+
+        breakIn.classList.remove("disabling")
+        breakIn.disabled = false;
+
+        checkOut.classList.remove("disabling")
+        checkOut.disabled = false;
+
     }
     else if(data["status"] == "ERROR"){
         swal(data.message)
     }
 
 })
+}
+
+if(breakIn){
 
 breakIn.addEventListener("click", async(e) => {
     swal("Are you sure you want to Break In?", {
@@ -80,6 +95,11 @@ breakIn.addEventListener("click", async(e) => {
         }
       });
 })
+}
+
+
+if(breakOut){
+
 
 breakOut.addEventListener("click", async(e) => {
 
@@ -102,6 +122,9 @@ breakOut.addEventListener("click", async(e) => {
    
 })
 
+}
+
+
 async function checkOutData() {
     let ans = await fetch("http://localhost:3000/activity/check-out");
     let data = await ans.json();
@@ -111,6 +134,9 @@ async function checkOutData() {
         checkInSpan.innerHTML += ` <div class="check_out">
         <span>Checked Out : ${data["checkOutTime"]}</span>
     </div> `
+
+    buttons.innerHTML = ``;
+    recent.innerHTML += `<div class="final_message"><i class="fa-solid fa-face-smile" style="color: #ffffff;"></i> Thank you for your presence</div> `;
     }
     else if(data["status"] == "ERROR"){
         swal(data.message)
