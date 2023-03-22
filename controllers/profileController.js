@@ -14,9 +14,9 @@ const profile = async(req, res) => {
         let result3 = await connection.execute(query3);
         let result4 = await connection.execute(query4);
         let result5 = await connection.execute(query5);
-        let dob = dateformat.format(new Date(result1[0][0]["birthdate"]), 'dd-MM-yyyy');
-        let join_date = dateformat.format(new Date(result3[0][0]["join_date"]), 'dd-MM-yyyy');
-        let probation_date = dateformat.format(new Date(result3[0][0]["probation_date"]), 'dd-MM-yyyy');
+        let dob = dateformat.format(new Date(result1[0][0]?.birthdate ?? '27-02-2001'), 'dd-MM-yyyy');
+        let join_date = dateformat.format(new Date(result3[0][0]?.join_date), 'dd-MM-yyyy');
+        let probation_date = dateformat.format(new Date(result3[0][0]?.probation_date), 'dd-MM-yyyy');
        
 
         res.render('profile', {

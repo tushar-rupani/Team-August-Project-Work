@@ -15,6 +15,9 @@ var transporter = nodemailer.createTransport({
 const loginController = async (req, res) => {
   const loginErrors = {};
   const { email, password } = req.body;
+  
+  
+  
   let results;
   let query = `SELECT * FROM register where email = '${email}'`;
   try {
@@ -22,8 +25,7 @@ const loginController = async (req, res) => {
     results = results[0];
 
     if (results.length == 0) {
-      loginErrors.message = "There are no users with this credentials";
-      return res.json({ error: loginErrors });
+      return res.status(404).json({ msg: "There are no users with this credentials",ans:"error" });
     }
 
     let ipDetails = await fetch("https://ipinfo.io/json")
@@ -33,15 +35,16 @@ const loginController = async (req, res) => {
     let ipCheckingQuery = `SELECT * FROM ip_handler where ip_address = '${userIP}'`;
     let executeIpQuery = await connection.execute(ipCheckingQuery);
     if (!executeIpQuery[0].length) {
-      return res.send("The device you're trying is not acceptable in our case")
+      return res.status(401).json({ msg: "The device you're trying is not acceptable in our case",ans:"error" });
     }
 
   } catch (err) {
-    return console.log(err);
+    console.log(err);
   }
 
   if (results[0].isActivated == "0") {
-    return res.render("activation", { email });
+    return res.status(200).json({ msg: "redirected",ans:"activate" });
+    // return res.redirect("/activate");
   }
 
   let dbPass = results[0].password;
@@ -55,12 +58,12 @@ const loginController = async (req, res) => {
       const currentTime = moment();
       const diffInMilliseconds = currentTime.diff(dbTime);
       if (diffInMilliseconds >= 86400000) {
-        console.log(true);
+
         let update_attempts = `UPDATE register SET attempts_remaining = 3, status = 'U' WHERE email = '${email}'`;
         try {
           let execute_update_query = await connection.execute(update_attempts);
         } catch (err) {
-          return console.log(err);
+          console.log(err);
         }
       }
     }
@@ -68,6 +71,8 @@ const loginController = async (req, res) => {
 
 
   const isMatch = await bcrypt.compare(password, dbPass);
+  
+
   if (!isMatch) {
     let query = `SELECT attempts_remaining FROM register where email = '${email}'`;
     try {
@@ -79,9 +84,10 @@ const loginController = async (req, res) => {
           let currentDate = moment().format("YYYY-MM-DD HH:mm:ss");
           let update_attempts = `UPDATE register SET attempts_remaining = ${attempts_remaining}, final_attempt_time = '${currentDate}', status = 'B' WHERE email = '${email}'`;
           let execute_time = await connection.execute(update_attempts);
-          return res.render("suspend");
+          return res.status(200).json({ msg: "redirected",ans:"suspend" });
+          // return res.redirect("/suspend");
         } catch (err) {
-          return console.log(err);
+          console.log(err);
         }
       } else {
         attempts_remaining = attempts_remaining - 1;
@@ -89,7 +95,7 @@ const loginController = async (req, res) => {
         try {
           let execute_update_query = await connection.execute(update_attempts);
         } catch (err) {
-          return console.log(err);
+          console.log(err);
         }
       }
 
@@ -97,30 +103,53 @@ const loginController = async (req, res) => {
     catch (e) {
       console.log(e);
     }
-    loginErrors.message = "Oops your password is wrong";
-    return res.json({ error: loginErrors });
+    return res.status(401).json({ msg: "Oops your password is wrong",ans:"error" });
   }
 
   let final_time_checking = `SELECT * FROM register where email = '${email}'`;
   try {
     let [results] = await connection.execute(final_time_checking);
-    console.log(results.status);
+
     if (results[0].status == "B") {
-      return res.render("suspend")
+      return res.status(200).json({ msg: "redirected",ans:"suspend" });
+      // return res.redirect("/suspend");
     }
 
   }
   catch (e) {
     console.log(e);
   }
+
   req.session.user = results[0].id;
   let upadting_attempts = `UPDATE register set attempts_remaining = 3 where email = '${email}'`;
   try{
     let execute_attempts = await connection.execute(upadting_attempts);
   }catch(e){  
-    return console.log(e);
+    console.log(e);
   }
-  return res.redirect("/self/home");
+
+
+  //check whether the user entered their details or not
+
+  let emp_id=results[0].id;
+  let check_emp_details = `select * from basic_information where employee_id = '${emp_id}'`;
+  try{
+    let [hasData] = await connection.execute(check_emp_details);
+
+    if(hasData.length===0){
+      return res.status(200).json({ msg: "redirected",ans:"employee-form" });
+    }
+    
+
+  }catch(e){  
+    console.log(e);
+  }
+
+  const user = jwt.sign(emp_id, "JWT_SECRET");
+  res.cookie("user", user);
+  
+  return res.status(200).json({ msg: "success",ans:"home" });
+  // return res.redirect("/self/home");
 };
 
 const registerController = async (req, res) => {
@@ -146,7 +175,7 @@ const registerController = async (req, res) => {
         if (error) {
           console.log(error);
         } else {
-          console.log("Email sent: " + info.response);
+          // console.log("Email sent: " + info.response);
         }
       });
       return res.render("activation", { email: sessionEmail });

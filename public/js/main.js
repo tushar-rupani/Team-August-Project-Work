@@ -13,16 +13,21 @@ const checkOut = document.getElementById("check-out");
 const breakIn = document.getElementById("break-in");
 const breakOut = document.getElementById("break-out");
 
-
+const buttons = document.getElementById("buttons");
 const time = new Date().toLocaleTimeString();
+const recent = document.getElementById("recents");
 timeLabel.innerHTML = time;
 
 dateLabel.innerHTML = date;
+
+const renew = document.getElementById("renew");
 
 setInterval(() => {
     const time = new Date().toLocaleTimeString();
     timeLabel.innerHTML = time;
 }, 1000);
+
+if(checkOut){
 
 
 checkOut.addEventListener("click", async (e) => {
@@ -42,7 +47,10 @@ checkOut.addEventListener("click", async (e) => {
                     break;
             }
         });
+
 })
+}
+if(checkIn){
 
 checkIn.addEventListener("click", async (e) => {
     let ans = await fetch("http://localhost:3000/activity/check-in");
@@ -55,12 +63,24 @@ checkIn.addEventListener("click", async (e) => {
         </div> `
         checkIn.classList.add("disabling");
         checkIn.disabled = true;
+
+        breakIn.classList.remove("disabling")
+        breakIn.disabled = false;
+
+        checkOut.classList.remove("disabling")
+        checkOut.disabled = false;
+
+        // gettingLogData();
+
     }
     else if (data["status"] == "ERROR") {
         swal(data.message)
     }
 
 })
+}
+
+if(breakIn){
 
 breakIn.addEventListener("click", async (e) => {
     swal("Are you sure you want to Break In?", {
@@ -79,7 +99,13 @@ breakIn.addEventListener("click", async (e) => {
                     break;
             }
         });
+
 })
+}
+
+
+if(breakOut){
+
 
 breakOut.addEventListener("click", async (e) => {
 
@@ -100,7 +126,9 @@ breakOut.addEventListener("click", async (e) => {
             }
         });
 
-})
+}
+)}
+
 
 async function checkOutData() {
     let ans = await fetch("http://localhost:3000/activity/check-out");
@@ -111,6 +139,9 @@ async function checkOutData() {
         checkInSpan.innerHTML += ` <div class="check_out">
         <span>Checked Out : ${data["checkOutTime"]}</span>
     </div> `
+
+    buttons.innerHTML = ``;
+    recent.innerHTML += `<div class="final_message"><i class="fa-solid fa-face-smile" style="color: #ffffff;"></i> Thank you for your presence</div> `;
     }
     else if (data["status"] == "ERROR") {
         swal(data.message)
@@ -187,13 +218,8 @@ ThemeToggler.addEventListener("click", () => {
     ThemeToggler.querySelector('.theme-toggler__button--dark').classList.toggle('theme-toggler__button--active')
 })
 
-/*const dropdownTrigger = document.querySelector('#dropdown-trigger');
-const dropdownMenu = document.querySelector('#dropdown-menu');
 
-dropdownTrigger.addEventListener('click', () => {
-    console.log("test");
-  dropdownMenu.classList.toggle('show');
-});*/
+
 
 function addcomment() {
 
@@ -231,3 +257,70 @@ function validate_comment() {
     }
 
 }
+
+
+
+async function getUserInfo() {
+    try {
+        let res = await fetch(`http://localhost:3000/self/get-user`);
+    
+        let {user_data} = await res.json();
+    
+        document.querySelector('.user-name').innerHTML = user_data.full_name;
+        document.querySelector('#dropdown-trigger').setAttribute('src',`/upload_compressed/${user_data.profile_pic}`)
+        
+    
+    } catch (err) {
+        console.log(err);
+    
+    }
+}
+
+getUserInfo();
+
+async function gettingLogData(){
+  let res = await fetch(`http://localhost:3000/self/logs`);
+  let data = await res.json();
+  let logs = data["logs"];
+  console.log(logs);
+  if(data){
+      let container = document.getElementById("logs-container");
+      container.innerHTML = ``;
+      logs.forEach(log => {
+          console.log(log.activity);
+          if(log.activity == "Checked In"){
+              container.innerHTML += `<div class="activity-log">
+              <div class="card-title-small">${log.full_name}</div>
+              <div class="checkin-text activity-log-text">Checked In</div>
+              <div class="log-time">${log.time}</div>
+          </div>`}
+          else if(log.activity == "Checked Out"){
+              container.innerHTML += `<div class="activity-log">
+              <div class="card-title-small">${log.full_name}</div>
+              <div class="checkout-text activity-log-text">Checked Out</div>
+              <div class="log-time">${log.time}</div>
+          </div>`}
+          else if(log.activity == "Breaked Out"){
+              container.innerHTML += `<div class="activity-log">
+              <div class="card-title-small">${log.full_name}</div>
+              <div class="breakout-text activity-log-text">Breaked Out</div>
+              <div class="log-time">${log.time}</div>
+          </div>`
+          }
+          else if(log.activity == "Breaked In"){
+              container.innerHTML += `<div class="activity-log">
+              <div class="card-title-small">${log.full_name}</div>
+              <div class="breakin-text activity-log-text">Breaked In</div>
+              <div class="log-time">${log.time}</div>
+          </div>`
+          }
+      });
+  }
+}
+gettingLogData();
+
+renew.addEventListener("click", (e) => {
+  gettingLogData();
+})
+
+

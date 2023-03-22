@@ -6,6 +6,7 @@ const activityRoutes = require("./routes/activityRoutes");
 const commentRoutes = require("./routes/commentRoutes");
 const newsRoutes = require("./routes/newsRoutes");
 const profileRoutes = require("./routes/profileRoutes");
+const employeeFormRoutes = require("./routes/employeeFormRoutes")
 var cookieParser = require('cookie-parser');
 var session = require('express-session');
 require("dotenv").config();
@@ -29,6 +30,7 @@ app.use("/activity", activityRoutes);
 app.use("/comments", commentRoutes);
 app.use("/news", newsRoutes);
 app.use("/profile", profileRoutes);
+app.use("/", employeeFormRoutes)
 
 app.get("*", (req, res) => {
   res.render("404")
