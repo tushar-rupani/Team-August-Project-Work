@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leave || Admin</title>
+    <link rel="stylesheet" href="/css/leaveadmin.css">
+</head>
+
+<body>
+    <div class="main">
+        <div class="header">
+            <h1>Leave Resquests</h1>
+        </div>
+        <div class="container">
+
+            <div class="row">
+                <div class="field">
+                    <h3>Name</h3>
+
+                </div>
+                <div class="field">
+                    <h3>Leave type</h3>
+
+                </div>
+                <div class="field">
+                    <h3>Date</h3>
+
+                </div>
+                <div class="field">
+                    <h3>Reasons</h3>
+
+                </div>
+                <div class="field">
+                    <h3>Half day</h3>
+
+                </div>
+                <div class="field">
+                    <h3>Views</h3>
+
+                </div>
+            </div>
+           
+ <%for(var i = 0; i <result.length; i++){%>
+
+            <div class="data">
+                <span name="name"><%=result[i].full_name%></span>
+                <span name="leavetype"><%=result[i].leave_type%></span>
+                <span name="leavedate"><%=result[i].leave_date%></span>
+                <span name="leavereason"><%=result[i].leave_reason.substr(0,20)%></span>
+                <span name="leavereason"><%=result[i].half_day%></span>
+                <input type="button" onclick="show('<%=result[i].employee_id%>')" value="View">
+            </div>
+ 
+
+<%}%>
+        </div>
+    </div>
+    <div id="leaves">
+            
+    </div>
+    
+</body>
+<script>
+    async function show(id) {
+        let res = await fetch(`http://localhost:3001/leaveadmin/id/?id=${id}`);
+        let databasedata = await res.json();
+        console.log(databasedata);
+   let data="";
+   data +=`<div class="container">
+
+<div class="row">
+    <div class="field">
+        <h3>Name</h3>
+
+    </div>
+    <div class="field">
+        <h3>Leave type</h3>
+
+    </div>
+    <div class="field">
+        <h3>Date</h3>
+
+    </div>
+    <div class="field">
+        <h3>Reasons</h3>
+
+    </div>
+    <div class="field">
+        <h3>Half day</h3>
+
+    </div>
+    
+</div>
+ 
+ 
+
+            <div class="data">
+                <span name="name">${databasedata[0].full_name}</span>
+                <span name="leavetype">${databasedata[0].leave_type}</span>
+                <span name="leavedate">${databasedata[0].leave_date}</span>
+                <span name="leavereason">${databasedata[0].leave_reason}</span>
+                <span name="leavereason">${databasedata[0].half_day}</span>
+                 
+            </div>
+ 
+
+ 
+</div>`;
+
+let showleaves = document.createElement("div");
+showleaves.className = "show";
+showleaves.innerHTML = data;
+document.getElementById("leaves").appendChild(showleaves); 
+}
+
+
+</script>
+</html>
