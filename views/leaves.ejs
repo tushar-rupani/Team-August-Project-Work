@@ -108,24 +108,25 @@
                                         <h4>Status</h4>
                                     </div>
                             </tr>
-                            
+                           <% for(let i=0;i<showquery[0].length;i++) { %>
                             <tr>
                                 <div class="column2">
                                     <div class="col">
-                                        <p><%= showquery[0][0].leave_type %></p>
+                                        <p><%= showquery[0][i].leave_type %></p>
                                     </div>
                                     <div class="col">
-                                        <p><%= showquery[0][0].leave_date %> </p>
+                                        <p><%= showquery[0][i].leave_date %> </p>
                                     </div>
                                     <div class="col">
-                                        <p><%= showquery[0][0].half_day %></p>
+                                        <p><%= showquery[0][i].half_day %></p>
                                     </div>
                                     <div class="col">
-                                        <p><%= showquery[0][0].leave_reason %></p>
+                                        <p><%= showquery[0][i].leave_status%></p>
                                     </div>
                                     
                                 </div>
                             </tr>
+                        <%   } %>
                     </div>
                 </div>
     </div>
@@ -182,11 +183,13 @@
                 </div>`;
 
         let showleaves = document.createElement("div");
-        showleaves.className = "show";
+        showleaves.classList.add("show");
         showleaves.innerHTML = data;
         document.getElementById("leaves").appendChild(showleaves);
 
     }
+
+
 </script>
 
 </html>

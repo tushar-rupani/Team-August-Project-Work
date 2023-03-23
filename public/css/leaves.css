@@ -419,70 +419,7 @@ button .text {
     padding-top: 2px;
 }
 
-.checkin {
 
-    background-color: #00B04B;
-    border-color: #00B04B;
-    display: grid;
-    grid-template-columns: 10% 80%;
-    justify-content: space-between;
-    padding: 10px;
-    text-align: center;
-}
-
-.breakin {
-    background-color: rgba(255, 178, 0, .9);
-    display: grid;
-    border-color:rgba(255, 178, 0, .9);
-    grid-template-columns: 10% 80%;
-    justify-content: space-between;
-    padding: 10px;
-    text-align: center;
-}
-
-.checkout {
-    background-color: red;
-    display: grid;
-    grid-template-columns: 10% 80%;
-    justify-content: space-between;
-    padding: 10px;
-    text-align: center;
-}
-
-.breakout {
-    background-color: #C4B482;
-    display: grid;
-    grid-template-columns: 10% 80%;
-    justify-content: space-between;
-    padding: 10px;
-    text-align: center;
-}
-
-.check_in{
-    background-color: #00B04B;
-    border-radius: 10px;
-    padding: 8px;
-    margin-bottom: 10px;
-}
-.break_in{
-    background-color:#ffbb55;
-    border-radius: 10px;
-    padding: 8px;
-    margin-bottom: 10px;
-  
-}
-.break_out{
-    background-color:rgb(228, 148, 0);
-    border-radius: 10px;
-    padding: 8px;
-    margin-bottom: 10px;
-}
-.check_out{
-    background-color:red;
-    border-radius: 10px;
-    padding: 8px;
-    margin-bottom: 10px;
-}
 .main-content {
      margin-top: 24px ; 
     padding:1rem;
@@ -561,6 +498,9 @@ button .text {
 }
 .col {
     width:25%;
+}
+.col-admin{
+    width:calc(100%/6);
 }
 .column2{
     padding-top: 2rem;
@@ -686,7 +626,15 @@ button .text {
 .coll {
     width: 25%;
 }
+.col-data{
+    width:20%;
+}
 .showdata {
     border: 1px solid black;
     margin-top: 2rem;
+}
+.leave-status{
+    font-size: larger;
+    font-weight: bold;
+    color: black;
 }

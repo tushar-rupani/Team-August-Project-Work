@@ -1,20 +1,95 @@
 const express = require("express");
 const app = express();
-const mysql = require("mysql2/promise");
-const bcrypt = require("bcryptjs");
-var connection = require("../connection/connection");
 
-app.get("/", async (req, res) => {
 
- 
-var query = `SELECT basic_information.full_name,leave_request.leave_date,leave_request.leave_reason,leave_request.leave_type,leave_request.half_day FROM basic_information  INNER JOIN leave_request  ON basic_information.employee_id = leave_request.employee_id;`;
-var result = await connection.execute(query);
- 
- 
-console.log(result);
-    res.render('leaveadmin.ejs' ,{result:result[0]});
- });
- 
+async function show(id) {
+    console.log(id);
+    let res = await fetch(`http://localhost:8000/leaveadmin/showleaveAdmin/?id=${id}`);
+    let databasedata = await res.json();
+    console.log(databasedata);
+    let data = "";
+    data += `<div class="showdata">
+        <table class="tab">
+            <tr>
+                <div class="column-entry">
+                    <div class="coll">
+                        <h4>Name</h4>
+                    </div>
+                    <div class="coll">
+                        <h4>Leave Date</h4>
+                    </div>
+                    <div class="coll">
+                        <h4>Leave Type</h4>
+                    </div>
+                    <div class="coll">
+                        <h4>Leave Reason</h4>
+                    </div>
+                    <div class="coll">
+                        <h4>Half Day</h4>
+                    </div>
+                    
+            </tr>
+            <tr>
+                <div class="column2">
+                    <div class="col-data">
+                        <p>${databasedata[0].full_name}</p>
+                    </div>
+                    <div class="col-data">
+                        <p>${databasedata[0].leave_type}</p>
+                    </div>
+                    <div class="col-data">
+                        <p>${databasedata[0].leave_date}</p>
+                    </div>
+                    <div class="col-data">
+                        <p>${databasedata[0].leave_reason}</p>
+                    </div>
+                    <div class="col-data">
+                        <p>${databasedata[0].half_day}</p>
+                    </div>
+                </div>
+            </tr>
+        </table>       
+        </div>
+        <div class="leave-status">
+        <p>Your leave-status : ${databasedata[0].leave_status}</p>
+        </div>
+<div class="apply">
+     
+ <input type="button" onclick="return acceptleave('${id}')" class="applied" id="one" value="Accept"> 
+
+ <input type="button" onclick="return rejectleave('${id}')" class="applied" id="two" value="Reject"> 
+
+              
+</div>`;
+
+    let showleaves = document.createElement("div");
+    showleaves.className = "show";
+    showleaves.innerHTML = data;
+    document.getElementById("leaves").appendChild(showleaves);
+
+}
+
+async function acceptleave(id) {
+    let showcase = document.getElementsByClassName("show")[0];
+    //console.log(showcase);
+    showcase.style.display = "none";
+
+    let res = await fetch(`http://localhost:8000/leaveadmin/acceptLeave/?id=${id}`);
+    let databasedata1 = await res.json();
+    //  console.log(databasedata1);
+
+}
+
+async function rejectleave(id) {
+    let showcase = document.getElementsByClassName("show")[0];
+    //console.log(showcase);
+    showcase.style.display = "none";
+
+    let res = await fetch(`http://localhost:8000/leaveadmin/rejectLeave/?id=${id}`);
+    let databasedata2 = await res.json();
+    //  console.log(databasedata2);
+
+}
 
 
 module.exports = app;

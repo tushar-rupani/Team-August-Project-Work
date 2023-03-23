@@ -5,7 +5,7 @@ const leavesController = async(req,res) => {
     let query = `select * from leave_request where employee_id = "${id}"`;
     try {
         let showquery = await connection.execute(query);
-        console.log(showquery);
+        //console.log(showquery);
     res.render('leaves.ejs',{showquery:showquery});
 
     }
@@ -25,18 +25,18 @@ const addleavesController = async (req,res) => {
     let leave_day = req.body.day;
 
     let query = `INSERT INTO leave_request (employee_id,leave_date,leave_type,leave_reason, half_day) VALUES (${id},'${leave_date}',"${leave_type}",'${leave_reason}','${leave_day}')`;
+    console.log(query);
     try {
         let insertQuery = await connection.execute(query);
+        
         
     } catch (err) {
         return console.log(err);
     }    
 }
 
-const cancelleavesController = async(req,res) => {
-    res.render('leaves.ejs');
-}
 
 
 
-module.exports = {leavesController,addleavesController,cancelleavesController};
+
+module.exports = {leavesController,addleavesController};

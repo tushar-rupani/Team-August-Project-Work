@@ -1,4 +1,8 @@
 async function addleaves() {
+    let showcase = document.getElementsByClassName("show")[0];
+    //console.log(showcase);
+      showcase.style.display = "none";
+
     let date = document.getElementById("date").value;
     let type = document.getElementById("type").value;
     let reason = document.getElementById("reason").value;
@@ -6,7 +10,7 @@ async function addleaves() {
     //console.log(date,type,reason);
 
 
-    const ans = await fetch(`http://localhost:3000/leaves/addleaves`,{
+    const ans = await fetch(`http://localhost:8000/leaves/addleaves`,{
         method: "POST",
         headers: {
             'Content-Type': 'application/json'
@@ -20,10 +24,12 @@ async function addleaves() {
     .then(function(res) {
         return res.json()
     })
+   
+    
 }
 
 async function cancelleaves() {
-    const ans = await fetch(`http://localhost:3000/leaves/cancelleaves`);
-    
-  
+    let showcase = document.getElementsByClassName("show")[0];
+    //console.log(showcase);
+    showcase.style.display = "none";
 }
