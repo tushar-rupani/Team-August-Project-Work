@@ -27,372 +27,207 @@
 <body>
     <div class="container">
 
-           
+
         <%- include('./common/sidebar') %>
 
 
-        <!-- END OF SIDEBAR -->
+            <!-- END OF SIDEBAR -->
 
-        <main>
+            <main>
 
-            <div class="dashboard">
-                <div>
-                    <h1>Hotline</h1>
-                </div>
-                <div>
-                    <div class="gadgets-side__header">
-                        <button class="menu-button" id="menu-btn">
-                            <span class="material-icons-sharp menu-button__icon">menu</span>
-                        </button>
+                <div class="dashboard">
+                    <div>
+                        <h1>Hotline</h1>
+                    </div>
+                    <div>
+                        <div class="gadgets-side__header">
+                            <button class="menu-button" id="menu-btn">
+                                <span class="material-icons-sharp menu-button__icon">menu</span>
+                            </button>
 
-                        <div class="theme-toggler">
-                            <span class="
+                            <div class="theme-toggler">
+                                <span class="
                             material-icons-sharp 
                             theme-toggler__button
                             theme-toggler__button--light
                             theme-toggler__button--active">light_mode</span>
-                            <span class="
+                                <span class="
                             material-icons-sharp 
                             theme-toggler__button--dark
                             theme-toggler__button">dark_mode</span>
+                            </div>
+
+                            <div class="profile">
+                                <div class="profile__info">
+                                    <p>Hey, <b>Jyotsana</b></p>
+                                    <small class="text-muted">SDL-1</small>
+                                </div>
+                                <div>
+                                    <img class="profile__photo" src="/assets/profile-3.jpg" alt="profile-picture">
+                                </div>
+                            </div>
                         </div>
 
-                        <div class="profile">
-                            <div class="profile__info">
-                                <p>Hey, <b>Jyotsana</b></p>
-                                <small class="text-muted">SDL-1</small>
-                            </div>
-                            <div>
-                                <img class="profile__photo" src="/assets/profile-3.jpg" alt="profile-picture">
-                            </div>
-                        </div>
                     </div>
 
                 </div>
 
-            </div>
 
+                <!-- Insights -->
+                <div class="dashboard__insights">
 
-            <!-- Insights -->
-            <div class="dashboard__insights">
-
-                <!-- CARD OF SALES -->
-                <div class="card">
-                    <div class="count">
-                        <div class="count-record">
-                            <div class="img">
-                                <span class="material-symbols-outlined">groups</span>
+                    <!-- CARD OF SALES -->
+                    <div class="card">
+                        <div class="count">
+                            <div class="count-record" onclick="return online()">
+                                <div class="img">
+                                    <span class="material-symbols-outlined">groups</span>
+                                </div>
+                                <div class="text">
+                                    <span>Online</span>
+                                    <p>187</p>
+                                </div>
                             </div>
-                            <div class="text">
-                                <span>Online</span>
-                                <p>187</p>
+                            <div class="count-onbreak">
+                                <div class="img">
+                                    <span class="material-symbols-outlined">
+                                        restaurant
+                                    </span>
+                                </div>
+                                <div class="text">
+                                    <span>On Break</span>
+                                    <p>187</p>
+                                </div>
                             </div>
-                        </div>
-                        <div class="count-onbreak">
-                            <div class="img">
-                                <span class="material-symbols-outlined">
-                                    restaurant
-                                </span>
+                            <div class="count-WFH">
+                                <div class="img">
+                                    <span class="material-symbols-outlined">
+                                        location_home
+                                    </span>
+                                </div>
+                                <div class="text">
+                                    <span>WFH</span>
+                                    <p>187</p>
+                                </div>
                             </div>
-                            <div class="text">
-                                <span>On Break</span>
-                                <p>187</p>
+                            <div class="count-offline">
+                                <div class="img">
+                                    <span class="material-symbols-outlined">
+                                        person_add_disabled
+                                    </span>
+                                </div>
+                                <div class="text">
+                                    <span>Offline</span>
+                                    <p>20</p>
+                                </div>
                             </div>
-                        </div>
-                        <div class="count-WFH">
-                            <div class="img">
-                                <span class="material-symbols-outlined">
-                                    location_home
-                                </span>
-                            </div>
-                            <div class="text">
-                                <span>WFH</span>
-                                <p>187</p>
-                            </div>
-                        </div>
-                        <div class="count-offline">
-                            <div class="img">
-                                <span class="material-symbols-outlined">
-                                    person_add_disabled
-                                </span>
-                            </div>
-                            <div class="text">
-                                <span>Offline</span>
-                                <p>20</p>
-                            </div>
-                        </div>
-                        <div class="count-leave">
-                            <div class="img">
-                                <!-- <span class="material-symbols-outlined">
+                            <div class="count-leave">
+                                <div class="img">
+                                    <!-- <span class="material-symbols-outlined">
                                     person_add_disabled
                                 </span> -->
-                                <img src="/assets/employee-leave.svg" alt="">
-                            </div>
-                            <div class="text">
-                                <span>On Leave</span>
-                                <p>18</p>
+                                    <img src="/assets/employee-leave.svg" alt="">
+                                </div>
+                                <div class="text">
+                                    <span>On Leave</span>
+                                    <p>18</p>
+                                </div>
                             </div>
                         </div>
+
+
+                        <div class="search-bar">
+                            <div></div>
+                            <div class="search">
+                                <div class="input">
+                                    <input type="text" placeholder="Search Employee..">
+                                </div>
+                                <div>
+                                    <span class="material-icons-sharp">autorenew</span>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                        <div class="display">
+                            <%for(var i=0;i<data.length;i++){%>
+                                <div class="person" onload="fetch_data('<%= status[i] %>')">
+                                    <div class="head">
+                                        <div class="hotline-office">
+                                            <i class="fa-solid fa-building"></i>
+                                        </div>
+
+
+                                        <div class="on">
+                                            <span>
+                                                <% if (status[i]=="Checked In" || status[i]=="Breaked Out" ) {
+                                                    user_status="Online" } else if (status[i]=="Breaked In" ) {
+                                                    user_status="On Break" ; } else if (status[i]=="Checked Out" ) {
+                                                    user_status="Offline" ; }%>
+
+                                                    <%= user_status %>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="person-img">
+                                        <div class="p-img">
+                                            <img src="/assets/profile-3.jpg">
+                                        </div>
+                                        <span>
+                                            <%=data[i].full_name%>
+                                        </span>
+                                        <p class="hotline-designation">
+                                            <%=data[i].designation%>
+                                        </p>
+                                    </div>
+                                    <div class="details">
+                                        <div class="row1">
+                                            <div>
+                                                <p>Departement</p>
+                                                <span>
+                                                    <%=data[i].department%>
+                                                </span>
+                                            </div>
+                                            <div>
+                                                <p>Date Hired</p>
+                                                <span>
+                                                    <%=dob[i]%>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="row2">
+                                            <div class="hotline-person-icon">
+                                                <span class="material-symbols-outlined">
+                                                    mail
+                                                </span>
+                                            </div>
+                                            <div class="hotline-mail-text">
+                                                <%=data[i].email%>
+                                            </div>
+                                        </div>
+                                        <div class="row2">
+                                            <div class="hotline-person-icon">
+                                                <span class="material-symbols-outlined">
+                                                    call
+                                                </span>
+                                            </div>
+                                            <div>
+                                                <%=data[i].contact_no%>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <%}%>
+
+
+                        </div>
+
                     </div>
 
 
-                    <div class="search-bar">
-                        <div></div>
-                        <div class="search">
-                            <div class="input">
-                                <input type="text" placeholder="Search Employee..">
-                            </div>
-                            <div>
-                                <span class="material-icons-sharp">autorenew</span>
-                            </div>
-                        </div>
-                    </div>
-
-
-
-                    <div class="display">
-                        <div class="person">
-                            <div class="head">
-                                <div class="hotline-office">
-                                    <i class="fa-solid fa-building"></i>
-                                </div>
-                                <div class="on">
-                                    <span>Online</span>
-                                </div>
-                            </div>
-                            <div class="person-img">
-                                <div class="p-img">
-                                    <img src="/assets/profile-3.jpg">
-                                </div>
-                                <span>Jyotsana Chauhan</span>
-                                <p class="hotline-designation">Jr. Software Developer</p>
-                            </div>
-                            <div class="details">
-                                <div class="row1">
-                                    <div>
-                                        <p>Departement</p>
-                                        <span>Development</span>
-                                    </div>
-                                    <div>
-                                        <p>Date Hired</p>
-                                        <span>23-01-2023</span>
-                                    </div>
-                                </div>
-                                <div class="row2">
-                                    <div class="hotline-person-icon">
-                                        <span class="material-symbols-outlined">
-                                            mail
-                                            </span>
-                                    </div>
-                                    <div class="hotline-mail-text">jyotsana@gmail.com</div>
-                                </div>
-                                <div class="row2">
-                                    <div class="hotline-person-icon">
-                                        <span class="material-symbols-outlined">
-                                            call
-                                            </span>
-                                    </div>
-                                    <div>9737484107</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="person">
-                            <div class="head">
-                                <div>
-                                    <div class="hotline-office">
-                                        <i class="fa-solid fa-building"></i>
-                                    </div>
-                                </div>
-                                <div class="on">
-                                    <span>Online</span>
-                                </div>
-                            </div>
-                            <div class="person-img">
-                                <div class="p-img">
-                                    <img src="/assets/profile-3.jpg">
-                                </div>
-                                <span>Jyotsana Chauhan</span>
-                                <p class="hotline-designation">Jr. Software Developer</p>
-                            </div>
-                            <div class="details">
-                                <div class="row1">
-                                    <div>
-                                        <p>Departement</p>
-                                        <span>Development</span>
-                                    </div>
-                                    <div>
-                                        <p>Date Hired</p>
-                                        <span>23-01-2023</span>
-                                    </div>
-                                </div>
-                                <div class="row2">
-                                    <div class="hotline-person-icon">
-                                        <span class="material-symbols-outlined">
-                                            mail
-                                            </span>
-                                    </div>
-                                    <div class="hotline-mail-text">jyotsana@gmail.com</div>
-                                </div>
-                                <div class="row2">
-                                    <div class="hotline-person-icon">
-                                        <span class="material-symbols-outlined">
-                                            call
-                                            </span>
-                                    </div>
-                                    <div>9737484107</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="person">
-                            <div class="head">
-                                <div >
-                                    <div class="hotline-office">
-                                        <i class="fa-solid fa-building"></i>
-                                    </div>
-                                </div>
-                                <div class="off">
-                                    <span>Offline</span>
-                                </div>
-                            </div>
-                            <div class="person-img">
-                                <div class="p-img">
-                                    <img src="/assets/profile-3.jpg">
-                                </div>
-                                <span>Jyotsana Chauhan</span>
-                                <p class="hotline-designation">Jr. Software Developer</p>
-                            </div>
-                            <div class="details">
-                                <div class="row1">
-                                    <div>
-                                        <p>Departement</p>
-                                        <span>Development</span>
-                                    </div>
-                                    <div>
-                                        <p>Date Hired</p>
-                                        <span>23-01-2023</span>
-                                    </div>
-                                </div>
-                                <div class="row2">
-                                    <div class="hotline-person-icon">
-                                        <span class="material-symbols-outlined">
-                                            mail
-                                            </span>
-                                    </div>
-                                    <div class="hotline-mail-text">jyotsana@gmail.com</div>
-                                </div>
-                                <div class="row2">
-                                    <div class="hotline-person-icon">
-                                        <span class="material-symbols-outlined">
-                                            call
-                                            </span>
-                                    </div>
-                                    <div>9737484107</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="person">
-                            <div class="head">
-                                <div>
-                                    <div class="hotline-office">
-                                        <i class="fa-solid fa-building"></i>
-                                    </div>
-                                </div>
-                                <div class="off">
-                                    <span>Offline</span>
-                                </div>
-                            </div>
-                            <div class="person-img">
-                                <div class="p-img">
-                                    <img src="/assets/profile-3.jpg">
-                                </div>
-                                <span>Jyotsana Chauhan</span>
-                                <p class="hotline-designation">Jr. Software Developer</p>
-                            </div>
-                            <div class="details">
-                                <div class="row1">
-                                    <div>
-                                        <p>Departement</p>
-                                        <span>Development</span>
-                                    </div>
-                                    <div>
-                                        <p>Date Hired</p>
-                                        <span>23-01-2023</span>
-                                    </div>
-                                </div>
-                                <div class="row2">
-                                    <div class="hotline-person-icon">
-                                        <span class="material-symbols-outlined">
-                                            mail
-                                            </span>
-                                    </div>
-                                    <div class="hotline-mail-text">jyotsana@gmail.com</div>
-                                </div>
-                                <div class="row2">
-                                    <div class="hotline-person-icon">
-                                        <span class="material-symbols-outlined">
-                                            call
-                                            </span>
-                                    </div>
-                                    <div>9737484107</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="person">
-                            <div class="head">
-                                <div>
-                                    <div class="hotline-office">
-                                        <i class="fa-solid fa-building"></i>
-                                    </div>
-                                </div>
-                                <div class="off">
-                                    <span>Offline</span>
-                                </div>
-                            </div>
-                            <div class="person-img">
-                                <div class="p-img">
-                                    <img src="/assets/profile-3.jpg">
-                                </div>
-                                <span>Jyotsana Chauhan</span>
-                                <p class="hotline-designation">Jr. Software Developer</p>
-                            </div>
-                            <div class="details">
-                                <div class="row1">
-                                    <div>
-                                        <p>Departement</p>
-                                        <span>Development</span>
-                                    </div>
-                                    <div>
-                                        <p>Date Hired</p>
-                                        <span>23-01-2023</span>
-                                    </div>
-                                </div>
-                                <div class="row2">
-                                    <div class="hotline-person-icon">
-                                        <span class="material-symbols-outlined">
-                                            mail
-                                            </span>
-                                    </div>
-                                    <div class="hotline-mail-text">jyotsana@gmail.com</div>
-                                </div>
-                                <div class="row2">
-                                    <div class="hotline-person-icon">
-                                        <span class="material-symbols-outlined">
-                                            call
-                                            </span>
-                                    </div>
-                                    <div>9737484107</div>
-                                </div>
-                            </div>
-                        </div>
-
-                        
-                    </div>
 
                 </div>
-
-
-
-            </div>
 
 
 
@@ -400,7 +235,29 @@
     </div>
     </main>
     <script src="https://kit.fontawesome.com/30e122f54b.js" crossorigin="anonymous"></script>
+    <script src="/js/theme.js" ></script>
+    <script>
+        async function online() {
+            let res = await fetch(`http://localhost:3000/online`);
+            let online_user = await res.json();
+            console.log(online_user);
+        }
 
+        function fetch_data(logs) {
+            alert("heyyyyyyyy");
+
+            if (status.activity == "Checked In" || status.activity == "Breaked Out") {
+                user_status = "Online"
+            } else if (status.activity == "Breaked In") {
+                user_status = "On Break";
+
+            } else if (status.activity == "Checked Out") {
+                user_status = "Offline";
+
+            }
+
+        }
+    </script>
 </body>
 
 </html>

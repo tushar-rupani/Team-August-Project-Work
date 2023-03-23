@@ -42,7 +42,10 @@ const checkInHandler = async (req, res) => {
       if(executeInsert){
          let insertIntoLogs = `INSERT INTO daily_logs(employee_id, activity, date, time) VALUES (${currentEmployee}, "Checked In", '${currentDate}', '${time}')`;
          let [executeLogs] = await connection.execute(insertIntoLogs); 
+         // console.log("Last",executeLogs[0][0]);
+         // console.log("Last ID",executeLogs[0].insertId);
       }
+    
       return res.json({status: "DONE", checkInTime: time})
       
    }

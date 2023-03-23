@@ -5,6 +5,7 @@ const homeRoutes = require("./routes/homeRoutes");
 const activityRoutes = require("./routes/activityRoutes");
 const commentRoutes = require("./routes/commentRoutes");
 const newsRoutes = require("./routes/newsRoutes");
+const hotlineRoutes = require("./routes/hotlineRoutes");
 const profileRoutes = require("./routes/profileRoutes");
 const employeeFormRoutes = require("./routes/employeeFormRoutes")
 var cookieParser = require('cookie-parser');
@@ -30,6 +31,7 @@ app.use("/activity", activityRoutes);
 app.use("/comments", commentRoutes);
 app.use("/news", newsRoutes);
 app.use("/profile", profileRoutes);
+app.use("/hotline", hotlineRoutes);
 app.use("/", employeeFormRoutes)
 
 app.get("*", (req, res) => {

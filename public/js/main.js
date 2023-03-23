@@ -223,6 +223,8 @@ ThemeToggler.addEventListener("click", () => {
 
 function addcomment() {
 
+    
+
     let comment = document.getElementById("text").value;
     console.log("comment");
 
@@ -246,12 +248,14 @@ function addcomment() {
 function validate_comment() {
     var value=document.getElementById("text").value;
     if (value == "") {
-        document.getElementById("submit").disabled = false;
+     
+        document.getElementById("submit").disabled = true;
         return false;
     }
 
 
     else {
+     
         document.getElementById("submit").disabled = false;
         return true;
     }
@@ -282,7 +286,7 @@ async function gettingLogData(){
   let res = await fetch(`http://localhost:3000/self/logs`);
   let data = await res.json();
   let logs = data["logs"];
-  console.log(logs);
+//   console.log(logs);
   if(data){
       let container = document.getElementById("logs-container");
       container.innerHTML = ``;
