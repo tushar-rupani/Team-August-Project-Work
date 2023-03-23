@@ -689,3 +689,45 @@ button .text {
   .disabling:hover{
     cursor: not-allowed;
   }
+
+  @media only screen and (max-width:1920px) {
+    .container {
+        width: 1700px;
+    }
+
+    div.scroll {
+        height: 50vh;
+    }
+
+    .card .record {
+        grid-template-columns: 30% 70%;
+    }
+}
+
+@media only screen and (max-width:1440px) {
+    .container {
+        width: 1300px;
+    }
+
+    div.scroll {
+        height: 50vh;
+    }
+
+    .card .record {
+        grid-template-columns: 55% 45%;
+    }
+}
+
+@media only screen and (max-width:1294px) {
+    .container {
+        width: 1250px;
+    }
+
+    div.scroll {
+        height: 50vh;
+    }
+
+    .card .record {
+        grid-template-columns: 70% 30%;
+    }
+}
