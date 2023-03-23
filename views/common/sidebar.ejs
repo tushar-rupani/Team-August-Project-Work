@@ -16,7 +16,7 @@
             <h3 class="sidebar__item-text">Dashboard</h3>
         </a>
 
-        <a class="sidebar__item <% if(activatePage=="hotline") {%>sidebar__item--active<%}%>" href="/self/hotline">
+        <a class="sidebar__item <% if(activatePage=="hotline") {%>sidebar__item--active<%}%>" href="/hotline">
             <span class="material-symbols-outlined sidebar__item-icon">person_search</span>
             <h3 class="sidebar__item-text">Hotline</h3>
         </a>
@@ -26,7 +26,7 @@
             <h3 class="sidebar__item-text">Calender</h3>
         </a>
 
-        <a class="sidebar__item" href="#">
+        <a class="sidebar__item" <% if(activatePage=="news") {%>sidebar__item--active<%}%>" href="/news">
             <span class="material-symbols-outlined sidebar__item-icon">newspaper</span>
             <h3 class="sidebar__item-text">News</h3>
             <!-- <span class="sidebar__message-count">26</span> -->

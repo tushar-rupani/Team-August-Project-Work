@@ -20,7 +20,8 @@ const profile = async(req, res) => {
        
 
         res.render('profile', {
-            data: result1[0],dob:dob,data2:result2[0],data3:result3[0],data4:result4[0],data5:result5[0], activatePage: "home", join_date, probation_date
+            data: result1[0],dob:dob,data2:result2[0],data3:result3[0],data4:result4[0],data5:result5[0], activatePage: "home", join_date, probation_date,
+            activatePage: "profile"
 
         });
     
