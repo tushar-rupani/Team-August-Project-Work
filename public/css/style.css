@@ -664,28 +664,28 @@ button .text {
     left: 0;
     background-color: white;
     border: 1px solid black;
-  }
-  
-  #dropdown-menu a {
+}
+
+#dropdown-menu a {
     display: block;
     padding: 5px;
     text-decoration: none;
     color: black;
-  }
-  
-  #dropdown-trigger:hover + #dropdown-menu {
-    display: block;
-  }
+}
 
-  .popup-message a{
+#dropdown-trigger:hover + #dropdown-menu {
+    display: block;
+}
+
+.popup-message a{
     color: red;
     position: absolute;
     top: 10%;
-  }
+}
 
-  .disabling{
+.disabling{
     opacity: 0.4;
-  }
-  .disabling:hover{
+}
+.disabling:hover{
     cursor: not-allowed;
-  }
+}
