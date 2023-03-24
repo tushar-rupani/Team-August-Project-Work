@@ -24,6 +24,7 @@
     <!-- stylesheet -->
     <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous"> -->
     <link rel="stylesheet" href="/css/style.css">
+ 
 
 
 </head>
@@ -50,11 +51,11 @@
                             <div class="record">
                                 <div class="row1">
                                     <span class="card-title-small">Attandance</span>
-                                    <p> 12 Day</p>
+                                    <p> <%= attendanceDays %> Days</p>
                                 </div>
                                 <div class="row1">
                                     <span class="card-title-small">Late</span>
-                                    <p> 2 Day</p>
+                                    <p> <%= lateDaysCount %> Days </p>
                                 </div>
                                 <div class="row1">
                                     <span class="card-title-small">Absent</span>
@@ -66,7 +67,7 @@
                                 </div>
                                 <div class="row1">
                                     <span class="card-title-small">Worked Hours</span>
-                                    <p> 12 Day</p>
+                                    <p> <%= hoursWorked %> Hours </p>
                                 </div>
 
                             </div>
@@ -290,6 +291,13 @@
                 </div>
             </div>
     </div>
+
+    <div class="mobile-message hidden">
+         This Website is not accessible in mobile device. 
+    </div>
+
+    
+
 
 
     <script src="https://kit.fontawesome.com/30e122f54b.js" crossorigin="anonymous"></script>

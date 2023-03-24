@@ -5,6 +5,7 @@ const homeRoutes = require("./routes/homeRoutes");
 const activityRoutes = require("./routes/activityRoutes");
 const employeeFormRoutes = require("./routes/employeeFormRoutes");
 const profileRoutes = require("./routes/profileRoutes");
+
 var cookieParser = require('cookie-parser');
 var session = require('express-session');
 require("dotenv").config();

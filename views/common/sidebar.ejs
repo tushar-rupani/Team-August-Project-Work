@@ -31,8 +31,7 @@
             <h3 class="sidebar__item-text">News</h3>
             <!-- <span class="sidebar__message-count">26</span> -->
         </a>
-
-        <a class="sidebar__item" href="#">
+        <a class="sidebar__item <% if(activatePage=="attendance") {%>sidebar__item--active<%}%>" href="/self/attendance-report">
             <span class="material-symbols-outlined sidebar__item-icon">schedule</span>
             <h3 class="sidebar__item-text">Attandance</h3>
 

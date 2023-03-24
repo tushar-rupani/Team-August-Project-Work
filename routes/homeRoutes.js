@@ -5,6 +5,8 @@ const jwt=require("jsonwebtoken");
 const { handleLogin } = require("../middlewares/authMiddlewares");
 const {checkIfUserIsonBreak, checkIfUserIsBreakedOut } = require("../controllers/activityController");
 
+const {attendanceGenerate} = require("../controllers/attendanceControllers");
+
 var connection = require("../connection/connection");
 const e = require("express");
 
@@ -31,6 +33,22 @@ router.get("/home", handleLogin, async(req, res) => {
         let hasUserCheckedOutQuery = `SELECT check_out FROM attendence_manager where employee_id = ${user_id} and date = '${currentDate}'`;
         let [hasUserCheckedOut] = await connection.execute(hasUserCheckedOutQuery);
         var checked_out = "not";
+
+        let usersAttendance = `SELECT count(id) as attendance from attendence_manager WHERE employee_id = ${user_id}`;
+        let [executeAttendanceDays] = await connection.execute(usersAttendance);
+        var attendanceDays = executeAttendanceDays[0].attendance;
+
+        let lateDays = `SELECT count(id) as late from attendence_manager WHERE employee_id = ${user_id} and is_late = 1`;
+        let [executeLateDays] = await connection.execute(lateDays);
+        var lateDaysCount = executeLateDays[0].late;
+        
+        let totalHoursWorked = `SELECT SEC_TO_TIME(SUM(TIME_TO_SEC(hours_worked))) AS hours_worked
+        FROM attendence_manager
+        WHERE date BETWEEN '2023-03-01' AND '2023-03-24' AND employee_id = 17`;
+
+        let [executeTotalHoursWorked] = await connection.execute(totalHoursWorked);
+        var  hoursWorked = executeTotalHoursWorked[0].hours_worked;
+
         if(hasUserCheckedOut.length){
             if(hasUserCheckedOut[0].check_out != "0"){
                 checked_out = "checkout";
@@ -42,7 +60,7 @@ router.get("/home", handleLogin, async(req, res) => {
     }
     name = "dummy"
     let activatePage = "home"
-    res.render("index", {name: name, attendance: executeAttendance[0], activity: executeActivity, breakAns, hasCheckedIn, breakoutAns, activatePage, checked_out});
+    res.render("index", {name: name, attendance: executeAttendance[0], hoursWorked, attendanceDays, lateDaysCount, activity: executeActivity, breakAns, hasCheckedIn, breakoutAns, activatePage, checked_out});
 })
 
 router.get("/logs", handleLogin, async (req, res) => {
@@ -66,6 +84,8 @@ router.get("/logs", handleLogin, async (req, res) => {
 router.get("/hotline", handleLogin, (req, res) => {
     res.render("hotline",{activatePage:"hotline"});
 });
+
+router.get("/attendance-report", handleLogin, attendanceGenerate);
 
 router.get('/get-user',handleLogin,async (req, res) => {
 

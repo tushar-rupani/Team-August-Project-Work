@@ -1,5 +1,6 @@
 var connection = require("../connection/connection");
 const moment = require("moment");
+const { min } = require("date-fns");
    let currentTime = moment();
    let currentDate = moment().format("YYYY-MM-DD");
    let tenAM = moment("10:00:00", "HH:mm:ss");
@@ -68,8 +69,6 @@ const checkOutHandler = async (req, res) => {
    if(alreadyOnBreak == false){
       return res.json({status: "ERROR", message: "You are already on a break"})
    }
-
-
    let checkIfalreadyExist = `SELECT count(*) as length FROM attendence_manager where employee_id = ${currentEmployee} and date = '${currentDate}' and check_out <> 0`;
    try{
       let [executeAlreadyExists] = await connection.execute(checkIfalreadyExist);
@@ -81,7 +80,23 @@ const checkOutHandler = async (req, res) => {
    }
 
    let time = moment().format("HH:mm:ss");
-   let updateQuery = `UPDATE attendence_manager SET check_out = '${time}' where employee_id = ${currentEmployee}`;
+   let getCheckInTimeOfUser = `SELECT check_in from attendence_manager where employee_id = ${currentEmployee} and date = '${currentDate}'`;
+   try{
+      let [executeGetCheckIn] = await connection.execute(getCheckInTimeOfUser);
+      let check_in_time = executeGetCheckIn[0].check_in;
+      let startTime = moment(check_in_time, "hh:mm:ss");
+      let currentTime = moment();
+      let secDiff = currentTime.diff(startTime, "minutes");
+      let duration = moment.duration(secDiff, 'minutes');
+      var hours = duration.hours();
+      var minutes = duration.minutes();
+      var workedHours = hours + ":" + minutes;
+
+   }
+   catch(e){
+      console.log("error",e);
+   }
+   let updateQuery = `UPDATE attendence_manager SET check_out = '${time}', hours_worked = '${workedHours}' where employee_id = ${currentEmployee} and date = '${currentDate}'`;
 
    try{
       let [executeUpdateQuery] = await connection.execute(updateQuery);
@@ -164,7 +179,7 @@ const breakOutHander = async (req, res) => {
       var startTime = moment(breakedInTime, "hh:mm:ss");
       var currentTime = moment();
       var secDiff = currentTime.diff(startTime, "seconds");
-      console.log("sec differemce",secDiff);
+      // console.log("sec differemce",secDiff);
       let time = moment().format("HH:mm:ss");
 
 
