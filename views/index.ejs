@@ -87,12 +87,19 @@
                             <div class="hr-line"></div>
                             <div class="add_comment">
                                 <div class="input">
-                                    <input type="text" placeholder="Type here..">
+                                    <input type="text" placeholder="Type here.."  id="text" onkeyup="validate_comment()">
                                 </div>
                                 <div>
-                                    <button>Comment</button>
+                                    <button id="submit" onclick="addcomment()" class="disabling" disabled>Comment</button>
                                 </div>
                             </div>
+                            <div id="comment-wrapper">
+                            <% for(var i=0; i<commentResult.length; i++){%>
+                                <div class="see-comment" id="see-comment">
+                                   <p> <%= commentResult[i].comment %></p>
+                                </div>
+                            <%}%>
+                        </div>
                         </div>
 
 

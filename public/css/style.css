@@ -657,6 +657,14 @@ button .text {
     font-weight: 500;
 }
 
+.see-comment{
+    margin-top: 10px;
+    background-color: #efefef;
+    padding: 10px;
+    border-radius: 10px;
+    text-transform: capitalize;
+}
+
 #dropdown-menu {
     display: none;
     position: absolute;

@@ -199,6 +199,23 @@ const breakOutHander = async (req, res) => {
 }
 
 
+const addcommentControllers = async (req, res) => {
+   let id = req.session.user;
+   let comment = req.body;
+   let comments = comment.data;
+
+   let query = `INSERT INTO comments(employee_id,comment,date) VALUES (${id},"${comments}","${currentDate}"); `;
+   try {
+       let insertQuery = await connection.execute(query);
+       res.json({comment})
+
+   } catch (err) {
+       return console.log(err);
+   }
+
+}
+
+
 const checkIfUserCheckedIn = async (getUserId) => {
    let checkUser = `SELECT * FROM attendence_manager where employee_id = ${getUserId} and date = '${currentDate}'`;
    let [executeCheckUser] = await connection.execute(checkUser);
@@ -235,4 +252,4 @@ const checkIfUserIsBreakedOut = async (getUserId) => {
       return true;
    }return false;
 }
-module.exports = {checkInHandler, checkOutHandler, breakInHandler, breakOutHander, checkIfUserIsonBreak, checkIfUserIsBreakedOut}
+module.exports = {checkInHandler, checkOutHandler, breakInHandler, breakOutHander, checkIfUserIsonBreak, checkIfUserIsBreakedOut, addcommentControllers}

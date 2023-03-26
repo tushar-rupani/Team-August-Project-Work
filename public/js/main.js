@@ -286,6 +286,46 @@ let search = document.getElementById("search");
     
 })
 
+function validate_comment() {
+  var value=document.getElementById("text").value;
+  if (value == "") {
+    document.getElementById("submit").disabled = true;
+    document.getElementById("submit").classList.add("disabling");
+    return false;
+  }
+  
+  else {  
+    document.getElementById("submit").disabled = false;
+    document.getElementById("submit").classList.remove("disabling");
+    console.log(document.getElementById("submit").disabled);
+      return true;
+  }
+
+}
+
+async function addcomment() {
+  let comment = document.getElementById("text").value;
+  const res = await fetch(`/activity/add-comment`, {
+      method: "POST",
+      headers: {
+          'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+          data: comment
+      })
+  });
+
+  const data = await res.json();
+  if(data){
+    document.getElementById("text").value = "";
+    let commentWrapper = document.getElementById("comment-wrapper");
+    commentWrapper.innerHTML += ` <div class="see-comment" id="see-comment">
+    <p>${data["comment"]["data"]}</p>
+    </div>`
+  swal("Comment has been added, we'll get back to you shortly.")
+  }
+}
+
 
 function fillingLogs(log){
   if(log.activity == "Checked In"){

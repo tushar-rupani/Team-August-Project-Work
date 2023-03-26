@@ -4,7 +4,7 @@ const moment = require("moment");
 
 const attendanceGenerate = async (req, res) => {
     let user_id = req.session.user;
-    let getAllRecords = `SELECT * from attendence_manager where employee_id = ${user_id}`;
+    let getAllRecords = `SELECT * from attendence_manager where employee_id = ${user_id} order by id desc`;
     let [executeGetRecords] = await connection.execute(getAllRecords);
     var array_of_break = [];
     var array_of_passedTime = [];

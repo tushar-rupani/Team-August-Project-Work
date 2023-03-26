@@ -5,6 +5,8 @@ const homeRoutes = require("./routes/homeRoutes");
 const activityRoutes = require("./routes/activityRoutes");
 const employeeFormRoutes = require("./routes/employeeFormRoutes");
 const profileRoutes = require("./routes/profileRoutes");
+const leavesRoutes = require("./routes/leavesRoutes");
+const favicon = require('serve-favicon');
 
 var cookieParser = require('cookie-parser');
 var session = require('express-session');
@@ -27,7 +29,10 @@ app.use("/", authRoutes);
 app.use("/self", homeRoutes);
 app.use("/activity", activityRoutes);
 app.use("/profile", profileRoutes);
+app.use("/leaves",leavesRoutes);
 app.use("/",employeeFormRoutes)
+
+app.use(favicon(__dirname + '/public/assets/favicon.ico'));
 
 app.get("*", (req, res) => {
   res.render("404")
