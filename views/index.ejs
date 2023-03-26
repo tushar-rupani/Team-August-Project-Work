@@ -24,7 +24,7 @@
     <!-- stylesheet -->
     <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous"> -->
     <link rel="stylesheet" href="/css/style.css">
- 
+
 
 
 </head>
@@ -51,11 +51,15 @@
                             <div class="record">
                                 <div class="row1">
                                     <span class="card-title-small">Attandance</span>
-                                    <p> <%= attendanceDays %> Days</p>
+                                    <p>
+                                        <%= attendanceDays %> Days
+                                    </p>
                                 </div>
                                 <div class="row1">
                                     <span class="card-title-small">Late</span>
-                                    <p> <%= lateDaysCount %> Days </p>
+                                    <p>
+                                        <%= lateDaysCount %> Days
+                                    </p>
                                 </div>
                                 <div class="row1">
                                     <span class="card-title-small">Absent</span>
@@ -67,7 +71,9 @@
                                 </div>
                                 <div class="row1">
                                     <span class="card-title-small">Worked Hours</span>
-                                    <p> <%= hoursWorked %> Hours </p>
+                                    <p>
+                                        <%= hoursWorked %> Hours
+                                    </p>
                                 </div>
 
                             </div>
@@ -102,7 +108,7 @@
                                     <h3 class="card-title">Today's Employee Activities</h3>
                                 </div>
                                 <div class="activity-search">
-                                    <input type="text" placeholder="Search here..">
+                                    <input type="text" placeholder="Search here.." name="search" id="search">
                                     <div class="material-icons-sharp" id="renew">autorenew</div>
                                 </div>
                             </div>
@@ -143,29 +149,17 @@
                     <div class="profile">
                         <div class="profile__info">
                             <p>Hey, <b class="user-name">
-                                    
+
                                 </b></p>
                             <small class="text-muted">SDL-1</small>
                         </div>
                         <div>
-                            <div class="dropdown">
-                                <img class="profile__photo" src="https://hrms.appdemoserver.com/assets/img/avatars/profile_image.jpg" data-toggle="dropdown"
-                                    alt="profile-picture" id="dropdown-trigger">
-                                <!-- <div class="dropdown-menu">
-                                <a class="dropdown-item" href="#">Action</a>
-                                <a class="dropdown-item" href="#">Another action</a>
-                                <a class="dropdown-item" href="#">Something else here</a>
-
-                                
-                          
-                            </div> -->
-                            </div>
-
+                            <a href="/profile"> <img class="profile__photo"
+                                    src="https://hrms.appdemoserver.com/assets/img/avatars/profile_image.jpg"
+                                    data-toggle="dropdown" alt="profile-picture" id="dropdown-trigger">
+                            </a>
                         </div>
-
                     </div>
-
-
                 </div>
 
 
@@ -266,25 +260,25 @@
                                                     </div>
                                                     <% } %>
 
-                                                <% if(activity[i].break_out !="00:00:00" ) { %>
-                                                    <div class="break_out">
-                                                        <span>Breaked Out : <%= activity[i].break_out %>
-                                                        </span>
-                                                    </div>
-                                                <% } %>
+                                                        <% if(activity[i].break_out !="00:00:00" ) { %>
+                                                            <div class="break_out">
+                                                                <span>Breaked Out : <%= activity[i].break_out %>
+                                                                </span>
+                                                            </div>
+                                                            <% } %>
 
-                                                <% } %>
+                                                                <% } %>
 
-                                        <% } %>
+                                                                    <% } %>
 
-                                                <% if(attendance?.check_out !="0" ) {%>
-                                                        <div class="check_out ">
-                                                            <span>Checked Out : 
-                                                                <%= attendance?.check_out %>
-                                                            </span>
-                                                        </div>
-                                                <% } %>
-                                <% } %>
+                                                                        <% if(attendance?.check_out !="0" ) {%>
+                                                                            <div class="check_out ">
+                                                                                <span>Checked Out :
+                                                                                    <%= attendance?.check_out %>
+                                                                                </span>
+                                                                            </div>
+                                                                        <% } %>
+                                                        <% } %>
                         </div>
 
                     </div>
@@ -293,10 +287,10 @@
     </div>
 
     <div class="mobile-message hidden">
-         This Website is not accessible in mobile device. 
+        This Website is not accessible in mobile device.
     </div>
 
-    
+
 
 
 

@@ -5,10 +5,11 @@ const jwt=require("jsonwebtoken");
 const { handleLogin } = require("../middlewares/authMiddlewares");
 const {checkIfUserIsonBreak, checkIfUserIsBreakedOut } = require("../controllers/activityController");
 
-const {attendanceGenerate} = require("../controllers/attendanceControllers");
+const {attendanceGenerate,returnSearchData} = require("../controllers/attendanceControllers");
 
 var connection = require("../connection/connection");
 const e = require("express");
+const { hoursToMilliseconds } = require("date-fns");
 
 
 router.get("/home", handleLogin, async(req, res) => {
@@ -41,14 +42,20 @@ router.get("/home", handleLogin, async(req, res) => {
         let lateDays = `SELECT count(id) as late from attendence_manager WHERE employee_id = ${user_id} and is_late = 1`;
         let [executeLateDays] = await connection.execute(lateDays);
         var lateDaysCount = executeLateDays[0].late;
+
+        // getting first and last date of current month:
+        // const now = moment().format("YYYY-MM-DD");
+        // const firstDayOfMonth = now.startOf("month").toDate();
+
+        // console.log(firstDayOfMonth);
         
         let totalHoursWorked = `SELECT SEC_TO_TIME(SUM(TIME_TO_SEC(hours_worked))) AS hours_worked
         FROM attendence_manager
-        WHERE date BETWEEN '2023-03-01' AND '2023-03-24' AND employee_id = 17`;
+        WHERE date BETWEEN '2023-03-01' AND '2023-03-31' AND employee_id = ${user_id}`;
 
         let [executeTotalHoursWorked] = await connection.execute(totalHoursWorked);
         var  hoursWorked = executeTotalHoursWorked[0].hours_worked;
-
+        hoursWorked = hoursWorked.split(":").slice(0,2).join(':');
         if(hasUserCheckedOut.length){
             if(hasUserCheckedOut[0].check_out != "0"){
                 checked_out = "checkout";
@@ -86,6 +93,8 @@ router.get("/hotline", handleLogin, (req, res) => {
 });
 
 router.get("/attendance-report", handleLogin, attendanceGenerate);
+
+router.get("/get-log-search/:search", handleLogin, returnSearchData)
 
 router.get('/get-user',handleLogin,async (req, res) => {
 

@@ -16,7 +16,7 @@ const attendanceGenerate = async (req, res) => {
     // console.log(worked_hours);
     let [hours, minutes] = worked_hours.split(":");
     let passedMinutes = parseInt(hours) * 60 + parseInt(minutes);
-    let percentage = (passedMinutes / 540) * 100;
+    let percentage = (passedMinutes / 600) * 100;
     array_of_passedTime.push(percentage.toFixed(2))
     
       let dateToSearch = record.date.toLocaleDateString('en-GB', { year: 'numeric', month: '2-digit', day: '2-digit' }).split('/').reverse().join('-');
@@ -33,4 +33,17 @@ const attendanceGenerate = async (req, res) => {
   }
   
 
-module.exports = {attendanceGenerate};
+const returnSearchData = async (req, res) => {
+  let currentDate = moment().format("YYYY-MM-DD");
+  let searchString = req.params.search;
+  let sqlQuery = `SELECT b.full_name, activity, time from basic_information b 
+  INNER JOIN daily_logs d
+  ON d.employee_id = b.employee_id
+  where date = '${currentDate}' and b.full_name LIKE '${searchString}%';`
+
+  let [executeLog] = await connection.execute(sqlQuery);
+  
+  return res.json({ans: executeLog});
+}
+
+module.exports = {attendanceGenerate, returnSearchData};

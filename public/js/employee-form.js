@@ -209,7 +209,7 @@ document.querySelector('form').addEventListener('submit', function (e) {
     let raw_dob=document.querySelector('#dob').value;
     let dob=raw_dob.split('/');
 
-    basic_details.dob=`${dob[2]}-${dob[1]}-${dob[0]}`;
+    basic_details.dob=`${dob[2]}-${dob[0]}-${dob[1]}`;
 
     basic_details.email=document.querySelector('#email').value;
     basic_details.gender=document.querySelector('#gender').value;
