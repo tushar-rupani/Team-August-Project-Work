@@ -43,6 +43,8 @@ const checkInHandler = async (req, res) => {
       if(executeInsert){
          let insertIntoLogs = `INSERT INTO daily_logs(employee_id, activity, date, time) VALUES (${currentEmployee}, "Checked In", '${currentDate}', '${time}')`;
          let [executeLogs] = await connection.execute(insertIntoLogs); 
+         let updateStatus = `update status set status ='online' where employee_id = ${currentEmployee}`;
+         let [status] = await connection.execute(updateStatus); 
       }
       return res.json({status: "DONE", checkInTime: time})
       
@@ -50,6 +52,8 @@ const checkInHandler = async (req, res) => {
    catch(e){
       console.log(e);
    }
+
+
 }
 
 
@@ -103,6 +107,8 @@ const checkOutHandler = async (req, res) => {
       if(executeUpdateQuery){
          let insertIntoLogs = `INSERT INTO daily_logs(employee_id, activity, date, time) VALUES (${currentEmployee}, "Checked Out", '${currentDate}', '${time}')`;
          let [executeLogs] = await connection.execute(insertIntoLogs); 
+         let updateStatus = `update status set status ='offline' where employee_id = ${currentEmployee}`;
+         let [status] = await connection.execute(updateStatus); 
          return res.json({status: "DONE", checkOutTime: time});
       }
    }catch(e){
@@ -149,6 +155,8 @@ const breakInHandler = async (req, res) => {
       if(executeInsertForBreak){
          let insertIntoLogs = `INSERT INTO daily_logs(employee_id, activity, date, time) VALUES (${currentEmployee}, "Breaked In", '${currentDate}', '${time}')`;
          let [executeLogs] = await connection.execute(insertIntoLogs); 
+         let updateStatus = `update status set status ='onBreak' where employee_id = ${currentEmployee}`;
+         let [status] = await connection.execute(updateStatus); 
          return res.json({status: "DONE", breakInTime: time});
       }
    }
@@ -179,7 +187,6 @@ const breakOutHander = async (req, res) => {
       var startTime = moment(breakedInTime, "hh:mm:ss");
       var currentTime = moment();
       var secDiff = currentTime.diff(startTime, "seconds");
-      // console.log("sec differemce",secDiff);
       let time = moment().format("HH:mm:ss");
 
 
@@ -191,6 +198,8 @@ const breakOutHander = async (req, res) => {
       let executeUpdate = await connection.execute(updateBreakOut);
 
       if(executeUpdate && executeLogs){
+         let updateStatus = `update status set status ='online' where employee_id = ${currentEmployee}`;
+         let [status] = await connection.execute(updateStatus); 
          return res.json({status: "DONE", breakOutTime: time});
       }
    }catch(e){
