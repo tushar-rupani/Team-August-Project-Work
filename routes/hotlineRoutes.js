@@ -15,7 +15,7 @@ router.get("/hotline/user/:status", handleLogin, async (req, res) => {
     try {
         let findUser = `select bi.full_name,bi.profile_pic,cr.designation,cr.department,cr.join_date,ci.contact_no,r.email from basic_information bi INNER JOIN company_relation cr ON bi.employee_id = cr.employee_id INNER JOIN contact_information ci ON bi.employee_id = ci.employee_id INNER JOIN register r ON bi.employee_id = r.id INNER JOIN status s on bi.employee_id = s.employee_id where s.status='${status}'`;
         let [users] = await connection.execute(findUser);
-    
+        
         res.status(200).json({ users});
 
     } catch (err) {
