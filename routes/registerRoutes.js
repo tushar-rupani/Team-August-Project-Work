@@ -15,6 +15,10 @@ app.post("/login", loginController);
 
 app.get("/activate", renderActivatePage);
 
+app.get("/suspend", (req,res)=>{
+    res.render("suspend");
+});
+
 app.get("/activate-account/:token", activateLinkController);
 
 app.post("/check-user-email", checkEmailExistController);
