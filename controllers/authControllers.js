@@ -16,8 +16,6 @@ const loginController = async (req, res) => {
   const loginErrors = {};
   const { email, password } = req.body;
   
-  
-  
   let results;
   let query = `SELECT * FROM register where email = '${email}'`;
   try {

@@ -53,7 +53,7 @@ checkOut.addEventListener("click", async(e) => {
 if(checkIn){
 
 checkIn.addEventListener("click", async (e) => {
-    let ans = await fetch("http://localhost:3000/activity/check-in");
+    let ans = await fetch("/activity/check-in");
     let data = await ans.json();
 
     if (data["status"] == "DONE") {
@@ -133,7 +133,7 @@ breakOut.addEventListener("click", async(e) => {
 
 
 async function checkOutData() {
-    let ans = await fetch("http://localhost:3000/activity/check-out");
+    let ans = await fetch("/activity/check-out");
     let data = await ans.json();
 
     if (data["status"] == "DONE") {
@@ -150,7 +150,7 @@ async function checkOutData() {
     }
 }
 async function breakOutData(){
-    let ans = await fetch("http://localhost:3000/activity/break-out");
+    let ans = await fetch("/activity/break-out");
     let data = await ans.json();
     if(data["status"] == "DONE"){
         let checkInSpan = document.getElementById("backlog");
@@ -170,7 +170,7 @@ async function breakOutData(){
 }
 
 async function breakInData(){
-    let ans = await fetch("http://localhost:3000/activity/break-in");
+    let ans = await fetch("/activity/break-in");
     let data = await ans.json();
     if(data["status"] == "DONE"){
         let checkInSpan = document.getElementById("backlog");
@@ -227,7 +227,7 @@ ThemeToggler.addEventListener("click", () => {
 
 async function getUserInfo() {
     try {
-        let res = await fetch(`http://localhost:3000/self/get-user`);
+        let res = await fetch(`/self/get-user`);
     
         let {user_data} = await res.json();
     
@@ -243,42 +243,15 @@ async function getUserInfo() {
 
 getUserInfo();
 
+var container = document.getElementById("logs-container");
 async function gettingLogData(){
-  let res = await fetch(`http://localhost:3000/self/logs`);
+  let res = await fetch(`/self/logs`);
   let data = await res.json();
   let logs = data["logs"];
-  console.log(logs);
   if(data){
-      let container = document.getElementById("logs-container");
       container.innerHTML = ``;
       logs.forEach(log => {
-          console.log(log.activity);
-          if(log.activity == "Checked In"){
-              container.innerHTML += `<div class="activity-log">
-              <div class="card-title-small">${log.full_name}</div>
-              <div class="checkin-text activity-log-text">Checked In</div>
-              <div class="log-time">${log.time}</div>
-          </div>`}
-          else if(log.activity == "Checked Out"){
-              container.innerHTML += `<div class="activity-log">
-              <div class="card-title-small">${log.full_name}</div>
-              <div class="checkout-text activity-log-text">Checked Out</div>
-              <div class="log-time">${log.time}</div>
-          </div>`}
-          else if(log.activity == "Breaked Out"){
-              container.innerHTML += `<div class="activity-log">
-              <div class="card-title-small">${log.full_name}</div>
-              <div class="breakout-text activity-log-text">Breaked Out</div>
-              <div class="log-time">${log.time}</div>
-          </div>`
-          }
-          else if(log.activity == "Breaked In"){
-              container.innerHTML += `<div class="activity-log">
-              <div class="card-title-small">${log.full_name}</div>
-              <div class="breakin-text activity-log-text">Breaked In</div>
-              <div class="log-time">${log.time}</div>
-          </div>`
-          }
+          fillingLogs(log)
       });
   }
 }
@@ -287,5 +260,100 @@ gettingLogData();
 renew.addEventListener("click", (e) => {
   gettingLogData();
 })
+
+
+let search = document.getElementById("search");
+
+  async function debounceFuncForLogs(value){
+    let res = await fetch(`/self/get-log-search/${value}`);
+    let data = await res.json();
+    let logs = data["ans"];
+    container.innerHTML = ``;
+    logs.forEach(log => {
+      fillingLogs(log);
+    })
+  }
+
+  let timer;
+  search.addEventListener("keyup", async(e) => {
+  container.innerHTML = `Loading...`;
+  if(e.target.value == ""){
+    gettingLogData();
+    return;
+  }
+  clearTimeout(timer);
+  timer = setTimeout(() => debounceFuncForLogs(e.target.value), 2000);
+    
+})
+
+function validate_comment() {
+  var value=document.getElementById("text").value;
+  if (value == "") {
+    document.getElementById("submit").disabled = true;
+    document.getElementById("submit").classList.add("disabling");
+    return false;
+  }
+  
+  else {  
+    document.getElementById("submit").disabled = false;
+    document.getElementById("submit").classList.remove("disabling");
+    console.log(document.getElementById("submit").disabled);
+      return true;
+  }
+
+}
+
+async function addcomment() {
+  let comment = document.getElementById("text").value;
+  const res = await fetch(`/activity/add-comment`, {
+      method: "POST",
+      headers: {
+          'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+          data: comment
+      })
+  });
+
+  const data = await res.json();
+  if(data){
+    document.getElementById("text").value = "";
+    let commentWrapper = document.getElementById("comment-wrapper");
+    commentWrapper.innerHTML += ` <div class="see-comment" id="see-comment">
+    <p>${data["comment"]["data"]}</p>
+    </div>`
+  swal("Comment has been added, we'll get back to you shortly.")
+  }
+}
+
+
+function fillingLogs(log){
+  if(log.activity == "Checked In"){
+    container.innerHTML += `<div class="activity-log">
+    <div class="card-title-small">${log.full_name}</div>
+    <div class="checkin-text activity-log-text">Checked In</div>
+    <div class="log-time">${log.time}</div>
+</div>`}
+else if(log.activity == "Checked Out"){
+    container.innerHTML += `<div class="activity-log">
+    <div class="card-title-small">${log.full_name}</div>
+    <div class="checkout-text activity-log-text">Checked Out</div>
+    <div class="log-time">${log.time}</div>
+</div>`}
+else if(log.activity == "Breaked Out"){
+    container.innerHTML += `<div class="activity-log">
+    <div class="card-title-small">${log.full_name}</div>
+    <div class="breakout-text activity-log-text">Breaked Out</div>
+    <div class="log-time">${log.time}</div>
+</div>`
+}
+else if(log.activity == "Breaked In"){
+    container.innerHTML += `<div class="activity-log">
+    <div class="card-title-small">${log.full_name}</div>
+    <div class="breakin-text activity-log-text">Breaked In</div>
+    <div class="log-time">${log.time}</div>
+</div>`
+}
+}
 
 

@@ -26,6 +26,7 @@
     <link rel="stylesheet" href="/css/style.css">
 
 
+
 </head>
 
 <body>
@@ -50,11 +51,15 @@
                             <div class="record">
                                 <div class="row1">
                                     <span class="card-title-small">Attandance</span>
-                                    <p> 12 Day</p>
+                                    <p>
+                                        <%= attendanceDays %> Days
+                                    </p>
                                 </div>
                                 <div class="row1">
                                     <span class="card-title-small">Late</span>
-                                    <p> 2 Day</p>
+                                    <p>
+                                        <%= lateDaysCount %> Days
+                                    </p>
                                 </div>
                                 <div class="row1">
                                     <span class="card-title-small">Absent</span>
@@ -66,7 +71,9 @@
                                 </div>
                                 <div class="row1">
                                     <span class="card-title-small">Worked Hours</span>
-                                    <p> 12 Day</p>
+                                    <p>
+                                        <%= hoursWorked %> Hours
+                                    </p>
                                 </div>
 
                             </div>
@@ -80,12 +87,19 @@
                             <div class="hr-line"></div>
                             <div class="add_comment">
                                 <div class="input">
-                                    <input type="text" placeholder="Type here..">
+                                    <input type="text" placeholder="Type here.."  id="text" onkeyup="validate_comment()">
                                 </div>
                                 <div>
-                                    <button>Comment</button>
+                                    <button id="submit" onclick="addcomment()" class="disabling" disabled>Comment</button>
                                 </div>
                             </div>
+                            <div id="comment-wrapper">
+                            <% for(var i=0; i<commentResult.length; i++){%>
+                                <div class="see-comment" id="see-comment">
+                                   <p> <%= commentResult[i].comment %></p>
+                                </div>
+                            <%}%>
+                        </div>
                         </div>
 
 
@@ -101,7 +115,7 @@
                                     <h3 class="card-title">Today's Employee Activities</h3>
                                 </div>
                                 <div class="activity-search">
-                                    <input type="text" placeholder="Search here..">
+                                    <input type="text" placeholder="Search here.." name="search" id="search">
                                     <div class="material-icons-sharp" id="renew">autorenew</div>
                                 </div>
                             </div>
@@ -142,29 +156,17 @@
                     <div class="profile">
                         <div class="profile__info">
                             <p>Hey, <b class="user-name">
-                                    
+
                                 </b></p>
                             <small class="text-muted">SDL-1</small>
                         </div>
                         <div>
-                            <div class="dropdown">
-                                <img class="profile__photo" src="https://hrms.appdemoserver.com/assets/img/avatars/profile_image.jpg" data-toggle="dropdown"
-                                    alt="profile-picture" id="dropdown-trigger">
-                                <!-- <div class="dropdown-menu">
-                                <a class="dropdown-item" href="#">Action</a>
-                                <a class="dropdown-item" href="#">Another action</a>
-                                <a class="dropdown-item" href="#">Something else here</a>
-
-                                
-                          
-                            </div> -->
-                            </div>
-
+                            <a href="/profile"> <img class="profile__photo"
+                                    src="https://hrms.appdemoserver.com/assets/img/avatars/profile_image.jpg"
+                                    data-toggle="dropdown" alt="profile-picture" id="dropdown-trigger">
+                            </a>
                         </div>
-
                     </div>
-
-
                 </div>
 
 
@@ -265,31 +267,38 @@
                                                     </div>
                                                     <% } %>
 
-                                                <% if(activity[i].break_out !="00:00:00" ) { %>
-                                                    <div class="break_out">
-                                                        <span>Breaked Out : <%= activity[i].break_out %>
-                                                        </span>
-                                                    </div>
-                                                <% } %>
+                                                        <% if(activity[i].break_out !="00:00:00" ) { %>
+                                                            <div class="break_out">
+                                                                <span>Breaked Out : <%= activity[i].break_out %>
+                                                                </span>
+                                                            </div>
+                                                            <% } %>
 
-                                                <% } %>
+                                                                <% } %>
 
-                                        <% } %>
+                                                                    <% } %>
 
-                                                <% if(attendance?.check_out !="0" ) {%>
-                                                        <div class="check_out ">
-                                                            <span>Checked Out : 
-                                                                <%= attendance?.check_out %>
-                                                            </span>
-                                                        </div>
-                                                <% } %>
-                                <% } %>
+                                                                        <% if(attendance?.check_out !="0" ) {%>
+                                                                            <div class="check_out ">
+                                                                                <span>Checked Out :
+                                                                                    <%= attendance?.check_out %>
+                                                                                </span>
+                                                                            </div>
+                                                                        <% } %>
+                                                        <% } %>
                         </div>
 
                     </div>
                 </div>
             </div>
     </div>
+
+    <div class="mobile-message hidden">
+        This Website is not accessible in mobile device.
+    </div>
+
+
+
 
 
     <script src="https://kit.fontawesome.com/30e122f54b.js" crossorigin="anonymous"></script>
