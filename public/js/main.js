@@ -40,11 +40,11 @@ checkOut.addEventListener("click", async(e) => {
           },
         },
       })
-      .then((value) => {
+      .then(async (value) => {
         switch (value) {
           case "Yes":
-            checkOutData();
-            // gettingLogData();
+            await checkOutData();
+            await gettingLogData();
             break;
         }
       });
@@ -92,11 +92,11 @@ breakIn.addEventListener("click", async(e) => {
           },
         },
       })
-      .then((value) => {
+      .then(async (value) => {
         switch (value) {
           case "Yes":
-            breakInData();
-            // gettingLogData();
+            await breakInData();
+            await gettingLogData();
             break;
         }
       });
@@ -118,11 +118,11 @@ breakOut.addEventListener("click", async(e) => {
           },
         },
       })
-      .then((value) => {
+      .then(async (value) => {
         switch (value) {
           case "Yes":
-            breakOutData();
-            // gettingLogData();
+            await breakOutData();
+            await gettingLogData();
             break;
         }
       });

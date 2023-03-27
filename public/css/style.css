@@ -659,10 +659,13 @@ button .text {
 
 .see-comment{
     margin-top: 10px;
-    background-color: #efefef;
+    background-color: #588adf17;
     padding: 10px;
     border-radius: 10px;
     text-transform: capitalize;
+    border: 1px solid #a8bee5a6;
+    color: gray;
+    font-weight: 400;
 }
 
 #dropdown-menu {
