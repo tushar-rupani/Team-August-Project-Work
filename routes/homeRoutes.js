@@ -61,9 +61,7 @@ router.get("/home", handleLogin, async (req, res) => {
       }
     }
     let qry_show = `SELECT * FROM comments where employee_id = ${user_id} and date ='${currentDate}' order by id DESC`;
-    console.log(qry_show);
     var [commentResult] = await connection.execute(qry_show);
-    console.log(commentResult);
 
   } catch (e) {
     console.log(e);
@@ -103,9 +101,6 @@ router.get("/logs", handleLogin, async (req, res) => {
   return res.status(200).json({ logs: executeDailyLogs });
 });
 
-router.get("/hotline", handleLogin, (req, res) => {
-  res.render("hotline", { activatePage: "hotline" });
-});
 
 router.get("/attendance-report", handleLogin, attendanceGenerate);
 
