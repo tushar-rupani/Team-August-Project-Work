@@ -9,8 +9,23 @@ const attendanceGenerate = async (req, res) => {
     var array_of_break = [];
     var array_of_passedTime = [];
 
+    let getLeaves = `SELECT count(*) as leaves FROM leave_request where employee_id = ${user_id} and leave_status = 'accepted'`;
+    let [executeLeaves] = await connection.execute(getLeaves);
+    var leave_data = 0;
+    if(executeLeaves){
+       leave_data = executeLeaves[0]?.leaves;
+    }
 
-    let getWorkingDaysOfUser = `SELECT count(*) as days from attendence_manager where employee_id = ${user_id}`;
+    let getHalf = `SELECT count(*) as half FROM leave_request where employee_id = ${user_id} and leave_status = 'accepted' and half_day = 1`;
+    let [executeHalf] = await connection.execute(getHalf);
+    var half_data = 0;
+    if(executeHalf){
+       half_data = executeHalf[0]?.half;
+    }
+
+    const startOfMonth = moment().startOf('month').format('YYYY-MM-DD');
+    const endOfMonth   = moment().endOf('month').format('YYYY-MM-DD');
+    let getWorkingDaysOfUser = `SELECT count(*) as days from attendence_manager where date BETWEEN '${startOfMonth}' AND '${endOfMonth}' AND employee_id = ${user_id}`;
     let [executeGetWorkingDays] = await connection.execute(getWorkingDaysOfUser);
     if(executeGetWorkingDays){
       var totalWorkingDays = executeGetWorkingDays[0]?.days;
@@ -30,17 +45,8 @@ const attendanceGenerate = async (req, res) => {
     // console.log(worked_hours);
     let [hours, minutes] = worked_hours.split(":");
     let passedMinutes = parseInt(hours) * 60 + parseInt(minutes);
-    let percentage = (passedMinutes / 600) * 100;
+    let percentage = (passedMinutes / 540) * 100;
     array_of_passedTime.push(percentage.toFixed(2))
-    
-      let dateToSearch = record.date.toLocaleDateString('en-GB', { year: 'numeric', month: '2-digit', day: '2-digit' }).split('/').reverse().join('-');
-      let timeForThatDay = `SELECT duration from break_manager where created_date = '${dateToSearch}' and employee_id = ${user_id}`;
-      let [getTimeForThatDay] = await connection.execute(timeForThatDay);
-      let initial_time = 0;
-      getTimeForThatDay.forEach(data => {
-        initial_time += parseInt(data.duration);
-      });
-      array_of_break.push(initial_time);
     }
     let finalMinutes = 0;
     for(const work of array_of_worked_hours){
@@ -49,14 +55,12 @@ const attendanceGenerate = async (req, res) => {
       finalMinutes += mins;
     }
     finalMinutes = finalMinutes.toFixed(0);
-    // console.log(finalMinutes);
 
     const duration = moment.duration(finalMinutes, "minutes");
     const hoursWorked = duration.asHours().toFixed(0);
 
     const workingRatio = (hoursWorked / getTotalOfficeHours) * 100;
-    let formattedTimes = array_of_break.map(sec => moment.utc(sec * 1000).format('H:mm'));
-    res.render("attendance", { activatePage: "attendance", getTotalOfficeHours, workingRatio, hoursWorked, totalWorkingDays, lateDaysCount, executeGetRecords, formattedTimes, array_of_passedTime });
+    res.render("attendance", { activatePage: "attendance", getTotalOfficeHours, workingRatio, hoursWorked, totalWorkingDays, lateDaysCount, executeGetRecords, array_of_passedTime, leave_data, half_data });
   }
   
 
@@ -77,9 +81,14 @@ const returnSearchData = async (req, res) => {
 const filterDataByDate = async (req, res) => {
   let start = req.params.startDate;
   let end = req.params.endDate;
+  console.log(start, end);
   let user_id = req.session.user;
   let getAllRecords = `SELECT * from attendence_manager where employee_id = ${user_id} and date between '${end}' and '${start}' order by id desc`;
+  console.log(getAllRecords);
   let [executeGetRecords] = await connection.execute(getAllRecords);
+  if(executeGetRecords){
+    return res.json({data: executeGetRecords})
+  }
   
 }
 

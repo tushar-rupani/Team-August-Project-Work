@@ -84,11 +84,11 @@
                         </div>
                         <div class="card-1" id="three">
                             <p>Absent</p>
-                            <p>10</p>
+                            <p><%= leave_data %> Days</p>
                         </div>
                         <div class="card-1" id="four">
                             <p>Half Days</p>
-                            <p>10</p>
+                            <p><%= half_data %> Days</p>
                         </div>
                         <div class="card-1" id="five">
                             <p>Total Office Hours</p>
@@ -105,8 +105,9 @@
                     </div>
                     <div class="data">
                         <input class="i-data" type="date" id="date">
-                        <input class="i-data" type="date" onchange="getData(this)">
+                        <input class="i-data" type="date" onchange="getData(this)" >
                     </div>
+                    <div id="table">
                     <table class="tab">
                         <tr>
                             <div class="column">
@@ -145,7 +146,7 @@
                                     <% } %>
                                 </div>
                                 <div class="col">
-                                    <p><%= formattedTimes[i] %></p>
+                                    <p><%= executeGetRecords[i].break_taken %></p>
                                 </div>
                                 <div class="col">
                                     <!-- <progress id="file" max="100" value="<%= array_of_passedTime[i] %>" class="red" style="background-color: red;"></progress> -->
@@ -165,20 +166,66 @@
                         <% } %>
 
                         
-                    </table>                
+                    </table>  
+                </div>              
             </div>
         </main>
     </div> 
 </body>
 <script>
-document.getElementById('date').valueAsDate = new Date();
 
 async function getData(e){
     let startDate = e.value;
     let endDate = document.getElementById("date").value;
     const resp = await fetch(`/self/filter-data/${startDate}/${endDate}`);
     const data = await resp.json();
-    console.log(data);
+    if(data){
+        document.querySelector("#table").innerHTML = `<table class="tab">
+                        <tr>
+                            <div class="column">
+                                <div class="col">
+                                    <h4>Date</h4>
+                                </div>
+                                <div class="col">
+                                    <h4>Entry-Time</h4>
+                                </div>
+                                <div class="col">
+                                    <h4>Exit-Time</h4>
+                                </div>
+                                <div class="col">
+                                    <h4>Break-time</h4>
+                                </div>
+                               
+                                <div class="col">
+                                    <h4>Working-hours</h4>
+                                </div>
+                        </tr>`;
+        data["data"].forEach(element => {
+            document.querySelector("#table").innerHTML += `
+            <tr>
+                            <div class="column2">
+                                <div class="col">
+                                    <p> ${element.date.substr(0,10)} %></p>
+                                </div>
+                                <div class="col">
+                                    <p> ${element.check_in} </p>
+                                </div>
+                                <div class="col">
+                                    <p>${element.check_out}</p>
+                                   
+                                </div>
+                                <div class="col">
+                                    <p>${element.break_taken}</p>
+                                </div>
+                                
+                                <div class="col">
+                                    <p>${element.hours_worked}</p>
+                                </div>
+                            </div>
+                        </tr>
+            `; 
+        });
+    }
 }
 </script>
 </html>
