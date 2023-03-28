@@ -13,23 +13,9 @@ function checkIfTokenExists(req, res, next) {
 async function handleLogin(req, res, next) {
     if (!req.session.user) {
         return res.redirect("/")
-    } else {
-        let emp_id = req.session.user;
-
-        let check_emp_details = `select * from basic_information where employee_id = '${emp_id}'`;
-        try {
-            let [hasData] = await connection.execute(check_emp_details);
-
-            if (hasData.length === 0) {
-                return res.redirect("/employee-form");
-            }
-
-        } catch (e) {
-            console.log(e);
-        }
-
     }
     next();
+    
 }
 
 function checkIfLoggedIn(req, res, next) {
@@ -58,4 +44,4 @@ async function hasEmployeeData(req, res, next) {
     }
 }
 
-module.exports = { checkIfTokenExists, handleLogin, checkIfLoggedIn,hasEmployeeData };
+module.exports = { checkIfTokenExists, handleLogin, checkIfLoggedIn };

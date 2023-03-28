@@ -1,10 +1,10 @@
-*{
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-body{
+body {
     min-height: 100vh;
     background: url('../assets/company.jpg');
     background-size: cover;
@@ -101,10 +101,10 @@ label {
 }
 
 .card-footer {
-    border-top: 0!important;
+    border-top: 0 !important;
 }
 
-.update{
+.update {
     position: relative;
     right: 30px;
 }
@@ -380,27 +380,37 @@ input[type="file"] {
 
 div#wrapper {
     width: 1086px;
-    margin: 0 auto; 
+    margin: 0 auto;
 }
 
-#wrapper{
+#wrapper {
     margin-bottom: 30px;
 }
 
-form{
+form {
     margin-bottom: 30px;
 }
 
-#content-wrapper{
+#content-wrapper {
     margin-bottom: 30px;
     border-radius: 10px;
 }
 
-#btnNext{
+#btnNext {
     margin-top: 20px;
 }
 
-.disabled-submit{
+.disabled-submit {
     opacity: 0.4;
     cursor: not-allowed;
+}
+
+#contactnextbtn {
+    position: relative;
+    left: -35px;
+}
+
+.err_msg {
+    color: red;
+    padding-top: 5px;
 }
