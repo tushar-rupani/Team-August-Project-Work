@@ -399,3 +399,8 @@ form{
 #btnNext{
     margin-top: 20px;
 }
+
+.disabled-submit{
+    opacity: 0.4;
+    cursor: not-allowed;
+}

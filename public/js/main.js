@@ -70,7 +70,7 @@ checkIn.addEventListener("click", async (e) => {
         checkOut.classList.remove("disabling")
         checkOut.disabled = false;
 
-        // gettingLogData();
+        gettingLogData();
 
     }
     else if(data["status"] == "ERROR"){
@@ -141,7 +141,7 @@ async function checkOutData() {
         checkInSpan.innerHTML += ` <div class="check_out">
         <span>Checked Out : ${data["checkOutTime"]}</span>
     </div> `
-
+      
     buttons.innerHTML = ``;
     recent.innerHTML += `<div class="final_message"><i class="fa-solid fa-face-smile" style="color: #ffffff;"></i> Thank you for your presence</div> `;
     }

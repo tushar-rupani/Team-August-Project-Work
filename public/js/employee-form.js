@@ -251,5 +251,10 @@ document.querySelector('form').addEventListener('submit', function (e) {
     
     sendData(data);
 
+    let submit_btn=document.querySelector('.update');
+
+    submit_btn.classList.add('disabled-submit');
+    submit_btn.disabled=true;
+
 });
 

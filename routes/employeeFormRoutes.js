@@ -1,4 +1,4 @@
-const { handleLogin } = require("../middlewares/authMiddlewares");
+const { handleLogin,hasEmployeeData } = require("../middlewares/authMiddlewares");
 const express = require("express");
 const router = express.Router();
 const {v4 : uuidv4} = require('uuid')
@@ -21,7 +21,7 @@ const storage=multer.diskStorage({
 const upload = multer({ storage: storage});
 
 
-router.get("/employee-form", handleLogin, renderForm);
+router.get("/employee-form", handleLogin,hasEmployeeData, renderForm);
 
 router.post("/employee-form",handleLogin,upload.array('file',5),saveData);
 
