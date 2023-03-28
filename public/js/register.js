@@ -75,7 +75,7 @@ repassword.addEventListener("keyup", (e) => {
 
 async function checkIfExistsEmail(e, event) {
     let userEntered = e.value;
-    let ans = await fetch("http://localhost:3000/check-user-email", {
+    let ans = await fetch("/check-user-email", {
         method: "POST",
         headers: {
             'Content-Type': 'application/json'
@@ -118,16 +118,16 @@ loginFrom.addEventListener('submit',async function(e){
     
     let email=document.querySelector('#lg-email').value;
     let password=document.querySelector('#lg-password').value;
-    
+    let ip = document.querySelector("#user-ip").value;
 
     try {
-        const response = await fetch(`http://localhost:3000/login`, {
+        const response = await fetch(`/login`, {
             method: 'POST',
             headers: {
                 'Content-type': 'application/json'
             },
             credentials: 'same-origin',
-            body:JSON.stringify({email,password})
+            body:JSON.stringify({email,password, ip})
         });
 
         let res = await response.json();
@@ -149,5 +149,14 @@ loginFrom.addEventListener('submit',async function(e){
     }
     
 });
+async function getIP(){
+    let ipDetails = await fetch("https://api.ipify.org/?format=json")
+    let resp = await ipDetails.json();
+    console.log(resp);
+    let userIp = resp.ip;
+    document.getElementById("ip").innerHTML = `
+    <input type="hidden" value="${userIp}" name="userIP" id="user-ip"/>
+    `
+}
 
-
+getIP();

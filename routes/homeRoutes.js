@@ -11,6 +11,7 @@ const {
 const {
   attendanceGenerate,
   returnSearchData,
+  filterDataByDate
 } = require("../controllers/attendanceControllers");
 
 var connection = require("../connection/connection");
@@ -61,9 +62,7 @@ router.get("/home", handleLogin, async (req, res) => {
       }
     }
     let qry_show = `SELECT * FROM comments where employee_id = ${user_id} and date ='${currentDate}' order by id DESC`;
-    console.log(qry_show);
     var [commentResult] = await connection.execute(qry_show);
-    console.log(commentResult);
 
   } catch (e) {
     console.log(e);
@@ -108,6 +107,8 @@ router.get("/hotline", handleLogin, (req, res) => {
 });
 
 router.get("/attendance-report", handleLogin, attendanceGenerate);
+
+router.get("/filter-data/:startDate/:endDate", handleLogin, filterDataByDate)
 
 router.get("/get-log-search/:search", handleLogin, returnSearchData);
 

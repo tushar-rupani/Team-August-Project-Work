@@ -75,37 +75,37 @@
                 
                      <div class="content">
                         <div class="card-1" id="one">
-                            <p>Days</p>
-                            <p>10</p>
+                            <p>Work Days</p>
+                            <p><%= totalWorkingDays %> Days</p>
                         </div>
                         <div class="card-1" id="two">
-                            <p>Days</p>
-                            <p>10</p>
+                            <p>Late Days</p>
+                            <p><%= lateDaysCount %> Days</p>
                         </div>
                         <div class="card-1" id="three">
-                            <p>Days</p>
+                            <p>Absent</p>
                             <p>10</p>
                         </div>
                         <div class="card-1" id="four">
-                            <p>Days</p>
+                            <p>Half Days</p>
                             <p>10</p>
                         </div>
                         <div class="card-1" id="five">
-                            <p>Days</p>
-                            <p>10</p>
+                            <p>Total Office Hours</p>
+                            <p><%= getTotalOfficeHours %> Hours</p>
                         </div>
                         <div class="card-1" id="six">
-                            <p>Days</p>
-                            <p>10</p>
+                            <p>Total Hours</p>
+                            <p><%= hoursWorked %> Hours</p>
                         </div>
                         <div class="card-1" id="seven">
-                            <p>Days</p>
-                            <p>10</p>
+                            <p>Productivity</p>
+                            <p><%= workingRatio.toFixed(2) %> %</p>
                         </div>
                     </div>
                     <div class="data">
-                        <input class="i-data" type="date" >
-                        <input class="i-data" type="date" >
+                        <input class="i-data" type="date" id="date">
+                        <input class="i-data" type="date" onchange="getData(this)">
                     </div>
                     <table class="tab">
                         <tr>
@@ -169,7 +169,19 @@
             </div>
         </main>
     </div> 
+</body>
+<script>
+document.getElementById('date').valueAsDate = new Date();
 
+async function getData(e){
+    let startDate = e.value;
+    let endDate = document.getElementById("date").value;
+    const resp = await fetch(`/self/filter-data/${startDate}/${endDate}`);
+    const data = await resp.json();
+    console.log(data);
+}
+</script>
+</html>
 
     
 

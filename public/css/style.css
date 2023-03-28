@@ -754,7 +754,7 @@ button .text {
     }
 
     .card .record {
-        grid-template-columns: 80% 20%;
+        grid-template-columns: 70% 30%;
     }
 }
 

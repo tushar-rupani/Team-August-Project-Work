@@ -282,7 +282,7 @@ let search = document.getElementById("search");
     return;
   }
   clearTimeout(timer);
-  timer = setTimeout(() => debounceFuncForLogs(e.target.value), 2000);
+  timer = setTimeout(() => debounceFuncForLogs(e.target.value.trim()), 2000);
     
 })
 
