@@ -47,7 +47,7 @@ const saveData = async (req, res) => {
         await con.execute(`insert into contact_information (employee_id,contact_no,emergency_contact,emergency_person_name,permenant_address,current_address) values(${ID},'${contact_info.contact}','${contact_info.emergency_contact}','${contact_info.emergency_person}','${contact_info.permanent_address}','${contact_info.current_address}')`);
         await con.execute(`insert into documents (employee_id,aadhar_path,pancard_path,cheque_path,resume_path,aadhar_no,pancard_no,cheque_no) values(${ID},'${uncompressed_files[1]}','${uncompressed_files[2]}','${uncompressed_files[3]}','${uncompressed_files[4]}','${document_info.aadhar_number}','${document_info.pan_num}','${document_info.cheque_num}')`);
         await con.execute(`insert into social_information (employee_id,twitter,linkedin,github,facebook) values(${ID},'${social.twitter}','${social.linkedin}','${social.github}','${social.facebook}')`);
-
+        await con.execute(`insert into status (employee_id) values(${ID})`);
         const user = jwt.sign(ID, "JWT_SECRET");
         res.cookie("user", user);
         res.status(200).json({ msg: "data Stored", status: 200 });

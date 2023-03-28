@@ -2,6 +2,7 @@ const express = require("express");
 const app = express();
 const authRoutes = require("./routes/registerRoutes")
 const homeRoutes = require("./routes/homeRoutes");
+const hotlineRoutes = require("./routes/hotlineRoutes");
 const activityRoutes = require("./routes/activityRoutes");
 const employeeFormRoutes = require("./routes/employeeFormRoutes");
 const profileRoutes = require("./routes/profileRoutes");
@@ -28,6 +29,7 @@ app.use(session({
 
 app.use("/", authRoutes);
 app.use("/self", homeRoutes);
+app.use("/self", hotlineRoutes);
 app.use("/activity", activityRoutes);
 app.use("/profile", profileRoutes);
 app.use("/leaves",leavesRoutes);

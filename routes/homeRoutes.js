@@ -102,9 +102,6 @@ router.get("/logs", handleLogin, async (req, res) => {
   return res.status(200).json({ logs: executeDailyLogs });
 });
 
-router.get("/hotline", handleLogin, (req, res) => {
-  res.render("hotline", { activatePage: "hotline" });
-});
 
 router.get("/attendance-report", handleLogin, attendanceGenerate);
 
