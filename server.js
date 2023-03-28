@@ -7,6 +7,7 @@ const activityRoutes = require("./routes/activityRoutes");
 const employeeFormRoutes = require("./routes/employeeFormRoutes");
 const profileRoutes = require("./routes/profileRoutes");
 const leavesRoutes = require("./routes/leavesRoutes");
+const leaveAdminRoutes = require("./routes/leaveAdminRoutes")
 const favicon = require('serve-favicon');
 
 var cookieParser = require('cookie-parser');
@@ -32,7 +33,8 @@ app.use("/self", hotlineRoutes);
 app.use("/activity", activityRoutes);
 app.use("/profile", profileRoutes);
 app.use("/leaves",leavesRoutes);
-app.use("/",employeeFormRoutes)
+app.use("/leaveadmin", leaveAdminRoutes);
+app.use("/",employeeFormRoutes);
 
 app.use(favicon(__dirname + '/public/assets/favicon.ico'));
 

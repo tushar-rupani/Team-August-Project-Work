@@ -11,6 +11,7 @@ const {
 const {
   attendanceGenerate,
   returnSearchData,
+  filterDataByDate
 } = require("../controllers/attendanceControllers");
 
 var connection = require("../connection/connection");
@@ -103,6 +104,8 @@ router.get("/logs", handleLogin, async (req, res) => {
 
 
 router.get("/attendance-report", handleLogin, attendanceGenerate);
+
+router.get("/filter-data/:startDate/:endDate", handleLogin, filterDataByDate)
 
 router.get("/get-log-search/:search", handleLogin, returnSearchData);
 

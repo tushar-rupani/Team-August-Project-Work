@@ -1,5 +1,5 @@
 async function gettingLogData(){
-    let res = await fetch(`http://localhost:3000/self/logs`);
+    let res = await fetch(`/self/logs`);
     let data = await res.json();
     let logs = data["logs"];
     if(data){

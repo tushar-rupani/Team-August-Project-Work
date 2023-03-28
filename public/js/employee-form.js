@@ -174,7 +174,7 @@ async function sendData(data){
     
 
     try {
-        const response = await fetch(`http://localhost:3000/employee-form`, {
+        const response = await fetch(`/employee-form`, {
             method: 'POST',
             body:myForm
         });

@@ -157,9 +157,8 @@ b {
 
 .dashboard {
     display: grid;
-    grid-template-columns: 50% 20%;
+    grid-template-columns: 70% 30% ;
     justify-content: space-between;
-    background-color: var(--color-white);
     padding-left: 1rem;
     }
 
@@ -421,9 +420,11 @@ button .text {
 
 
 .main-content {
-     margin-top: 24px ; 
-    padding:1rem;
+    margin-top: 24px ; 
+    padding:1.5rem;
    background-color:var(--color-white);
+   border-radius: 20px;
+   box-shadow: 0rem 0rem 18rem rgb(132 139 200 / 31%), 2px 2px 14px rgba(0, 0, 0, 0.4);
     /* border: 1px solid black; */
 }
 .content {
@@ -441,7 +442,7 @@ button .text {
     color: #fff;
     font-weight: bold;
     padding: 0.8rem;
-    font-size: large;
+    font-size: 0.9rem;
 }
 #one{
     background-color: #9b5fe0;
@@ -472,7 +473,9 @@ button .text {
 .data input{
     height: 30px;
     width:170px;
-    background-color:#dce1eb;
+    background-color:#edeffd;
+    margin-right: 10px;
+    border-radius: 3px;
     
 }
 .column-entry {
@@ -482,8 +485,10 @@ button .text {
         display: flex;
 }
 .column-entry h4{
-    font-size: 16px;
+    font-size: 14px;
     padding: 4px;
+    text-align: left;
+    margin-top: 3px;
 }
 .column{
     background-image: linear-gradient(to right bottom,#132f4c,#123957,#0e4363,#084e6e,#005978);
@@ -493,8 +498,8 @@ button .text {
     display: flex;
 }
 .column h4{
-    font-size: 16px;
-    padding: 4px;
+    font-size: 14px;
+margin: 9px;
 }
 .col {
     width:25%;
@@ -502,10 +507,20 @@ button .text {
 .col-admin{
     width:calc(100%/6);
 }
+.col p{
+    font-family: Arial, Helvetica, sans-serif;
+    color: #5e5e5e;
+    font-size: 14px !important;
+}
 .column2{
-    padding-top: 2rem;
+    padding: 1rem;
     padding-left: 0.5rem;
     display: flex;  
+    border: 0.5px solid #c8ced3;
+    cursor: pointer;
+}
+.column2:hover{
+    background-color: #f0f3f5;
 }
 .search{
     width: 12%;
@@ -630,8 +645,9 @@ button .text {
     width:20%;
 }
 .showdata {
-    border: 1px solid black;
+    border: 1px solid #e6ecf5;
     margin-top: 2rem;
+    border-radius: 10px;
 }
 .leave-status{
     font-size: larger;

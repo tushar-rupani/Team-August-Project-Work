@@ -25,6 +25,21 @@
     <script id="scripts" type="text/javascript" src="/scripts.js?c297ffc94dc8b1cc0bf99a59b92ce1f9f01f5208"></script>
     <script type="text/javascript" src="/js/leaves.js"></script>
 
+    <style>
+        .flex {
+            display: flex;
+            justify-content: center;
+            margin: 20px 0;
+            gap: 0 30px;
+            font-family: 'Hanken Grotesk', sans-serif;
+            font-weight: bolder;
+        }
+
+        p {
+            font-size: 13px !important
+        }
+    </style>
+
 </head>
 
 <body>
@@ -35,7 +50,7 @@
 
                 <div class="dashboard">
                     <div>
-                        <h1>Leave</h1>
+                        <h1>Hotline</h1>
                     </div>
                     <div>
                         <div class="gadgets-side__header">
@@ -45,14 +60,14 @@
 
                             <div class="theme-toggler">
                                 <span class="
-                          material-icons-sharp 
-                          theme-toggler__button
-                          theme-toggler__button--light
-                          theme-toggler__button--active">light_mode</span>
+                                material-icons-sharp 
+                                theme-toggler__button
+                                theme-toggler__button--light
+                                theme-toggler__button--active">light_mode</span>
                                 <span class="
-                          material-icons-sharp 
-                          theme-toggler__button--dark
-                          theme-toggler__button">dark_mode</span>
+                                material-icons-sharp 
+                                theme-toggler__button--dark
+                                theme-toggler__button">dark_mode</span>
                             </div>
 
                             <div class="profile">
@@ -67,18 +82,48 @@
                         </div>
 
                     </div>
+
                 </div>
+
                 <div class="main-content">
+                    <div class="flex">
+                        <div class="card-1" id="one">
+                            <p>Casual Leaves</p>
+                            <p>
+                                <%= leaveRemaining[0] %> out of <%= allowed[0] %>
+                            </p>
+                        </div>
+                        <div class="card-1" id="two">
+                            <p>Sick Leaves</p>
+                            <p>
+                                <%= leaveRemaining[1] %> out of <%= allowed[1] %>
+                            </p>
+                        </div>
+                        <div class="card-1" id="three">
+                            <p>Unplanned Leaves</p>
+                            <p>
+                                <%= leaveRemaining[2] %> out of <%= allowed[2] %>
+                            </p>
+                        </div>
+                        <div class="card-1" id="four">
+                            <p>Planned Leaves </p>
+                            <p>
+                                <%= leaveRemaining[3] %> out of <%= allowed[3] %>
+                            </p>
+                        </div>
+
+                    </div>
                     <div class="content">
+
                         <div class="search">
                             <input type="text" placeholder="Search...">
                         </div>
                         <div class="status">
-                            <select class="status" name="status">
+                            <select class="status" name="status" onchange="getData(this)">
                                 <option value="All">Status:All<i class="bi bi-chevron-down"></i></option>
-                                <option value="Accepted">Accepted</option>
-                                <option value="Rejected">Rejected</option>
-                                <option value="Pending">Pending</option>
+                                <option value="accepted">Accepted</option>
+                                <option value="rejected">Rejected</option>
+                                <option value="pending">Pending</option>
                                 <option value="WFH">WFH</option>
                                 <option value="Cancel">Cancel</option>
                             </select>
@@ -87,45 +132,48 @@
                             <div class="show hidden">
                                 <div class="heading">
                                     <h3>Add leave</h3>
+                                </div>
+                                <div class="leavecontent">
+                                    <div class="ldata">
+                                        <label for="ld">Leave Date
                                     </div>
-                                    <div class="leavecontent">
-                                        <div class="ldata">
-                                            <label for="ld">Leave Date
-                                        </div>
-                                        <div class="ldata">
-                                            <label for="lt">Leave Type
-                                        </div>
-                                        <div class="ldata">
-                                            <label for="hd">Half day
-                                        </div>
+                                    <div class="ldata">
+                                        <label for="lt">Leave Type
                                     </div>
-                                    <div class="leavecontent">
-                                        <div class="ld">
-                                             <input type="date" id="date" name="date" placeholder="Leave Date">
-                                        </div>
-                                        <div class="lt">
-                                             <select name="type" id="type">
-                                                <option value="SL">Sick Leave</option>
-                                                <option value="CL">Casual Leave</option>
-                                                <option value="PL">Planned Leave</option>
-                                                <option value="UPL">Unplanned Leave</option>
-                                                </select>
-                                        </div>
-                                        <div class="hdin">  
+                                    <div class="ldata">
+                                        <label for="hd">Half day
+                                    </div>
+                                </div>
+                                <div class="leavecontent">
+                                    <div class="ld">
+                                        <input type="date" id="date" name="date" placeholder="Leave Date"
+                                            min="<%= currentDate %>">
+                                    </div>
+                                    <div class="lt">
+                                        <select name="type" id="type">
+                                            <option value="SL">Sick Leave</option>
+                                            <option value="CL">Casual Leave</option>
+                                            <option value="PL">Planned Leave</option>
+                                            <option value="UPL">Unplanned Leave</option>
+                                        </select>
+                                    </div>
+                                    <div class="hdin">
                                         <select name="day" id="day">
                                             <option value="1">Yes</option>
-                                            <option value="0">No</option>
-                                        </select> 
-                                        </div>
+                                            <option value="0" selected>No</option>
+                                        </select>
                                     </div>
-                                    <div class="reason">
-                                        <label for="reason">Reason<br>
-                                        <input type="textarea" id="reason" name="reason">
-                                    </div>
-                                    <div class="apply">
-                                        <input type="button" onclick="cancelleaves()" class="applied" id="two" value="Cancel">
-                                        <input type="button" onclick="addleaves()" class="applied" id="one" value="Apply">    
-                                    </div>
+                                </div>
+                                <div class="reason">
+                                    <label for="reason">Reason<br>
+                                        <!-- <input type="textarea" id="reason" name="reason"> -->
+                                        <textarea name="reason" id="reason" rows="5"></textarea>
+                                </div>
+                                <div class="apply">
+                                    <input type="button" onclick="cancelleaves()" class="applied" id="two"
+                                        value="Cancel">
+                                    <input type="button" onclick="addleaves()" class="applied" id="one" value="Apply">
+                                </div>
                             </div>
                         </div>
                         <div class="add">
@@ -144,33 +192,59 @@
                                         <h4>Date</h4>
                                     </div>
                                     <div class="coll">
-                                        <h4>Days</h4>
+                                        <h4>Half Day</h4>
+                                    </div>
+                                    <div class="coll">
+                                        <h4>Reason</h4>
                                     </div>
                                     <div class="coll">
                                         <h4>Status</h4>
                                     </div>
-                            </tr>
-                           <% for(let i=0;i<showquery[0].length;i++) { %>
-                            <tr>
-                                <div class="column2">
-                                    <div class="col">
-                                        <p><%= showquery[0][i].leave_type %></p>
-                                    </div>
-                                    <div class="col">
-                                        <p><%= showquery[0][i].leave_date.toLocaleDateString() %> </p>
-                                    </div>
-                                    <div class="col">
-                                        <p><%= showquery[0][i].half_day %></p>
-                                    </div>
-                                    <div class="col">
-                                        <p><%= showquery[0][i].leave_status%></p>
-                                    </div>
-                                    
                                 </div>
                             </tr>
-                        <%   } %>
+
+                            <% for(let i=0;i<showquery[0].length;i++) { %>
+                                <tr class="row">
+                                    <div class="column2">
+                                        <div class="col">
+                                            <p>
+                                                <%= showquery[0][i].leave_type %>
+                                            </p>
+                                        </div>
+                                        <div class="col">
+                                            <p>
+                                                <%= showquery[0][i].leave_date.toLocaleDateString() %>
+                                            </p>
+                                        </div>
+                                        <div class="col">
+                                            <% if(showquery[0][i].half_day=="1" ) { %>
+                                                <p>Yes</p>
+                                                <% } %>
+
+                                                    <% if(showquery[0][i].half_day=="0" ) { %>
+                                                        <p>No</p>
+                                                        <% } %>
+                                        </div>
+                                        <div class="col">
+                                            <p>
+                                                <%= showquery[0][i].leave_reason.substr(0, 20)%>..
+                                            </p>
+                                        </div>
+                                        <div class="col">
+                                            <p class="<% if(showquery[0][i].leave_status== " rejected") { %>red <% } %>
+                                                    <% if(showquery[0][i].leave_status=="accepted" ) { %> green <% } %>
+                                                            "><%= showquery[0][i].leave_status%>
+                                            </p>
+                                        </div>
+
+                                    </div>
+                                </tr>
+                                <% } %>
+                        </table>
+
                     </div>
                 </div>
+    </div>
     </div>
 
     </div>
@@ -183,5 +257,6 @@
 
 
 </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
 
 </html>

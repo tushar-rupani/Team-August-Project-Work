@@ -14,7 +14,8 @@ var transporter = nodemailer.createTransport({
 
 const loginController = async (req, res) => {
   const loginErrors = {};
-  const { email, password } = req.body;
+  const { email, password, ip } = req.body;
+  console.log(req.body);
   
   let results;
   let query = `SELECT * FROM register where email = '${email}'`;
@@ -26,11 +27,8 @@ const loginController = async (req, res) => {
       return res.status(404).json({ msg: "There are no users with this credentials",ans:"error" });
     }
 
-    let ipDetails = await fetch("https://ipinfo.io/json")
-    let resp = await ipDetails.json();
-    let userIP = resp.ip;
-
-    let ipCheckingQuery = `SELECT * FROM ip_handler where ip_address = '${userIP}'`;
+    
+    let ipCheckingQuery = `SELECT * FROM ip_handler where ip_address = '${ip}'`;
     let executeIpQuery = await connection.execute(ipCheckingQuery);
     if (!executeIpQuery[0].length) {
       return res.status(401).json({ msg: "The device you're trying is not acceptable in our case",ans:"error" });

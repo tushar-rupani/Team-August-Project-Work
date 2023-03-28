@@ -1,4 +1,4 @@
-
+@import url('https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@500&display=swap');
 
 /* ----- ROOT VARIABLES ------ */
  
@@ -57,7 +57,7 @@ body {
     width: 100vw;
     height: 100vh;
     font-family: 'poppins', sans-serif;
-    font-size: 0.88rem;
+    font-size: 16px;
     background: #e6ecf5;
     user-select: none;
     overflow-x: hidden;
@@ -157,17 +157,12 @@ b {
 
 .dashboard {
     display: grid;
-    grid-template-columns: 50% 20%;
+    grid-template-columns: 70% 30% ;
     justify-content: space-between;
-    background-color: var(--color-white);
     padding-left: 1rem;
     }
 
-.dashboard__insights {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1.6rem;
-}
+
 
 /* ========== END DASHBOARD========== */
 
@@ -421,9 +416,11 @@ button .text {
 
 
 .main-content {
-     margin-top: 24px ; 
-    padding:1rem;
+    margin-top: 24px ; 
+    padding:1.5rem;
    background-color:var(--color-white);
+   border-radius: 20px;
+   box-shadow: 0rem 0rem 18rem rgb(132 139 200 / 31%), 2px 2px 14px rgba(0, 0, 0, 0.4);
     /* border: 1px solid black; */
 }
 .content {
@@ -453,7 +450,7 @@ button .text {
     background-color: #17a4d8;
 }
 #four{
-    background-color: #60dce8;
+    background-color: #6f42c1;
 }
 #five{
     background-color: #8bd346;
@@ -482,8 +479,10 @@ button .text {
         display: flex;
 }
 .column-entry h4{
-    font-size: 16px;
+    font-size: 14px;
     padding: 4px;
+    text-align: left;
+    margin: 8px;
 }
 .column{
     background-image: linear-gradient(to right bottom,#132f4c,#123957,#0e4363,#084e6e,#005978);
@@ -499,20 +498,38 @@ button .text {
 .col {
     width:25%;
 }
+.col p{
+    font-family: Arial, Helvetica, sans-serif;
+    color: #5e5e5e;
+    font-size: 14px !important;
+}
+
+.red{
+    color: red !important;
+}
+.green{
+    color: green !important;
+}
 .col-admin{
     width:calc(100%/6);
 }
 .column2{
-    padding-top: 2rem;
+    padding: 1rem;
     padding-left: 0.5rem;
     display: flex;  
+    border: 0.5px solid #c8ced3;
+    cursor: pointer;
+}
+.column2:hover{
+    background-color: #f0f3f5;
 }
 .search{
-    width: 12%;
+    margin-right: 20px;
 }
 .search input{
     height: 30px;
     width:150px;
+    padding-left: 5px;
     background-color: #e6ecf5;
 }
 .status {
@@ -522,6 +539,7 @@ button .text {
     width: 120px;
     height: 30px;
     border-radius: 5px;
+    padding-left: 5px;
 }
 .add{
     width:20%;
@@ -531,6 +549,9 @@ button .text {
     width: 50px;
     border-radius: 5px;
     float: right;
+    cursor: pointer;
+    background-color: #123957;
+    color: white
 }
 .show{
         position:absolute;
@@ -540,7 +561,7 @@ button .text {
         width: 800px;
         height: 380px;
         background-color: #fff;
-        color: #00B04B;
+        color: #23282c;
         border: 1px solid #ccc;
         box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.3);
             
@@ -573,6 +594,18 @@ button .text {
     margin-top: 1rem;
     margin-left: 1rem;
     font-size: 1rem;
+}
+textarea{
+    width: 99%;
+    border: 1px solid #c8ced3;
+    resize: none;
+    font-family: Arial, Helvetica, sans-serif;
+    padding: 2px;
+}
+.lt select,
+.hdin select{ 
+    padding: 7px;
+    background-color: #e6ecf5;
 }
 .hdin {
    width: 33%;
@@ -630,8 +663,9 @@ button .text {
     width:20%;
 }
 .showdata {
-    border: 1px solid black;
+    border: 1px solid #e6ecf5;
     margin-top: 2rem;
+    border-radius: 10px;
 }
 .leave-status{
     font-size: larger;
