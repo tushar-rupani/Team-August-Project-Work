@@ -26,6 +26,7 @@ const attendanceGenerate = async (req, res) => {
     const startOfMonth = moment().startOf('month').format('YYYY-MM-DD');
     const endOfMonth   = moment().endOf('month').format('YYYY-MM-DD');
     let getWorkingDaysOfUser = `SELECT count(*) as days from attendence_manager where date BETWEEN '${startOfMonth}' AND '${endOfMonth}' AND employee_id = ${user_id}`;
+
     let [executeGetWorkingDays] = await connection.execute(getWorkingDaysOfUser);
     if(executeGetWorkingDays){
       var totalWorkingDays = executeGetWorkingDays[0]?.days;
@@ -60,7 +61,11 @@ const attendanceGenerate = async (req, res) => {
     const hoursWorked = duration.asHours().toFixed(0);
 
     const workingRatio = (hoursWorked / getTotalOfficeHours) * 100;
-    res.render("attendance", { activatePage: "attendance", getTotalOfficeHours, workingRatio, hoursWorked, totalWorkingDays, lateDaysCount, executeGetRecords, array_of_passedTime, leave_data, half_data });
+
+
+    let formattedTimes = array_of_break.map(sec => moment.utc(sec * 1000).format('H:mm'));
+    res.render("attendance", { activatePage: "attendance", getTotalOfficeHours, workingRatio, hoursWorked, totalWorkingDays, lateDaysCount, executeGetRecords, formattedTimes, array_of_passedTime, leave_data, half_data });
+
   }
   
 
@@ -81,7 +86,7 @@ const returnSearchData = async (req, res) => {
 const filterDataByDate = async (req, res) => {
   let start = req.params.startDate;
   let end = req.params.endDate;
-  console.log(start, end);
+
   let user_id = req.session.user;
   let getAllRecords = `SELECT * from attendence_manager where employee_id = ${user_id} and date between '${end}' and '${start}' order by id desc`;
   console.log(getAllRecords);
