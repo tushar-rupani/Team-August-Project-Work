@@ -130,7 +130,7 @@ router.get("/get-user", handleLogin, async (req, res) => {
   let user = jwt.verify(req.cookies.user, "JWT_SECRET");
 
   try {
-    let query = `select * from basic_information where employee_id=${user}`;
+    let query = `select * from basic_information bi,company_relation cr where bi.employee_id=cr.employee_id and bi.employee_id=${user}`;
 
     let [[user_data]] = await connection.execute(query);
 
