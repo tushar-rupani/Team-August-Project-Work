@@ -19,6 +19,21 @@ const e = require("express");
 const { hoursToMilliseconds } = require("date-fns");
 
 router.get("/home", handleLogin, async (req, res) => {
+
+  let emp_id = req.session.user;
+
+    let check_emp_details = `select * from basic_information where employee_id = '${emp_id}'`;
+    try {
+        let [hasData] = await connection.execute(check_emp_details);
+        if (hasData.length === 0) {
+            return res.redirect("/employee-form")
+        }
+
+    } catch (e) {
+        console.log(e);
+    }
+
+
   let name;
   let user_id = req.session.user;
   let currentDate = moment().format("YYYY-MM-DD");
@@ -58,7 +73,9 @@ router.get("/home", handleLogin, async (req, res) => {
 
     let [executeTotalHoursWorked] = await connection.execute(totalHoursWorked);
     var hoursWorked = executeTotalHoursWorked[0].hours_worked;
-    hoursWorked = hoursWorked.split(":").slice(0, 2).join(":");
+    if(hoursWorked){
+      hoursWorked = hoursWorked.split(":").slice(0, 2).join(":");
+    }
     if (hasUserCheckedOut.length) {
       if (hasUserCheckedOut[0].check_out != "0") {
         checked_out = "checkout";
