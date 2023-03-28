@@ -67,7 +67,7 @@ const attendanceGenerate = async (req, res) => {
     const workingRatio = (hoursWorked / getTotalOfficeHours) * 100;
 
     let formattedTimes = array_of_break.map(sec => moment.utc(sec * 1000).format('H:mm'));
-    res.render("attendance", { activatePage: "attendance", getTotalOfficeHours, workingRatio, hoursWorked, totalWorkingDays, lateDaysCount, executeGetRecords, formattedTimes, array_of_passedTime });
+    res.render("attendance", { activatePage: "attendance", getTotalOfficeHours, workingRatio, hoursWorked, totalWorkingDays, lateDaysCount, executeGetRecords, formattedTimes, array_of_passedTime, leave_data, half_data });
 
   }
   
