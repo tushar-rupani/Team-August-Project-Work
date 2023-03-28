@@ -64,9 +64,12 @@ router.get("/home", handleLogin, async (req, res) => {
     let [executeLateDays] = await connection.execute(lateDays);
     var lateDaysCount = executeLateDays[0].late;
 
+    const startOfMonth = moment().startOf('month').format('YYYY-MM-DD');
+    const endOfMonth   = moment().endOf('month').format('YYYY-MM-DD');
+
     let totalHoursWorked = `SELECT SEC_TO_TIME(SUM(TIME_TO_SEC(hours_worked))) AS hours_worked
         FROM attendence_manager
-        WHERE date BETWEEN '2023-03-01' AND '2023-03-31' AND employee_id = ${user_id}`;
+        WHERE date BETWEEN '${startOfMonth}' AND '${endOfMonth}' and employee_id = ${user_id}`;
 
     let [executeTotalHoursWorked] = await connection.execute(totalHoursWorked);
     var hoursWorked = executeTotalHoursWorked[0].hours_worked;
