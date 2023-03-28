@@ -104,7 +104,7 @@ ThemeToggler.addEventListener("click", () => {
 function addcomment() {
 
     let comment = document.getElementById("text").value;
-    console.log(comment);
+    //console.log(comment);
 
 
     const ans =  fetch(`http://localhost:3000/comment/comments`,{

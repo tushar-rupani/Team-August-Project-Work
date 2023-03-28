@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -19,24 +21,24 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css"
         integrity="sha384-FWTLn9R18Q1ACmGvJK8Q1An+kjAXLwDmvoYASmz8mWJ28AVj+rq51aqyvMabpqgW" crossorigin="anonymous">
 
+
     <!-- stylesheet -->
     <link rel="stylesheet" href="/css/leaves.css">
     <link rel="stylesheet" href="/css/style.css">
     <script id="scripts" type="text/javascript" src="/scripts.js?c297ffc94dc8b1cc0bf99a59b92ce1f9f01f5208"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-    <script type="text/javascript" src="/js/leaves.js"></script>
 
 </head>
 
-<body>
+<body onload="renderCalender()">
     <div class="container">
 
-        <%- include('./common/sidebar') %> 
+        <%- include('./common/sidebar') %>
             <main>
 
                 <div class="dashboard">
                     <div>
-                        <h1>Leave</h1>
+                        <h1>Calender</h1>
                     </div>
                     <div>
                         <div class="gadgets-side__header">
@@ -66,74 +68,57 @@
                                 </div>
                             </div>
                         </div>
-
                     </div>
                 </div>
                 <div class="main-content">
-                    <div class="content">
-                        <div class="search">
-                            <input type="text" placeholder="Search...">
+                    <div class="header">
+                    <div class="month">
+                        <div class="prev">
+                            
+                            <input type="button" onclick="moveDate('prev')" value="<"></input>
                         </div>
-                        <div class="status">
-                            <select class="status" name="status">
-                                <option value="All">Status:All<i class="bi bi-chevron-down"></i></option>
-                                <option value="Accepted">Accepted</option>
-                                <option value="Rejected">Rejected</option>
-                                <option value="Pending">Pending</option>
-                                <option value="WFH">WFH</option>
-                                <option value="Cancel">Cancel</option>
-                            </select>
+                        <div>
+                            <p id="month"></p>
                         </div>
-                        <div id="leaves">
-
-                        </div>
-                        <div class="add">
-                            <input type="button" value="+Add" onclick="addleave()">
+                        <div class="prev">
+                            <input type="button" onclick="moveDate('next')" value=">"></input>
                         </div>
                     </div>
-
-                    <div class="showdata">
-                        <table class="tab">
-                            <tr>
-                                <div class="column-entry">
-                                    <div class="coll">
-                                        <h4>Leave Type</h4>
-                                    </div>
-                                    <div class="coll">
-                                        <h4>Date</h4>
-                                    </div>
-                                    <div class="coll">
-                                        <h4>Days</h4>
-                                    </div>
-                                    <div class="coll">
-                                        <h4>Status</h4>
-                                    </div>
-                            </tr>
-                           <% for(let i=0;i<showquery[0].length;i++) { %>
-                            <tr>
-                                <div class="column2">
-                                    <div class="col">
-                                        <p><%= showquery[0][i].leave_type %></p>
-                                    </div>
-                                    <div class="col">
-                                        <p><%= date %> </p>
-                                    </div>
-                                    <div class="col">
-                                        <p><%= showquery[0][i].half_day %></p>
-                                    </div>
-                                    <div class="col">
-                                        <p><%= showquery[0][i].leave_status%></p>
-                                    </div>
-                                    
+                        <div class="holi">
+                            <p>Holiday</p>
+                        </div>
+                    </div>
+                   
+                            <div class="days">
+                                <div class="day-one">
+                                    <p class="weekend">Sunday</p>
                                 </div>
-                            </tr>
-                        <%   } %>
-                    </div>
+                                <div class="day-one">
+                                    <p>Monday</p>
+                                </div>
+                                <div class="day-one">
+                                    <p>Tuesday</p>
+                                </div>
+                                <div class="day-one">
+                                    <p>Wednesday</p>
+                                </div>
+                                <div class="day-one">
+                                    <p>Thursday</p>
+                                </div>
+                                <div class="day-one">
+                                    <p>Friday</p>
+                                </div>
+                                <div class="day-one">
+                                    <p class="weekend">Saturday</p>
+                                </div>
+                            </div>
+                            <div class="day">
+                                
+                               
+                            </div> 
                 </div>
-    </div>
-
-    </div>
 </body>
+<script type="text/javascript" src="/js/calender.js"></script>
 
 
 </html>

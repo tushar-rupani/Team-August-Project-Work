@@ -1,12 +1,12 @@
 const express = require("express");
 const app = express();
-
+const moment = require("moment");
 
 async function show(id) {
-    console.log(id);
+    //console.log(id);
     let res = await fetch(`http://localhost:8000/leaveadmin/showleaveAdmin/?id=${id}`);
     let databasedata = await res.json();
-    console.log(databasedata);
+    //console.log(databasedata);
     let data = "";
     data += `<div class="showdata">
         <table class="tab">
@@ -35,10 +35,10 @@ async function show(id) {
                         <p>${databasedata[0].full_name}</p>
                     </div>
                     <div class="col-data">
-                        <p>${databasedata[0].leave_type}</p>
+                        <p>${databasedata[0].leave_date}</p>
                     </div>
                     <div class="col-data">
-                        <p>${databasedata[0].leave_date}</p>
+                        <p>${databasedata[0].leave_type}</p>
                     </div>
                     <div class="col-data">
                         <p>${databasedata[0].leave_reason}</p>
@@ -62,10 +62,14 @@ async function show(id) {
               
 </div>`;
 
+    const leave=document.getElementById("leaves");
+    leave.innerHTML="";
+
     let showleaves = document.createElement("div");
     showleaves.className = "show";
     showleaves.innerHTML = data;
-    document.getElementById("leaves").appendChild(showleaves);
+
+    leave.appendChild(showleaves);
 
 }
 
@@ -77,7 +81,7 @@ async function acceptleave(id) {
     let res = await fetch(`http://localhost:8000/leaveadmin/acceptLeave/?id=${id}`);
     let databasedata1 = await res.json();
     //  console.log(databasedata1);
-
+   
 }
 
 async function rejectleave(id) {
@@ -88,7 +92,7 @@ async function rejectleave(id) {
     let res = await fetch(`http://localhost:8000/leaveadmin/rejectLeave/?id=${id}`);
     let databasedata2 = await res.json();
     //  console.log(databasedata2);
-
+    
 }
 
 

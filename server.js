@@ -7,9 +7,9 @@ const commentRoutes = require("./routes/commentRoutes");
 const leavesRoutes = require("./routes/leavesRoutes");
 const leaveAdminRoutes = require("./routes/leaveAdminRoutes");
 const attendanceRoutes = require("./routes/attendanceRoutes");
+const calenderRoutes = require("./routes/calenderRoutes");
 var cookieParser = require('cookie-parser');
 var session = require('express-session');
-// const { attendanceController } = require("./controllers/attendanceController");
 require("dotenv").config();
 app.set("view engine", "ejs");
 
@@ -33,6 +33,7 @@ app.use("/comment", commentRoutes);
 app.use("/leaves",leavesRoutes);
 app.use("/leaveadmin", leaveAdminRoutes);
 app.use("/attendance",attendanceRoutes);
+app.use("/calender",calenderRoutes);
 
 app.get("*", (req, res) => {
   res.render("404")

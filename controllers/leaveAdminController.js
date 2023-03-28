@@ -1,18 +1,25 @@
 var connection = require("../connection/connection");
-
+const moment = require("moment");
+ 
 const leaveAdminController = async(req,res) => {
-    // let id = req.session.user;
-    let query=
-    `SELECT basic_information.full_name,leave_request.id,leave_request.leave_date,leave_request.leave_reason,leave_request.leave_type,leave_request.half_day ,leave_request.employee_id FROM basic_information  INNER JOIN leave_request  ON basic_information.employee_id = leave_request.employee_id;`
+     let id = req.session.user;
+    let query = `SELECT basic_information.full_name,leave_request.id,leave_request.leave_reason,leave_request.leave_type,leave_request.half_day ,leave_request.employee_id FROM basic_information  INNER JOIN leave_request  ON basic_information.employee_id = leave_request.employee_id;`
+    
+    let query2 = `select leave_date from leave_request where id = '${id}'`;
+
     try {
         let showquery = await connection.execute(query);
         // console.log(showquery);
-    res.render('leaveadmin.ejs',{showquery:showquery});
-
+        let answer = await connection.execute(query2);
+        let ans = answer[0][0].leave_date;
+        let date = moment(ans).format('DD/MM/YYYY');
+    res.render('leaveadmin.ejs',{showquery:showquery,date:date});
     }
     catch(err) {
         return console.log(err);
     }
+    
+   
 }
 const showleaveAdminController= async (req, res) => {
     var id = req.query.id;
@@ -37,6 +44,7 @@ const acceptLeaveController = async (req,res) => {
         var sub_result2 = await connection.execute(sub_query2);
     }
 
+    res.redirect('/leaveAdmin/leaveAdmin');
 }
 const rejectLeaveController = async (req,res) => {
   
@@ -53,6 +61,8 @@ const rejectLeaveController = async (req,res) => {
         var sub_query2 = `update leave_request set leave_status = "rejected" where id='${id}';`
         var sub_result2 = await connection.execute(sub_query2);
     }
+    res.redirect('/leaveAdmin/leaveAdmin');
+
 
 }
 module.exports = {leaveAdminController,showleaveAdminController,acceptLeaveController,rejectLeaveController};

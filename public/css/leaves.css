@@ -638,3 +638,65 @@ button .text {
     font-weight: bold;
     color: black;
 }
+.header {
+    display: flex;
+    width: 100%;
+}
+.month{
+    display: flex;
+    width: 90%;
+}
+.prev input{
+    border: 1px solid black;
+    border-radius: 50%;
+    text-align: center;
+    height: 40px;
+    width: 40px;
+    margin-left: 3px;
+    padding: 4px;
+    color: white;
+    font-size: large;
+    font-weight: bold;
+    background-image: linear-gradient(to right bottom,#132f4c,#123957,#0e4363,#084e6e,#005978);
+}
+
+
+.days {
+    background-image: linear-gradient(to right bottom,#132f4c,#123957,#0e4363,#084e6e,#005978);
+    color: white;
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 1rem;
+}
+.day{
+    display: flex;
+    flex-wrap: wrap;
+}
+.day-one {
+    width: calc(100%/7);
+    text-align: center;
+    margin: 0.8rem 0;
+}
+.day-one p {
+    color: white;
+}
+
+.day-two {
+    color: black;
+    width: calc(100%/7);
+    border: 2px solid rgba(0, 0, 0, 0.3);
+    border-collapse: collapse;
+    padding: 0.5rem;
+}
+.day-two:hover {
+    background-color: #b4b4b9;
+}
+#weekend {
+
+        color: rgba(255,0,0,0.8);
+}
+#month{
+    margin: 0 1rem;
+    font-size: large;
+    font-weight: bold;
+}
