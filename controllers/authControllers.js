@@ -15,7 +15,6 @@ var transporter = nodemailer.createTransport({
 const loginController = async (req, res) => {
   const loginErrors = {};
   const { email, password, ip } = req.body;
-
   let results;
   let query = `SELECT * FROM register where email = '${email}'`;
   try {
