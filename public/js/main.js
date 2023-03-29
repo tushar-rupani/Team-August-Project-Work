@@ -230,13 +230,14 @@ async function getUserInfo() {
         let res = await fetch(`/self/get-user`);
     
         let {user_data} = await res.json();
-      
-        console.log(user_data);
+    
         
 
         document.querySelector('.user-name').innerHTML = user_data.full_name;
         document.querySelector('.text-muted').innerHTML = user_data.designation;
-        document.querySelector('#dropdown-trigger').setAttribute('src',`/upload_compressed/${user_data.profile_pic}`)
+        if(!(user_data.profile_pic=="undefined")){
+          document.querySelector('.profile__photo').setAttribute('src',`/upload_compressed/${user_data.profile_pic}`)
+      }
         
     
     } catch (err) {
