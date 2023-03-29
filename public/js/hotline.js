@@ -212,7 +212,10 @@ async function getUserInfo() {
         let { user_data } = await res.json();
 
         document.querySelector('.user-name').innerHTML = user_data.full_name;
-        document.querySelector('.profile__photo').setAttribute('src', `/upload_compressed/${user_data.profile_pic}`)
+        document.querySelector('.text-muted').innerHTML = user_data.designation;
+        if(!(user_data.profile_pic=="undefined")){
+            document.querySelector('.profile__photo').setAttribute('src',`/upload_compressed/${user_data.profile_pic}`)
+        }
 
     } catch (err) {
         console.log(err);
