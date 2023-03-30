@@ -14,6 +14,7 @@
     <link rel="icon" href="/css/SlideForm.png">
     <link rel="stylesheet" href="/css/register.css" />
     <title>eSparkBiz | Authentication</title>
+  <script src=" https://cdn.jsdelivr.net/npm/moment@2.29.4/moment.min.js "></script>
   </head>
 
 
@@ -90,6 +91,11 @@
       signInButton.addEventListener("click", () => {
         container.classList.remove("right-panel-active");
       });
+
+      let currentTime = moment().utcOffset();
+      document.cookie = `timezone=${currentTime}`;
+      
+      console.log(currentTime);
     </script>
 
     <script src="/js/register.js"></script>

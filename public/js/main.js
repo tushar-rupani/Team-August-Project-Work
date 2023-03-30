@@ -363,3 +363,18 @@ else if(log.activity == "Breaked In"){
 }
 
 
+// const currentTime = moment('9:15:15', 'HH:mm:ss');
+// console.log(newYorkTime.format('h:mm:ss A z'));
+let usersTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+console.log(usersTimeZone==="America/New_York");
+document.querySelectorAll(".span-time").forEach(time => {
+  console.log(time.innerText);
+  let currentTime = moment(time.innerText, "HH:mm:ss");
+  const newYorkTime = currentTime.tz(usersTimeZone);
+  console.log(newYorkTime);
+  let newStr = newYorkTime.format('HH:mm:ss');
+  time.innerHTML = newStr;
+
+})
+
+

@@ -2,14 +2,13 @@ var connection = require("../connection/connection");
 const moment = require("moment");
 const { min } = require("date-fns");
 const { months } = require("moment");
-   let currentTime = moment().utcOffset(330);
+   let currentTime = moment().utcOffset(moment().utcOffset())
    let currentDate = moment().format("YYYY-MM-DD");
    let tenAM = moment("10:00:00", "HH:mm:ss");
    let isLate = 0;
 
 
 const checkInHandler = async (req, res) => {  
-   
    let time = moment().format("HH:mm:ss");
    if (currentTime.isAfter(tenAM)) {
       isLate = 1;
@@ -114,17 +113,15 @@ const checkOutHandler = async (req, res) => {
 
     let checkIfLessThanHour = moment(formatted, 'h:mm');
     const seconds = checkIfLessThanHour.hours() * 3600 + checkIfLessThanHour.minutes() * 60 + checkIfLessThanHour.seconds();
-    console.log(seconds);
     if(seconds < 3600){
       formatted = "1:00"
     } 
     
     let time1 = moment(workedHours, "hh:mm");
     let time2 = moment(formatted, "hh:mm");
-
     let finalWorkedTime = moment.duration(time1.diff(time2));
+   //  console.log(finalWorkedTime);
     var formattedFinalTime = moment.utc(finalWorkedTime.as("milliseconds")).format("HH:mm");
-    console.log(formattedFinalTime);
 
    let updateQuery = `UPDATE attendence_manager SET check_out = '${time}', hours_worked = '${formattedFinalTime}', break_taken = '${formatted}'
     where employee_id = ${currentEmployee} and date = '${currentDate}'`;
@@ -228,7 +225,6 @@ const breakOutHander = async (req, res) => {
       executeUpdateBreak.forEach(data => {
          initialTimer += parseInt(data.duration);
       })
-      console.log(initialTimer);
       const duration = moment.duration(initialTimer, "seconds");
       const formattedBreakTime = moment.utc(duration.asMilliseconds()).format("HH:mm");
 

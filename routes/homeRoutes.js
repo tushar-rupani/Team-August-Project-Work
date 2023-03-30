@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const moment = require("moment");
 const jwt = require("jsonwebtoken");
+const dateformat = require('date-fns');
 const { handleLogin } = require("../middlewares/authMiddlewares");
 const {
   checkIfUserIsonBreak,
@@ -143,5 +144,54 @@ router.get("/get-user", handleLogin, async (req, res) => {
     return res.redirect("/");
   }
 });
+
+
+router.get("/edit-form", async (req, res) => {
+
+    let con = await connection.getConnection();
+
+    try {
+
+        let ID = Number(req.session.user);
+
+        let basic_details = await con.execute(`select employee_id,full_name,gender,birthdate,marital_status,allowed_wfh,profile_pic from basic_information where employee_id=${ID}`);
+        let contact_info = await con.execute(`select contact_no,emergency_contact,emergency_person_name,permenant_address,current_address from contact_information where employee_id=${ID}`);
+        let company_relation = await con.execute(`select designation,department,join_date,probation_date from company_relation where employee_id=${ID}`);
+        let social = await con.execute(`select twitter,linkedin,github,facebook from social_information where employee_id=${ID}`);
+        let document_info = await con.execute(`select aadhar_no,pancard_no,cheque_no,aadhar_path, pancard_path, cheque_path,resume_path from documents where employee_id=${ID}`);
+        let email = await con.execute(` select email from register where id=${ID}`);
+
+        var bdate = dateformat.format(new Date(basic_details[0][0].birthdate), 'dd/MM/yyyy');
+        var join_date = dateformat.format(new Date(company_relation[0][0].join_date), 'dd/MM/yyyy');
+        console.log(join_date);
+        var prob_date = dateformat.format(new Date(company_relation[0][0].probation_date), 'dd/MM/yyyy');
+
+        var gender = ['male', 'female', 'other'];
+        var status = ['Married', 'Unmarried'];
+
+
+        console.log(basic_details[0][0]);
+        res.render('edit-form', {
+            basic_details, contact_info, company_relation, document_info, social, email, bdate, gender, status, join_date, prob_date
+
+        })
+        await con.commit();
+
+
+
+    } catch (err) {
+        if (con) {
+            await con.rollback();
+        }
+        console.log(err);
+        res.status(500).json({ msg: "Somethig went wrong", status: 500 });
+    } finally {
+        if (con) {
+            con.release();
+        }
+    }
+
+
+})
 
 module.exports = router;
