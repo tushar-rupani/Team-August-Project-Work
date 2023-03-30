@@ -19,12 +19,10 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
 
-
-
-    <!-- stylesheet -->
-    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous"> -->
     <link rel="stylesheet" href="/css/style.css">
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment-timezone/0.5.32/moment-timezone-with-data.min.js"></script>
 
 
 </head>
@@ -253,7 +251,7 @@
 
                                 <% if(attendance?.check_in) {%>
                                     <div class="check_in">
-                                        <span>Checked In : <%= attendance?.check_in %></span>
+                                        <span>Checked In : <span class="span-time"><%= attendance?.check_in %></span></span>
                                     </div>
                                     <% } %>
 
@@ -262,14 +260,14 @@
                                             <% for(let i=0; i<activity.length; i++) { %>
                                                 <% if(activity[i].break_in) { %>
                                                     <div class="break_in">
-                                                        <span>Breaked In : <%= activity[i].break_in %>
+                                                        <span>Breaked In : <span class="span-time"><%= activity[i].break_in %></span>
                                                         </span>
                                                     </div>
                                                     <% } %>
 
                                                         <% if(activity[i].break_out !="00:00:00" ) { %>
                                                             <div class="break_out">
-                                                                <span>Breaked Out : <%= activity[i].break_out %>
+                                                                <span>Breaked Out : <span class="span-time"><%= activity[i].break_out %></span>
                                                                 </span>
                                                             </div>
                                                             <% } %>
@@ -281,7 +279,7 @@
                                                                         <% if(attendance?.check_out !="0" ) {%>
                                                                             <div class="check_out ">
                                                                                 <span>Checked Out :
-                                                                                    <%= attendance?.check_out %>
+                                                                                    <span class="span-time"><%= attendance?.check_out %></span>
                                                                                 </span>
                                                                             </div>
                                                                         <% } %>
@@ -312,8 +310,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
     <!-- <script src="/js/home.js"></script> -->
     <script src="/js/main.js"></script>
-
-
 </body>
 
 </html>
