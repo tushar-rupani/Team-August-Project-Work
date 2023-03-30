@@ -28,7 +28,6 @@ body {
 
 .container {
     display: grid;
-    width: 1250px;
     margin: 0 auto;
     gap: 20px;
     grid-template-columns: 14rem auto;
@@ -78,8 +77,9 @@ body {
 
 .count {
     display: grid;
-    grid-template-columns: 18% 18% 18% 18% 18%;
+    grid-template-columns: repeat(5, 1fr);
     justify-content: space-between;
+    gap: 10px;
     color: #fff;
     font-weight: 500;
     color: #524662;
@@ -89,6 +89,7 @@ body {
     padding: 18px;
     border-radius: 10px;
     display: grid;
+    cursor: pointer;
     grid-template-columns: 40% 50%;
     justify-content: space-between;
     background: linear-gradient(276.34deg, #1bb15c 0, rgba(4, 143, 62, .5) 100%);
@@ -106,6 +107,7 @@ body {
     padding: 18px;
     border-radius: 10px;
     display: grid;
+    cursor: pointer;
     grid-template-columns: 40% 50%;
     justify-content: space-between;
     background: linear-gradient(276.34deg, #d5922e 0, rgba(224, 141, 5, .5) 100%);
@@ -124,6 +126,7 @@ body {
     padding: 18px;
     border-radius: 10px;
     display: grid;
+    cursor: pointer;
     grid-template-columns: 40% 50%;
     justify-content: space-between;
     background: linear-gradient(276.34deg, #7c7979 0, rgb(177 177 177 / 78%) 100%);
@@ -239,8 +242,9 @@ body {
 
 .p-img img {
     border-radius: 100%;
+    object-fit: cover;
     width: 6rem;
-
+    height: 6rem;
 }
 
 .p-img {
@@ -258,7 +262,6 @@ body {
 .details .row1 {
     display: flex;
     justify-content: space-between;
-    gap: 10px;
     padding-bottom: 20px;
 }
 
@@ -280,7 +283,7 @@ body {
     font-size: 21px;
 }
 
-.hotline-person-icon{
+.hotline-person-icon {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -304,7 +307,7 @@ body {
     color: #858585;
 }
 
-.hotline-mail-text{
+.hotline-mail-text {
     width: calc(100% - 18px);
     white-space: nowrap;
     overflow: hidden;
@@ -368,4 +371,15 @@ body {
 .hotline-office {
     font-size: 25px;
     opacity: 0.5;
+}
+
+.onBreak {
+    background-color: rgba(0, 176, 75, .1);
+    border: 1px solid #f9a52c;
+    color: #f9a52c;
+    text-align: center;
+    padding: 6px 12px;
+    font-size: 12px;
+    font-weight: 600;
+    border-radius: 5px;
 }

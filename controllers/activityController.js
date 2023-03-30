@@ -1,6 +1,8 @@
 var connection = require("../connection/connection");
 const moment = require("moment");
-   let currentTime = moment();
+const { min } = require("date-fns");
+const { months } = require("moment");
+   let currentTime = moment().utcOffset(330);
    let currentDate = moment().format("YYYY-MM-DD");
    let tenAM = moment("10:00:00", "HH:mm:ss");
    let isLate = 0;
@@ -42,6 +44,8 @@ const checkInHandler = async (req, res) => {
       if(executeInsert){
          let insertIntoLogs = `INSERT INTO daily_logs(employee_id, activity, date, time) VALUES (${currentEmployee}, "Checked In", '${currentDate}', '${time}')`;
          let [executeLogs] = await connection.execute(insertIntoLogs); 
+         let updateStatus = `update status set status ='online' where employee_id = ${currentEmployee}`;
+         let [status] = await connection.execute(updateStatus); 
       }
       return res.json({status: "DONE", checkInTime: time})
       
@@ -49,6 +53,8 @@ const checkInHandler = async (req, res) => {
    catch(e){
       console.log(e);
    }
+
+
 }
 
 
@@ -68,8 +74,6 @@ const checkOutHandler = async (req, res) => {
    if(alreadyOnBreak == false){
       return res.json({status: "ERROR", message: "You are already on a break"})
    }
-
-
    let checkIfalreadyExist = `SELECT count(*) as length FROM attendence_manager where employee_id = ${currentEmployee} and date = '${currentDate}' and check_out <> 0`;
    try{
       let [executeAlreadyExists] = await connection.execute(checkIfalreadyExist);
@@ -81,13 +85,57 @@ const checkOutHandler = async (req, res) => {
    }
 
    let time = moment().format("HH:mm:ss");
-   let updateQuery = `UPDATE attendence_manager SET check_out = '${time}' where employee_id = ${currentEmployee}`;
+   let getCheckInTimeOfUser = `SELECT check_in from attendence_manager where employee_id = ${currentEmployee} and date = '${currentDate}'`;
+   try{
+      let [executeGetCheckIn] = await connection.execute(getCheckInTimeOfUser);
+      let check_in_time = executeGetCheckIn[0].check_in;
+      let startTime = moment(check_in_time, "hh:mm:ss");
+      let currentTime = moment();
+      let secDiff = currentTime.diff(startTime, "minutes");
+      let duration = moment.duration(secDiff, 'minutes');
+      var hours = duration.hours();
+      var minutes = duration.minutes();
+      var workedHours = hours + ":" + minutes;
+
+   }
+   catch(e){
+      console.log("error",e);
+   }
+
+   let timeForThatDay = `SELECT duration from break_manager where created_date = '${currentDate}' and employee_id = ${currentEmployee}`;
+   let [getTimeForThatDay] = await connection.execute(timeForThatDay);
+   let initial_time = 0;
+   getTimeForThatDay.forEach(data => {
+      initial_time += parseInt(data.duration);
+    })
+
+    var duration = moment.duration(initial_time, 'seconds');
+    var formatted = duration.hours() + ":" + duration.minutes();
+
+    let checkIfLessThanHour = moment(formatted, 'h:mm');
+    const seconds = checkIfLessThanHour.hours() * 3600 + checkIfLessThanHour.minutes() * 60 + checkIfLessThanHour.seconds();
+    console.log(seconds);
+    if(seconds < 3600){
+      formatted = "1:00"
+    } 
+    
+    let time1 = moment(workedHours, "hh:mm");
+    let time2 = moment(formatted, "hh:mm");
+
+    let finalWorkedTime = moment.duration(time1.diff(time2));
+    var formattedFinalTime = moment.utc(finalWorkedTime.as("milliseconds")).format("HH:mm");
+    console.log(formattedFinalTime);
+
+   let updateQuery = `UPDATE attendence_manager SET check_out = '${time}', hours_worked = '${formattedFinalTime}', break_taken = '${formatted}'
+    where employee_id = ${currentEmployee} and date = '${currentDate}'`;
 
    try{
       let [executeUpdateQuery] = await connection.execute(updateQuery);
       if(executeUpdateQuery){
          let insertIntoLogs = `INSERT INTO daily_logs(employee_id, activity, date, time) VALUES (${currentEmployee}, "Checked Out", '${currentDate}', '${time}')`;
          let [executeLogs] = await connection.execute(insertIntoLogs); 
+         let updateStatus = `update status set status ='offline' where employee_id = ${currentEmployee}`;
+         let [status] = await connection.execute(updateStatus); 
          return res.json({status: "DONE", checkOutTime: time});
       }
    }catch(e){
@@ -134,6 +182,8 @@ const breakInHandler = async (req, res) => {
       if(executeInsertForBreak){
          let insertIntoLogs = `INSERT INTO daily_logs(employee_id, activity, date, time) VALUES (${currentEmployee}, "Breaked In", '${currentDate}', '${time}')`;
          let [executeLogs] = await connection.execute(insertIntoLogs); 
+         let updateStatus = `update status set status ='onBreak' where employee_id = ${currentEmployee}`;
+         let [status] = await connection.execute(updateStatus); 
          return res.json({status: "DONE", breakInTime: time});
       }
    }
@@ -164,10 +214,7 @@ const breakOutHander = async (req, res) => {
       var startTime = moment(breakedInTime, "hh:mm:ss");
       var currentTime = moment();
       var secDiff = currentTime.diff(startTime, "seconds");
-      console.log("sec differemce",secDiff);
       let time = moment().format("HH:mm:ss");
-
-
       let insertIntoLogs = `INSERT INTO daily_logs(employee_id, activity, date, time) VALUES (${currentEmployee}, "Breaked Out", '${currentDate}', '${time}')`;
       let [executeLogs] = await connection.execute(insertIntoLogs); 
 
@@ -175,12 +222,44 @@ const breakOutHander = async (req, res) => {
 
       let executeUpdate = await connection.execute(updateBreakOut);
 
+      let updateBreakTime = `SELECT * FROM break_manager where employee_id = ${currentEmployee} and created_date = '${currentDate}'`;
+      let [executeUpdateBreak] = await connection.execute(updateBreakTime);
+      let initialTimer = 0;
+      executeUpdateBreak.forEach(data => {
+         initialTimer += parseInt(data.duration);
+      })
+      console.log(initialTimer);
+      const duration = moment.duration(initialTimer, "seconds");
+      const formattedBreakTime = moment.utc(duration.asMilliseconds()).format("HH:mm");
+
+      let updatingBreakQuery = `UPDATE attendence_manager SET break_taken = '${formattedBreakTime}' where employee_id = '${currentEmployee}' and date = '${currentDate}'`;
+      let [executeBreakUpdate] = await connection.execute(updatingBreakQuery);
+
       if(executeUpdate && executeLogs){
+         let updateStatus = `update status set status ='online' where employee_id = ${currentEmployee}`;
+         let [status] = await connection.execute(updateStatus); 
          return res.json({status: "DONE", breakOutTime: time});
       }
    }catch(e){
       console.log(e)
    }
+}
+
+
+const addcommentControllers = async (req, res) => {
+   let id = req.session.user;
+   let comment = req.body;
+   let comments = comment.data;
+
+   let query = `INSERT INTO comments(employee_id,comment,date) VALUES (${id},"${comments}","${currentDate}"); `;
+   try {
+       let insertQuery = await connection.execute(query);
+       res.json({comment})
+
+   } catch (err) {
+       return console.log(err);
+   }
+
 }
 
 
@@ -220,4 +299,4 @@ const checkIfUserIsBreakedOut = async (getUserId) => {
       return true;
    }return false;
 }
-module.exports = {checkInHandler, checkOutHandler, breakInHandler, breakOutHander, checkIfUserIsonBreak, checkIfUserIsBreakedOut}
+module.exports = {checkInHandler, checkOutHandler, breakInHandler, breakOutHander, checkIfUserIsonBreak, checkIfUserIsBreakedOut, addcommentControllers}

@@ -59,11 +59,11 @@
 
                         <div class="profile">
                             <div class="profile__info">
-                                <p>Hey, <b>Jyotsana</b></p>
+                                <p>Hey, <b class="user-name"></b></p>
                                 <small class="text-muted">SDL-1</small>
                             </div>
                             <div>
-                                <img class="profile__photo" src="/assets/profile-3.jpg" alt="profile-picture">
+                                <img class="profile__photo" src="https://hrms.appdemoserver.com/assets/img/avatars/profile_image.jpg" alt="profile-picture">
                             </div>
                         </div>
                     </div>
@@ -85,7 +85,7 @@
                             </div>
                             <div class="text">
                                 <span>Online</span>
-                                <p>187</p>
+                                <p id="online-number"></p>
                             </div>
                         </div>
                         <div class="count-onbreak">
@@ -96,7 +96,7 @@
                             </div>
                             <div class="text">
                                 <span>On Break</span>
-                                <p>187</p>
+                                <p id="onBreak-number"></p>
                             </div>
                         </div>
                         <div class="count-WFH">
@@ -118,7 +118,7 @@
                             </div>
                             <div class="text">
                                 <span>Offline</span>
-                                <p>20</p>
+                                <p id="offline-number"></p>
                             </div>
                         </div>
                         <div class="count-leave">
@@ -140,7 +140,7 @@
                         <div></div>
                         <div class="search">
                             <div class="input">
-                                <input type="text" placeholder="Search Employee..">
+                                <input type="text" id="search-user" placeholder="Search Employee..">
                             </div>
                             <div>
                                 <span class="material-icons-sharp">autorenew</span>
@@ -151,7 +151,8 @@
 
 
                     <div class="display">
-                        <div class="person">
+
+                        <!-- <div class="person">
                             <div class="head">
                                 <div class="hotline-office">
                                     <i class="fa-solid fa-building"></i>
@@ -196,6 +197,7 @@
                                 </div>
                             </div>
                         </div>
+
                         <div class="person">
                             <div class="head">
                                 <div>
@@ -243,6 +245,7 @@
                                 </div>
                             </div>
                         </div>
+
                         <div class="person">
                             <div class="head">
                                 <div >
@@ -290,6 +293,7 @@
                                 </div>
                             </div>
                         </div>
+
                         <div class="person">
                             <div class="head">
                                 <div>
@@ -337,6 +341,7 @@
                                 </div>
                             </div>
                         </div>
+
                         <div class="person">
                             <div class="head">
                                 <div>
@@ -383,7 +388,7 @@
                                     <div>9737484107</div>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
 
                         
                     </div>
@@ -400,7 +405,7 @@
     </div>
     </main>
     <script src="https://kit.fontawesome.com/30e122f54b.js" crossorigin="anonymous"></script>
-
+    <script src="/js/hotline.js"></script>
 </body>
 
 </html>

@@ -78,7 +78,7 @@ main {
 
 .container {
     display: grid;
-    width: 1250px;
+    width: 95vw;
     margin: 0 auto;
     gap: 20px;
     grid-template-columns: 14rem auto 23rem;
@@ -255,13 +255,13 @@ b {
 
 .final_message{
     margin-top: 20px;
-    background-color: #0f7c3e;
-    color: rgb(191, 216, 187);
+    color: #FFF;
     text-align: center;
     padding: 5px;
     border-radius: 20px;
-    opacity: 0.5;
-    font-weight: 700;
+    opacity: 0.6;
+    font-weight: 600;
+    background: linear-gradient(45deg,#3abe8d,#4040c3);
 }
 
 .sidebar__message-count {
@@ -657,6 +657,17 @@ button .text {
     font-weight: 500;
 }
 
+.see-comment{
+    margin-top: 10px;
+    background-color: #588adf17;
+    padding: 10px;
+    border-radius: 10px;
+    text-transform: capitalize;
+    border: 1px solid #a8bee5a6;
+    color: gray;
+    font-weight: 400;
+}
+
 #dropdown-menu {
     display: none;
     position: absolute;
@@ -688,4 +699,57 @@ button .text {
 }
 .disabling:hover{
     cursor: not-allowed;
+
 }
+
+
+
+  .hidden{
+    display: none;
+  }
+
+  @media only screen and (max-width:1920px) {
+
+    div.scroll {
+        height: 50vh;
+    }
+
+    .card .record {
+        grid-template-columns: 30% 70%;
+    }
+}
+
+@media only screen and (max-width:1440px) {
+
+    div.scroll {
+        height: 50vh;
+    }
+
+    .card .record {
+        grid-template-columns: 55% 45%;
+    }
+}
+
+@media only screen and (max-width:1294px) {
+
+    div.scroll {
+        height: 50vh;
+    }
+
+    .card .record {
+        grid-template-columns: 60% 39%;
+    }
+}
+
+
+@media only screen and (max-width: 767px) {
+    /* styles for mobile devices */
+    .mobile-message {
+      display: block;
+    }
+    /* hide other content */
+    .container {
+      display: none;
+    }
+  }
+
