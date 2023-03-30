@@ -42,6 +42,8 @@ router.get("/home", handleLogin, async (req, res) => {
   let breakAns = await checkIfUserIsonBreak(user_id);
   let breakoutAns = await checkIfUserIsBreakedOut(user_id);
   let hasCheckedIn = false;
+  var forgotLastTime = false;
+
   var executeAttendance, executeActivity;
   try {
     let getAttendanceDetails = `SELECT * FROM attendence_manager where employee_id = ${user_id} and date = '${currentDate}'`;
@@ -83,6 +85,18 @@ router.get("/home", handleLogin, async (req, res) => {
         checked_out = "checkout";
       }
     }
+
+    console.log(currentDate);
+    let getLastRow = `SELECT check_out FROM attendence_manager where employee_id = ${user_id} and date != '${currentDate}' order by id desc LIMIT 1`;
+    let [executeForgot] = await connection.execute(getLastRow);
+    console.log("forgot", executeForgot);
+    if(executeForgot.length){
+      let getLastCheckout = executeForgot[0].check_out;
+
+      if(getLastCheckout == "0"){
+        forgotLastTime = true;
+      }
+    }
     let qry_show = `SELECT * FROM comments where employee_id = ${user_id} and date ='${currentDate}' order by id DESC`;
     var [commentResult] = await connection.execute(qry_show);
 
@@ -103,7 +117,8 @@ router.get("/home", handleLogin, async (req, res) => {
     breakoutAns,
     activatePage,
     checked_out,
-    commentResult
+    commentResult,
+    forgotLastTime
   });
 });
 

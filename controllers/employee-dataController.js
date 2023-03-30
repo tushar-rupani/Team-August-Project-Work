@@ -97,20 +97,19 @@ const renderForm = async (req, res) => {
 
 const updateData = async (req, res) => {
 
-    console.log("JGJHG",req.body);
     let ID = Number(req.session.user);
 
     let data = JSON.parse(req.body.data);
     let photos = req.files;
-    console.log(req.files);
     
     let query = `SELECT profile_pic from basic_information where employee_id = ${ID}`;
     let [executeQuery] = await connection.execute(query);
-
+    console.log("executeQuery", executeQuery);
     let selectImage;
 
     let uncompressed_files = photos.map((f) => f.filename);
-    console.log(uncompressed_files);
+
+    console.log("uncompressed", uncompressed_files);
     if(uncompressed_files.length == 0){
         selectImage = executeQuery[0].profile_pic;
     }else{
@@ -147,7 +146,7 @@ const updateData = async (req, res) => {
 
         let { basic_details, contact_info, company_relation, document_info, social } = data;
 
-        sql1 = `update basic_information set full_name = '${basic_details.fullname}',gender='${basic_details.gender}',birthdate='${basic_details.dob}',marital_status='${basic_details.m_status}',allowed_wfh=${Number(basic_details.wfh)},profile_pic= '${uncompressed_files[0]}' where employee_id=${ID}`
+        sql1 = `update basic_information set full_name = '${basic_details.fullname}',gender='${basic_details.gender}',birthdate='${basic_details.dob}',marital_status='${basic_details.m_status}',allowed_wfh=${Number(basic_details.wfh)},profile_pic= '${selectImage}' where employee_id=${ID}`
         await con.execute(sql1);
         sql2 = `update contact_information set  contact_no = '${contact_info.contact}',emergency_contact='${contact_info.emergency_contact}',emergency_person_name='${contact_info.emergency_person}',permenant_address='${contact_info.permanent_address}',current_address='${contact_info.current_address}' where employee_id=${ID}`
         await con.execute(sql2);

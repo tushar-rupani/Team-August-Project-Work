@@ -406,11 +406,12 @@ form {
 }
 
 #contactnextbtn {
-    position: relative;
-    left: -35px;
+    position: relative !important;
+    left: -35px !important;
 }
 
 .err_msg {
     color: red;
     padding-top: 5px;
 }
+

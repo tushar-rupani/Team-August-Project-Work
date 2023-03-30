@@ -25,7 +25,14 @@
         <script id="scripts" type="text/javascript" src="/scripts.js?c297ffc94dc8b1cc0bf99a59b92ce1f9f01f5208"></script>
         <!-- <script type="text/javascript" src="/js/leaves.js"></script> -->
         <!-- Bootstap link -->
+<style>
+      .container {
+            grid-template-columns: 1fr 5fr;
+        }
 
+        main {
+            width: 100%;
+        }
 </style>
 </head>
 
@@ -198,60 +205,7 @@
             </main>
     </div>
 </body>
-<script>
+<script src="/js/attendence.js"></script>
+    </html>
 
-async function getData(e){
-    let startDate = e.value;
-    let endDate = document.getElementById("date").value;
-    const resp = await fetch(`/self/filter-data/${startDate}/${endDate}`);
-    const data = await resp.json();
-    if(data){
-        document.querySelector("#table").innerHTML = `<table class="tab">
-                        <tr>
-                            <div class="column">
-                                <div class="col">
-                                    <h4>Date</h4>
-                                </div>
-                                <div class="col">
-                                    <h4>Entry-Time</h4>
-                                </div>
-                                <div class="col">
-                                    <h4>Exit-Time</h4>
-                                </div>
-                                <div class="col">
-                                    <h4>Break-time</h4>
-                                </div>
-                               
-                                <div class="col">
-                                    <h4>Working-hours</h4>
-                                </div>
-                        </tr>`;
-        data["data"].forEach(element => {
-            document.querySelector("#table").innerHTML += `
-            <tr>
-                            <div class="column2">
-                                <div class="col">
-                                    <p> ${element.date.substr(0,10)} %></p>
-                                </div>
-                                <div class="col">
-                                    <p> ${element.check_in} </p>
-                                </div>
-                                <div class="col">
-                                    <p>${element.check_out}</p>
-                                   
-                                </div>
-                                <div class="col">
-                                    <p>${element.break_taken}</p>
-                                </div>
-                                
-                                <div class="col">
-                                    <p>${element.hours_worked}</p>
-                                </div>
-                            </div>
-                        </tr>
-            `; 
-        });
-    }
-}
-</script>
-</html>
+
