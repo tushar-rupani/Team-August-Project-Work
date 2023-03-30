@@ -430,7 +430,7 @@ button .text {
    
 }
 .card-1{
-    width:13%;
+    width:100%;
     border-radius: 12px;
     height: 90px;
 }
@@ -675,4 +675,25 @@ textarea{
 
 .hidden{
     display: none;
+}
+
+.flex {
+    display: flex;
+    justify-content: center;
+    margin: 20px 0;
+    gap: 0 15px;
+    font-family: 'Hanken Grotesk', sans-serif;
+    font-weight: bolder;
+}
+
+p {
+    font-size: 13px !important
+}
+
+.container {
+    grid-template-columns: 1fr 7fr;
+}
+
+main {
+    width: 100%;
 }

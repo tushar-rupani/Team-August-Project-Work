@@ -36,12 +36,13 @@ app.use("/leaves",leavesRoutes);
 app.use("/leaveadmin", leaveAdminRoutes);
 app.use("/",employeeFormRoutes);
 
+
 app.use(favicon(__dirname + '/public/assets/favicon.ico'));
 
 app.get("*", (req, res) => {
   res.render("404")
 })
 
-app.listen(3000, () => {
+app.listen(3001, () => {
     console.log("App is runnig");
 })

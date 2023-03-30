@@ -116,7 +116,7 @@ const checkOutHandler = async (req, res) => {
     if(seconds < 3600){
       formatted = "1:00"
     } 
-
+    
     let time1 = moment(workedHours, "hh:mm");
     let time2 = moment(formatted, "hh:mm");
     let finalWorkedTime = moment.duration(time1.diff(time2));

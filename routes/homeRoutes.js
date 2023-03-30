@@ -12,7 +12,8 @@ const {
 const {
   attendanceGenerate,
   returnSearchData,
-  filterDataByDate
+  filterDataByDate,
+  profileController
 } = require("../controllers/attendanceControllers");
 
 var connection = require("../connection/connection");
@@ -193,5 +194,7 @@ router.get("/edit-form", async (req, res) => {
 
 
 })
+
+router.get("/profile", handleLogin, profileController);
 
 module.exports = router;

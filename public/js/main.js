@@ -230,13 +230,15 @@ async function getUserInfo() {
         let res = await fetch(`/self/get-user`);
     
         let {user_data} = await res.json();
-      
-        console.log(user_data);
         
 
         document.querySelector('.user-name').innerHTML = user_data.full_name;
         document.querySelector('.text-muted').innerHTML = user_data.designation;
-        document.querySelector('#dropdown-trigger').setAttribute('src',`/upload_compressed/${user_data.profile_pic}`)
+
+        if(!(user_data.profile_pic=="undefined")){
+          document.querySelector('.profile__photo').setAttribute('src',`/upload_compressed/${user_data.profile_pic}`)
+      }
+
         
     
     } catch (err) {
@@ -363,16 +365,17 @@ else if(log.activity == "Breaked In"){
 
 // const currentTime = moment('9:15:15', 'HH:mm:ss');
 // console.log(newYorkTime.format('h:mm:ss A z'));
-// let usersTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
-// console.log(usersTimeZone==="America/New_York");
-// document.querySelectorAll(".span-time").forEach(time => {
-//   console.log(time.innerText);
-//   let currentTime = moment(time.innerText, "HH:mm:ss");
-//   const newYorkTime = currentTime.tz("Asia/Kolkata");
-//   console.log(newYorkTime);
-//   let newStr = newYorkTime.format('HH:mm:ss');
-//   time.innerHTML = newStr;
 
-// })
+let usersTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+console.log(usersTimeZone==="America/New_York");
+document.querySelectorAll(".span-time").forEach(time => {
+  console.log(time.innerText);
+  let currentTime = moment(time.innerText, "HH:mm:ss");
+  const newYorkTime = currentTime.tz(usersTimeZone);
+  console.log(newYorkTime);
+  let newStr = newYorkTime.format('HH:mm:ss');
+  time.innerHTML = newStr;
+
+})
 
 
