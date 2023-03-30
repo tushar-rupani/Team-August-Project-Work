@@ -30,7 +30,7 @@
             display: flex;
             justify-content: center;
             margin: 20px 0;
-            gap: 0 30px;
+            gap: 0 15px;
             font-family: 'Hanken Grotesk', sans-serif;
             font-weight: bolder;
         }
@@ -44,6 +44,14 @@
 
         p {
             font-size: 13px !important
+        }
+
+        .container {
+            grid-template-columns: 1fr 5fr;
+        }
+
+        main {
+            width: 100%;
         }
     </style>
 
@@ -79,11 +87,13 @@
 
                             <div class="profile">
                                 <div class="profile__info">
-                                    <p>Hey, <b>Jyotsana</b></p>
+                                    <p>Hey, <b class="user-name">Jyotsana</b></p>
                                     <small class="text-muted">SDL-1</small>
                                 </div>
                                 <div>
-                                    <img class="profile__photo" src="/assets/profile-3.jpg" alt="profile-picture">
+                                    <img class="profile__photo"
+                                        src="https://hrms.appdemoserver.com/assets/img/avatars/profile_image.jpg"
+                                        alt="profile-picture">
                                 </div>
                             </div>
                         </div>

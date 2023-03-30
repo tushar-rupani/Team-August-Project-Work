@@ -25,13 +25,15 @@
         <script id="scripts" type="text/javascript" src="/scripts.js?c297ffc94dc8b1cc0bf99a59b92ce1f9f01f5208"></script>
         <!-- <script type="text/javascript" src="/js/leaves.js"></script> -->
         <!-- Bootstap link -->
-<style>
-    .container{
-        grid-template-columns: 1fr 7fr;
-    }
-    main{
-        width: 100%;
-    }
+    <style>
+        .container {
+            grid-template-columns: 1fr 5fr;
+        }
+
+        main {
+            width: 100%;
+        }
+    </style>
 
 </style>
 </head>
@@ -66,29 +68,35 @@
 
                             <div class="profile">
                                 <div class="profile__info">
-                                    <p>Hey, <b>Jyotsana</b></p>
+                                    <p>Hey, <b class="user-name">Jyotsana</b></p>
                                     <small class="text-muted">SDL-1</small>
                                 </div>
                                 <div>
-                                    <img class="profile__photo" src="/assets/profile-3.jpg" alt="profile-picture">
+                                    <img class="profile__photo"
+                                        src="https://hrms.appdemoserver.com/assets/img/avatars/profile_image.jpg"
+                                        alt="profile-picture">
                                 </div>
                             </div>
                         </div>
 
                     </div>
                 </div>
-           
-           <div class="main-content">
 
-                
-                     <div class="content">
+                <div class="main-content">
+
+
+                    <div class="content">
                         <div class="card-1" id="one">
                             <p>Work Days</p>
-                            <p><%= totalWorkingDays %> Days</p>
+                            <p>
+                                <%= totalWorkingDays %> Days
+                            </p>
                         </div>
                         <div class="card-1" id="two">
                             <p>Late Days</p>
-                            <p><%= lateDaysCount %> Days</p>
+                            <p>
+                                <%= lateDaysCount %> Days
+                            </p>
                         </div>
                         <div class="card-1" id="three">
                             <p>Absent</p>
@@ -100,20 +108,26 @@
                         </div>
                         <div class="card-1" id="five">
                             <p>Total Office Hours</p>
-                            <p><%= getTotalOfficeHours %> Hours</p>
+                            <p>
+                                <%= getTotalOfficeHours %> Hours
+                            </p>
                         </div>
                         <div class="card-1" id="six">
                             <p>Total Hours</p>
-                            <p><%= hoursWorked %> Hours</p>
+                            <p>
+                                <%= hoursWorked %> Hours
+                            </p>
                         </div>
                         <div class="card-1" id="seven">
                             <p>Productivity</p>
-                            <p><%= workingRatio.toFixed(2) %> %</p>
+                            <p>
+                                <%= workingRatio.toFixed(2) %> %
+                            </p>
                         </div>
                     </div>
                     <div class="data">
                         <input class="i-data" type="date" id="date">
-                        <input class="i-data" type="date" onchange="getData(this)" >
+                        <input class="i-data" type="date" onchange="getData(this)">
                     </div>
                     <div id="table">
                     <table class="tab">
@@ -139,104 +153,62 @@
                                 </div>
                         </tr>
 
-                        <% for(let i=0; i<executeGetRecords.length; i++){ %> 
-                        <tr>
-                            <div class="column2">
-                                <div class="col">
-                                    <p><%= executeGetRecords[i].date.toLocaleDateString() %></p>
+                        <% for(let i=0; i<executeGetRecords.length; i++){ %>
+                            <tr>
+                                <div class="column2">
+                                    <div class="col">
+                                        <p>
+                                            <%= executeGetRecords[i].date.toLocaleDateString() %>
+                                        </p>
+                                    </div>
+                                    <div class="col">
+                                        <p>
+                                            <%= executeGetRecords[i].check_in %>
+                                        </p>
+                                    </div>
+                                    <div class="col">
+                                        <% if(executeGetRecords[i].check_out !=0 ) { %>
+                                            <p>
+                                                <%= executeGetRecords[i].check_out %>
+                                            </p>
+                                            <% } %>
+                                    </div>
+                                    <div class="col">
+                                        <p>
+                                            <%= executeGetRecords[i].break_taken %>
+                                        </p>
+                                    </div>
+                                    <div class="col">
+                                        <!-- <progress id="file" max="100" value="<%= array_of_passedTime[i] %>" class="red" style="background-color: red;"></progress> -->
+                                        <% if(executeGetRecords[i].check_out !=0 ) { %>
+                                            <div class="progress">
+                                                <div class="progress-bar progress-bar-striped progress-bar-animated <% if (array_of_passedTime[i] < 100) { %> bg-danger <% } %>"
+                                                    role="progressbar" aria-valuenow="20" aria-valuemin="0"
+                                                    aria-valuemax="100" style="width: <%= array_of_passedTime[i] %>%">
+                                                </div>
+                                            </div>
+                                            <% } %>
+                                    </div>
+                                    <div class="col">
+                                        <% if(executeGetRecords[i].check_out !=0 ) { %>
+                                            <p>
+                                                <%= executeGetRecords[i].hours_worked %>
+                                            </p>
+                                            <% } %>
+                                    </div>
                                 </div>
-                                <div class="col">
-                                    <p><%= executeGetRecords[i].check_in %></p>
-                                </div>
-                                <div class="col">
-                                    <% if(executeGetRecords[i].check_out != 0 ) { %> 
-                                    <p><%= executeGetRecords[i].check_out %></p>
-                                    <% } %>
-                                </div>
-                                <div class="col">
-                                    <p><%= executeGetRecords[i].break_taken %></p>
-                                </div>
-                                <div class="col">
-                                    <!-- <progress id="file" max="100" value="<%= array_of_passedTime[i] %>" class="red" style="background-color: red;"></progress> -->
-                                    <% if(executeGetRecords[i].check_out != 0 ) { %> 
-                                    <div class="progress">
-                                        <div class="progress-bar progress-bar-striped progress-bar-animated <% if (array_of_passedTime[i] < 100) { %> bg-danger <% } %>" role="progressbar"  aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width: <%= array_of_passedTime[i] %>%"></div>
-                                      </div>
-                                      <% } %>
-                                </div>
-                                <div class="col">
-                                    <% if(executeGetRecords[i].check_out != 0 ) { %> 
-                                    <p><%= executeGetRecords[i].hours_worked %></p>
-                                    <% } %>
-                                </div>
-                            </div>
-                        </tr>
-                        <% } %>
+                            </tr>
+                            <% } %>
 
-                        
-                    </table>  
-                </div>              
-            </div>
-        </main>
-    </div> 
+
+                    </table>
+                </div>
+                </div>
+            </main>
+    </div>
 </body>
 <script src="/js/theme.js"></script>
-<script>
 
-async function getData(e){
-    let startDate = e.value;
-    let endDate = document.getElementById("date").value;
-    const resp = await fetch(`/self/filter-data/${startDate}/${endDate}`);
-    const data = await resp.json();
-    if(data){
-        document.querySelector("#table").innerHTML = `<table class="tab">
-                        <tr>
-                            <div class="column">
-                                <div class="col">
-                                    <h4>Date</h4>
-                                </div>
-                                <div class="col">
-                                    <h4>Entry-Time</h4>
-                                </div>
-                                <div class="col">
-                                    <h4>Exit-Time</h4>
-                                </div>
-                                <div class="col">
-                                    <h4>Break-time</h4>
-                                </div>
-                               
-                                <div class="col">
-                                    <h4>Working-hours</h4>
-                                </div>
-                        </tr>`;
-        data["data"].forEach(element => {
-            document.querySelector("#table").innerHTML += `
-            <tr>
-                            <div class="column2">
-                                <div class="col">
-                                    <p> ${element.date.substr(0,10)} %></p>
-                                </div>
-                                <div class="col">
-                                    <p> ${element.check_in} </p>
-                                </div>
-                                <div class="col">
-                                    <p>${element.check_out}</p>
-                                   
-                                </div>
-                                <div class="col">
-                                    <p>${element.break_taken}</p>
-                                </div>
-                                
-                                <div class="col">
-                                    <p>${element.hours_worked}</p>
-                                </div>
-                            </div>
-                        </tr>
-            `; 
-        });
-    }
-}
-</script>
+<script src="/js/attendence.js"></script>
 </html>
-
 
