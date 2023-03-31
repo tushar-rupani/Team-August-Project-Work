@@ -36,6 +36,7 @@ app.use("/leaves",leavesRoutes);
 app.use("/leaveadmin", leaveAdminRoutes);
 app.use("/",employeeFormRoutes);
 
+
 app.use(favicon(__dirname + '/public/assets/favicon.ico'));
 
 app.get("*", (req, res) => {
