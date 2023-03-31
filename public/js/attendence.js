@@ -1,3 +1,14 @@
+
+document.getElementById('date').valueAsDate = new Date();
+
+async function getData(e){
+    let startDate = e.value;
+    let endDate = document.getElementById("date").value;
+    const resp = await fetch(`/self/filter-data/${startDate}/${endDate}`);
+    const data = await resp.json();
+    console.log(data);
+}
+
 //showing employee profile and name
 
 async function getUserInfo() {
@@ -28,7 +39,7 @@ async function getData(e){
     const resp = await fetch(`/self/filter-data/${startDate}/${endDate}`);
     const data = await resp.json();
     console.log(data);
-
+    console.log(data['data']);
     if(data){
         document.querySelector("#table").innerHTML = `<table class="tab">
                         <tr>
@@ -80,4 +91,39 @@ async function getData(e){
 
 
 getUserInfo();
+
+
+const all_attendence=document.querySelectorAll(".column2");
+
+all_attendence.forEach((x,i)=>{
+    
+    let checkin=document.querySelector(`.checkin-time-${(i+1)}`).innerHTML;
+    let checkout=document.querySelector(`.checkout-time-${(i+1)}`)?.innerHTML;
+    let break_time = document.querySelector(`.break-time-${(i+1)}`)?.innerHTML;
+    
+    if(checkin!=undefined && checkout!=undefined && break_time!=undefined){
+        
+        let startTime=moment(checkin,'HH:mm:ss');
+        let endTime=moment(checkout,'HH:mm:ss');
+
+        let diff=moment.duration(endTime.diff(startTime));
+        let diff_min=diff.asMinutes().toFixed(0);
+
+        if(diff_min<61){
+
+            document.querySelector(`#progress-${(i+1)}`).style.width="0%";
+            document.querySelector(`.total-${(i+1)}`).innerHTML=diff_min+" Minutes";
+
+        }
+
+
+        
+
+    }
+    
+    
+    
+     
+});
+
 

@@ -695,9 +695,7 @@ button .text {
 }
 .disabling:hover{
     cursor: not-allowed;
-
-}
-
+  }
 
 
   .hidden{
