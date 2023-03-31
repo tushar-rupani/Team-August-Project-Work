@@ -3,7 +3,7 @@ const express = require("express");
 const router = express.Router();
 const {v4 : uuidv4} = require('uuid')
 
-const {saveData,renderForm}=require('../controllers/employee-dataController')
+const {saveData,renderForm, updateData}=require('../controllers/employee-dataController')
 
 const multer  = require('multer');
 const path = require('path');
@@ -25,6 +25,7 @@ router.get("/employee-form", handleLogin, renderForm);
 
 router.post("/employee-form",handleLogin,upload.array('file',5),saveData);
 
+router.post("/update-employee-form", handleLogin, upload.array('file',1), updateData);
 
 
 module.exports = router;

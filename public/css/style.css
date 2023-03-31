@@ -183,10 +183,6 @@ b {
     top: 20px;
 }
 
-.sidebar__image {
-    width: 2rem;
-    height: 2rem;
-}
 
 .sidebar__close {
     display: none;

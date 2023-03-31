@@ -15,7 +15,6 @@ var transporter = nodemailer.createTransport({
 const loginController = async (req, res) => {
   const loginErrors = {};
   const { email, password, ip } = req.body;
-  
   let results;
   let query = `SELECT * FROM register where email = '${email}'`;
   try {
@@ -164,7 +163,7 @@ const registerController = async (req, res) => {
         from: "tushar24081@gmail.com",
         to: `${email}`,
         subject: "Password Activation Link",
-        html: `<h1>Welcome aboard!</h1><p>Click the below activation link to get started.</p><a href="http://localhost:3000/activate-account/${token}">${token}</a>`,
+        html: `<h1>Welcome aboard!</h1><p>Click the below activation link to get started.</p><a href="https://august.appdemoserver.com/${token}">${token}</a>`,
       };
       transporter.sendMail(mailOptions, function (error, info) {
         if (error) {

@@ -35,6 +35,18 @@
         }
     </style>
 
+    <style>
+        .container {
+            grid-template-columns: 1fr 5fr;
+        }
+
+        main {
+            width: 100%;
+        }
+    </style>
+
+        
+</style>
 </head>
 
 <body>
@@ -99,11 +111,11 @@
                         </div>
                         <div class="card-1" id="three">
                             <p>Absent</p>
-                            <p>10</p>
+                            <p><%= leave_data %> Days</p>
                         </div>
                         <div class="card-1" id="four">
                             <p>Half Days</p>
-                            <p>10</p>
+                            <p><%= half_data %> Days</p>
                         </div>
                         <div class="card-1" id="five">
                             <p>Total Office Hours</p>
@@ -128,6 +140,7 @@
                         <input class="i-data" type="date" id="date">
                         <input class="i-data" type="date" onchange="getData(this)">
                     </div>
+                    <div id="table">
                     <table class="tab">
                         <tr>
                             <div class="column">
@@ -151,59 +164,70 @@
                                 </div>
                         </tr>
 
-                        <% for(let i=0; i<executeGetRecords.length; i++){ %>
-                            <tr>
-                                <div class="column2">
-                                    <div class="col">
-                                        <p>
-                                            <%= executeGetRecords[i].date.toLocaleDateString() %>
-                                        </p>
-                                    </div>
-                                    <div class="col">
-                                        <p>
-                                            <%= executeGetRecords[i].check_in %>
-                                        </p>
-                                    </div>
-                                    <div class="col">
-                                        <% if(executeGetRecords[i].check_out !=0 ) { %>
-                                            <p>
-                                                <%= executeGetRecords[i].check_out %>
-                                            </p>
-                                            <% } %>
-                                    </div>
-                                    <div class="col">
-                                        <p>
-                                            <%= formattedTimes[i] %>
-                                        </p>
-                                    </div>
-                                    <div class="col">
-                                        <!-- <progress id="file" max="100" value="<%= array_of_passedTime[i] %>" class="red" style="background-color: red;"></progress> -->
-                                        <% if(executeGetRecords[i].check_out !=0 ) { %>
-                                            <div class="progress">
-                                                <div class="progress-bar progress-bar-striped progress-bar-animated <% if (array_of_passedTime[i] < 100) { %> bg-danger <% } %>"
-                                                    role="progressbar" aria-valuenow="20" aria-valuemin="0"
-                                                    aria-valuemax="100" style="width: <%= array_of_passedTime[i] %>%">
-                                                </div>
-                                            </div>
-                                            <% } %>
-                                    </div>
-                                    <div class="col">
-                                        <% if(executeGetRecords[i].check_out !=0 ) { %>
-                                            <p>
-                                                <%= executeGetRecords[i].hours_worked %>
-                                            </p>
-                                            <% } %>
-                                    </div>
+                        <% for(let i=0; i<executeGetRecords.length; i++){ %> 
+                        <tr>
+                            <div class="column2">
+                                <div class="col">
+                                    <p><%= executeGetRecords[i].date.toLocaleDateString() %></p>
                                 </div>
-                            </tr>
-                            <% } %>
+                                <div class="col">
+                                    <p class="checkin-time-<%=(i+1)%>"><%= executeGetRecords[i].check_in %></p>
+                                </div>
+                                <div class="col">
+                                    <% if(executeGetRecords[i].check_out != 0 ) { %> 
+                                    <p class="checkout-time-<%=(i+1)%>"><%= executeGetRecords[i].check_out %></p>
+                                    <% } %>
+                                </div>
+                                <div class="col">
+                                    <p class="break-time-<%=(i+1)%>"><%= executeGetRecords[i].break_taken %></p>
+                                </div>
+                                <div class="col">
+                                    <!-- <progress id="file" max="100" value="<%= array_of_passedTime[i] %>" class="red" style="background-color: red;"></progress> -->
+                                    <% if(executeGetRecords[i].check_out != 0 ) { %> 
+                                    <div class="progress">
+                                        <div class="progress-bar progress-bar-striped progress-bar-animated <% if (array_of_passedTime[i] < 100) { %> bg-danger <% } %>" id="progress-<%=(i+1)%>" role="progressbar"  aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width: <%= array_of_passedTime[i] %>%"></div>
+                                      </div>
+                                      <% } %>
+                                </div>
+                                <div class="col">
+                                    <% if(executeGetRecords[i].check_out != 0 ) { %> 
+                                    <p class="total-<%=(i+1)%>"><%= executeGetRecords[i].hours_worked %></p>
+                                    <% } %>
+                                </div>
+                            </div>
+                        </tr>
+                        <% } %>
 
-
-                    </table>
-                </div>
-            </main>
-    </div>
+                        
+                    </table>                
+            </div>
+        </main>
+    </div> 
 </body>
-<script src="/js/attendence.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment-timezone/0.5.32/moment-timezone-with-data.min.js"></script>
 
+<script src="/js/attendence.js"></script>
 </html>
+
+    
+
+         
+
+          
+
+
+            
+
+ 
+
+
+    
+
+         
+
+       
+
+
+          
+         

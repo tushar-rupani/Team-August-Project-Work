@@ -18,6 +18,7 @@ const time = new Date().toLocaleTimeString();
 const recent = document.getElementById("recents");
 timeLabel.innerHTML = time;
 
+
 dateLabel.innerHTML = date;
 
 const renew = document.getElementById("renew");
@@ -207,12 +208,6 @@ CloseBtn.addEventListener('click', () => {
 
 
 
-
-function preventBack() { window.history.forward(); }
-setTimeout("preventBack()", 0);
-window.onunload = function () { null };
-
-
 ThemeToggler.addEventListener("click", () => {
     document.body.classList.toggle('dark-theme-variables')
 
@@ -230,7 +225,6 @@ async function getUserInfo() {
         let res = await fetch(`/self/get-user`);
     
         let {user_data} = await res.json();
-    
         
 
         document.querySelector('.user-name').innerHTML = user_data.full_name;
@@ -253,6 +247,7 @@ async function gettingLogData(){
   let res = await fetch(`/self/logs`);
   let data = await res.json();
   let logs = data["logs"];
+  console.log(logs);
   if(data){
       container.innerHTML = ``;
       logs.forEach(log => {
@@ -264,6 +259,7 @@ gettingLogData();
 
 renew.addEventListener("click", (e) => {
   gettingLogData();
+  console.log("Getting called");
 })
 
 
@@ -360,5 +356,21 @@ else if(log.activity == "Breaked In"){
 </div>`
 }
 }
+
+gettingLogData();
+// const currentTime = moment('9:15:15', 'HH:mm:ss');
+// console.log(newYorkTime.format('h:mm:ss A z'));
+
+// let usersTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+// console.log(usersTimeZone==="America/New_York");
+// document.querySelectorAll(".span-time").forEach(time => {
+//   console.log(time.innerText);
+//   let currentTime = moment(time.innerText, "HH:mm:ss");
+//   const newYorkTime = currentTime.tz(usersTimeZone);
+//   console.log(newYorkTime);
+//   let newStr = newYorkTime.format('HH:mm:ss');
+//   time.innerHTML = newStr;
+
+// })
 
 

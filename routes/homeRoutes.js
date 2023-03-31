@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const moment = require("moment");
 const jwt = require("jsonwebtoken");
+const dateformat = require('date-fns');
 const { handleLogin } = require("../middlewares/authMiddlewares");
 const {
   checkIfUserIsonBreak,
@@ -11,7 +12,8 @@ const {
 const {
   attendanceGenerate,
   returnSearchData,
-  filterDataByDate
+  filterDataByDate,
+  profileController
 } = require("../controllers/attendanceControllers");
 
 var connection = require("../connection/connection");
@@ -40,6 +42,8 @@ router.get("/home", handleLogin, async (req, res) => {
   let breakAns = await checkIfUserIsonBreak(user_id);
   let breakoutAns = await checkIfUserIsBreakedOut(user_id);
   let hasCheckedIn = false;
+  var forgotLastTime = false;
+
   var executeAttendance, executeActivity;
   try {
     let getAttendanceDetails = `SELECT * FROM attendence_manager where employee_id = ${user_id} and date = '${currentDate}'`;
@@ -64,9 +68,12 @@ router.get("/home", handleLogin, async (req, res) => {
     let [executeLateDays] = await connection.execute(lateDays);
     var lateDaysCount = executeLateDays[0].late;
 
+    const startOfMonth = moment().startOf('month').format('YYYY-MM-DD');
+    const endOfMonth   = moment().endOf('month').format('YYYY-MM-DD');
+
     let totalHoursWorked = `SELECT SEC_TO_TIME(SUM(TIME_TO_SEC(hours_worked))) AS hours_worked
         FROM attendence_manager
-        WHERE date BETWEEN '2023-03-01' AND '2023-03-31' AND employee_id = ${user_id}`;
+        WHERE date BETWEEN '${startOfMonth}' AND '${endOfMonth}' and employee_id = ${user_id}`;
 
     let [executeTotalHoursWorked] = await connection.execute(totalHoursWorked);
     var hoursWorked = executeTotalHoursWorked[0].hours_worked;
@@ -76,6 +83,18 @@ router.get("/home", handleLogin, async (req, res) => {
     if (hasUserCheckedOut.length) {
       if (hasUserCheckedOut[0].check_out != "0") {
         checked_out = "checkout";
+      }
+    }
+
+    console.log(currentDate);
+    let getLastRow = `SELECT check_out FROM attendence_manager where employee_id = ${user_id} and date != '${currentDate}' order by id desc LIMIT 1`;
+    let [executeForgot] = await connection.execute(getLastRow);
+    console.log("forgot", executeForgot);
+    if(executeForgot.length){
+      let getLastCheckout = executeForgot[0].check_out;
+
+      if(getLastCheckout == "0"){
+        forgotLastTime = true;
       }
     }
     let qry_show = `SELECT * FROM comments where employee_id = ${user_id} and date ='${currentDate}' order by id DESC`;
@@ -98,7 +117,8 @@ router.get("/home", handleLogin, async (req, res) => {
     breakoutAns,
     activatePage,
     checked_out,
-    commentResult
+    commentResult,
+    forgotLastTime
   });
 });
 
@@ -140,5 +160,56 @@ router.get("/get-user", handleLogin, async (req, res) => {
     return res.redirect("/");
   }
 });
+
+
+router.get("/edit-form", async (req, res) => {
+
+    let con = await connection.getConnection();
+
+    try {
+
+        let ID = Number(req.session.user);
+
+        let basic_details = await con.execute(`select employee_id,full_name,gender,birthdate,marital_status,allowed_wfh,profile_pic from basic_information where employee_id=${ID}`);
+        let contact_info = await con.execute(`select contact_no,emergency_contact,emergency_person_name,permenant_address,current_address from contact_information where employee_id=${ID}`);
+        let company_relation = await con.execute(`select designation,department,join_date,probation_date from company_relation where employee_id=${ID}`);
+        let social = await con.execute(`select twitter,linkedin,github,facebook from social_information where employee_id=${ID}`);
+        let document_info = await con.execute(`select aadhar_no,pancard_no,cheque_no,aadhar_path, pancard_path, cheque_path,resume_path from documents where employee_id=${ID}`);
+        let email = await con.execute(` select email from register where id=${ID}`);
+
+        var bdate = dateformat.format(new Date(basic_details[0][0].birthdate), 'dd/MM/yyyy');
+        var join_date = dateformat.format(new Date(company_relation[0][0].join_date), 'dd/MM/yyyy');
+        console.log(join_date);
+        var prob_date = dateformat.format(new Date(company_relation[0][0].probation_date), 'dd/MM/yyyy');
+
+        var gender = ['male', 'female', 'other'];
+        var status = ['Married', 'Unmarried'];
+
+
+        console.log(basic_details[0][0]);
+        res.render('edit-form', {
+            basic_details, contact_info, company_relation, document_info, social, email, bdate, gender, status, join_date, prob_date
+
+        })
+        await con.commit();
+
+
+
+    } catch (err) {
+        if (con) {
+            await con.rollback();
+        }
+        console.log(err);
+        res.status(500).json({ msg: "Somethig went wrong", status: 500 });
+    } finally {
+        if (con) {
+            con.release();
+        }
+    }
+
+
+})
+
+router.get("/profile", handleLogin, profileController);
 
 module.exports = router;

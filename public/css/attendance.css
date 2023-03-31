@@ -52,7 +52,9 @@
 html {
     font-size: 14px;
 }
-
+.container{
+    grid-template-columns: 1fr 7fr;
+}
 body {
     width: 100vw;
     height: 100vh;
@@ -666,6 +668,10 @@ margin: 9px;
 progress {
     vertical-align: baseline;
   }
+
+  div#table {
+    text-align: center;
+}
 
   @-webkit-keyframes progress-bar-stripes {
     from {
