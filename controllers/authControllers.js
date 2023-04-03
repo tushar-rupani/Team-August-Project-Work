@@ -36,7 +36,7 @@ const loginController = async (req, res) => {
     console.log(err);
   }
 
-  if (results[0].isActivated == "0") {
+  if (results[0]?.isActivated == "0") {
     return res.status(200).json({ msg: "redirected",ans:"activate" });
     // return res.redirect("/activate");
   }
