@@ -75,7 +75,7 @@ const returnSearchData = async (req, res) => {
   let sqlQuery = `SELECT b.full_name, activity, time from basic_information b 
   INNER JOIN daily_logs d
   ON d.employee_id = b.employee_id
-  where date = '${currentDate}' and b.full_name LIKE '${searchString}%';`
+  where date = '${currentDate}' and b.full_name LIKE '%${searchString}%';`
 
   let [executeLog] = await connection.execute(sqlQuery);
   
