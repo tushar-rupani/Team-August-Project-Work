@@ -79,8 +79,12 @@ const addleavesController = async (req,res) => {
 const getLeaveByStatus = async(req, res) => {
     let status = req.params.status;
     let id = req.session.user;
-
-    let query = `SELECT * from leave_request where employee_id = ${id} and leave_status = '${status}'`;
+    let query;
+    if(status == "*"){
+        query = `SELECT * from leave_request where employee_id = ${id}`;
+    }else{
+        query = `SELECT * from leave_request where employee_id = ${id} and leave_status = '${status}'`;
+    }
     try{
         var [fireQuery] = await connection.execute(query);
     }catch(e){
