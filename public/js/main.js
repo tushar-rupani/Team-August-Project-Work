@@ -1,3 +1,8 @@
+if(/Mobi/.test(navigator.userAgent)) {
+  document.querySelector(".mobile-message").classList.remove("hidden");
+  document.querySelector(".container").classList.add("hidden");
+} 
+
 const MenuBtn = document.querySelector("#menu-btn");
 const SideMenu = document.querySelector("#sidebar");
 const CloseBtn = document.querySelector("#close-btn");
@@ -60,7 +65,7 @@ checkIn.addEventListener("click", async (e) => {
     if (data["status"] == "DONE") {
         let checkInSpan = document.getElementById("backlog");
         checkInSpan.innerHTML = ` <div class="check_in" id="check-in-span">
-        <span>Checked In : ${data["checkInTime"]}</span>
+        <span>Checked In : ${convertUTCTime(data["checkInTime"])}</span>
         </div> `
         checkIn.classList.add("disabling");
         checkIn.disabled = true;
@@ -140,7 +145,7 @@ async function checkOutData() {
     if (data["status"] == "DONE") {
         let checkInSpan = document.getElementById("backlog");
         checkInSpan.innerHTML += ` <div class="check_out">
-        <span>Checked Out : ${data["checkOutTime"]}</span>
+        <span>Checked Out : ${convertUTCTime(data["checkOutTime"])}</span>
     </div> `
       
     buttons.innerHTML = ``;
@@ -156,7 +161,7 @@ async function breakOutData(){
     if(data["status"] == "DONE"){
         let checkInSpan = document.getElementById("backlog");
         checkInSpan.innerHTML += ` <div class="break_out">
-        <span>Breaked Out : ${data["breakOutTime"]}</span>
+        <span>Breaked Out : ${convertUTCTime(data["breakOutTime"])}</span>
     </div>`;
     checkOut.classList.remove("disabling");
     checkOut.disabled = false;
@@ -176,7 +181,7 @@ async function breakInData(){
     if(data["status"] == "DONE"){
         let checkInSpan = document.getElementById("backlog");
         checkInSpan.innerHTML += ` <div class="break_in">
-        <span>Breaked In : ${data["breakInTime"]}</span>
+        <span>Breaked In : ${convertUTCTime(data["breakInTime"])}</span>
     </div>`
     addingClass();
     }
@@ -333,45 +338,41 @@ function fillingLogs(log){
     container.innerHTML += `<div class="activity-log">
     <div class="card-title-small">${log.full_name}</div>
     <div class="checkin-text activity-log-text">Checked In</div>
-    <div class="log-time">${log.time}</div>
+    <div class="log-time">${convertUTCTime(log.time)}</div>
 </div>`}
 else if(log.activity == "Checked Out"){
     container.innerHTML += `<div class="activity-log">
     <div class="card-title-small">${log.full_name}</div>
     <div class="checkout-text activity-log-text">Checked Out</div>
-    <div class="log-time">${log.time}</div>
+    <div class="log-time">${convertUTCTime(log.time)}</div>
 </div>`}
 else if(log.activity == "Breaked Out"){
     container.innerHTML += `<div class="activity-log">
     <div class="card-title-small">${log.full_name}</div>
     <div class="breakout-text activity-log-text">Breaked Out</div>
-    <div class="log-time">${log.time}</div>
+    <div class="log-time">${convertUTCTime(log.time)}</div>
 </div>`
 }
 else if(log.activity == "Breaked In"){
     container.innerHTML += `<div class="activity-log">
     <div class="card-title-small">${log.full_name}</div>
     <div class="breakin-text activity-log-text">Breaked In</div>
-    <div class="log-time">${log.time}</div>
+    <div class="log-time">${convertUTCTime(log.time)}</div>
 </div>`
 }
 }
 
 gettingLogData();
-// const currentTime = moment('9:15:15', 'HH:mm:ss');
-// console.log(newYorkTime.format('h:mm:ss A z'));
 
-// let usersTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
-// console.log(usersTimeZone==="America/New_York");
-// document.querySelectorAll(".span-time").forEach(time => {
-//   console.log(time.innerText);
-//   let currentTime = moment(time.innerText, "HH:mm:ss");
-//   console.log("cur time", currentTime.format("HH:mm:ss"));
-//   const newYorkTime = currentTime.tz(usersTimeZone);
-//   console.log(newYorkTime);
-//   let newStr = newYorkTime.format('HH:mm:ss');
-//   time.innerHTML = newStr;
 
-// })
+document.querySelectorAll(".span-time").forEach(time => {
+  console.log(time.innerText);
+  let userTime = convertUTCTime(time.innerText);
+  time.innerHTML = userTime
+})
 
+function convertUTCTime(time){
+  let userTime = moment.utc(time, "hh:mm:ss").local().format("hh:mm:ss A");
+  return userTime;
+}
 

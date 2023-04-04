@@ -102,28 +102,26 @@ all_attendence.forEach((x,i)=>{
     let break_time = document.querySelector(`.break-time-${(i+1)}`)?.innerHTML;
     
     if(checkin!=undefined && checkout!=undefined && break_time!=undefined){
-        
         let startTime=moment(checkin,'HH:mm:ss');
         let endTime=moment(checkout,'HH:mm:ss');
-
         let diff=moment.duration(endTime.diff(startTime));
         let diff_min=diff.asMinutes().toFixed(0);
 
         if(diff_min<61){
-
             document.querySelector(`#progress-${(i+1)}`).style.width="0%";
             document.querySelector(`.total-${(i+1)}`).innerHTML=diff_min+" Minutes";
-
         }
-
-
-        
-
-    }
-    
-    
-    
-     
+    } 
 });
 
+document.querySelectorAll("#span-time").forEach(time => {
+    console.log(time.innerText);
+    let userTime = convertUTCTime(time.innerText);
+    time.innerHTML = userTime
+})
 
+function convertUTCTime(time){
+    let userTime = moment.utc(time, "hh:mm:ss").local().format("hh:mm:ss A");
+    return userTime;
+}
+  
