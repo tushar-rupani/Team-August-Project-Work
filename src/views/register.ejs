@@ -91,7 +91,7 @@
       signInButton.addEventListener("click", () => {
         container.classList.remove("right-panel-active");
       });
-
+      console.log("momewnr",moment().format("HH:mm:ss"));
       let currentTime = moment().utcOffset();
       document.cookie = `timezone=${currentTime}`;
       

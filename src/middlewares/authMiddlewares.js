@@ -1,4 +1,3 @@
-const jwt = require("jsonwebtoken");
 var connection = require("../connection/connection");
 
 function checkIfTokenExists(req, res, next) {
