@@ -250,7 +250,7 @@
 
                                 <% if(attendance?.check_in) {%>
                                     <div class="check_in">
-                                        <span>Checked In : <span class="span-time"><%= moment.utc(attendance?.check_in, "h:mm:ss").local().format("h:mm:ss"); %></span></span>
+                                        <span>Checked In : <span class="span-time"><%= attendance?.check_in %></span></span>
                                     </div>
                                     <% } %>
 
@@ -259,14 +259,14 @@
                                             <% for(let i=0; i<activity.length; i++) { %>
                                                 <% if(activity[i].break_in) { %>
                                                     <div class="break_in">
-                                                        <span>Breaked In : <span class="span-time"><%= moment.utc(activity[i].break_in, "h:mm:ss").local().format("h:mm:ss"); %></span>
+                                                        <span>Breaked In : <span class="span-time"><%= activity[i].break_in %></span>
                                                         </span>
                                                     </div>
                                                     <% } %>
 
                                                         <% if(activity[i].break_out !="00:00:00" ) { %>
                                                             <div class="break_out">
-                                                                <span>Breaked Out : <span class="span-time"><%= moment.utc(activity[i].break_out, "h:mm:ss").local().format("h:mm:ss"); %></span>
+                                                                <span>Breaked Out : <span class="span-time"><%= activity[i].break_out %></span>
                                                                 </span>
                                                             </div>
                                                             <% } %>
@@ -278,7 +278,7 @@
                                                                         <% if(attendance?.check_out !="0" ) {%>
                                                                             <div class="check_out ">
                                                                                 <span>Checked Out :
-                                                                                    <span class="span-time"><%= moment.utc(attendance?.check_out, "h:mm:ss").local().format("h:mm:ss"); %></span>
+                                                                                    <span class="span-time"><%= attendance?.check_out %></span>
                                                                                 </span>
                                                                             </div>
                                                                         <% } %>
