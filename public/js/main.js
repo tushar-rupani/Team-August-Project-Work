@@ -366,6 +366,7 @@ gettingLogData();
 // document.querySelectorAll(".span-time").forEach(time => {
 //   console.log(time.innerText);
 //   let currentTime = moment(time.innerText, "HH:mm:ss");
+//   console.log("cur time", currentTime.format("HH:mm:ss"));
 //   const newYorkTime = currentTime.tz(usersTimeZone);
 //   console.log(newYorkTime);
 //   let newStr = newYorkTime.format('HH:mm:ss');
