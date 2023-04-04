@@ -1,3 +1,8 @@
+if(/Mobi/.test(navigator.userAgent)) {
+  document.querySelector(".mobile-message").classList.remove("hidden");
+  document.querySelector(".container").classList.add("hidden");
+} 
+
 const MenuBtn = document.querySelector("#menu-btn");
 const SideMenu = document.querySelector("#sidebar");
 const CloseBtn = document.querySelector("#close-btn");
