@@ -362,16 +362,28 @@ gettingLogData();
 // console.log(newYorkTime.format('h:mm:ss A z'));
 
 // let usersTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+// console.log(usersTimeZone);
 // console.log(usersTimeZone==="America/New_York");
 // document.querySelectorAll(".span-time").forEach(time => {
 //   console.log(time.innerText);
-//   let currentTime = moment(time.innerText, "HH:mm:ss");
-//   console.log("cur time", currentTime.format("HH:mm:ss"));
-//   const newYorkTime = currentTime.tz(usersTimeZone);
-//   console.log(newYorkTime);
-//   let newStr = newYorkTime.format('HH:mm:ss');
-//   time.innerHTML = newStr;
+  // let currentTime = moment(time.innerText, "HH:mm:ss");
+
+
+  // const newYorkTime = currentTime.tz("America/New_York");
+  // console.log("new york", newYorkTime);
+  // let newStr = newYorkTime.format('HH:mm:ss');
+  // time.innerHTML = newStr;
 
 // })
 
+
+// const localOffset = moment().utcOffset();
+
+// console.log(typeof(localOffset));
+
+// console.log(moment);
+// const new_time = moment("12:54", "HH:mm");
+
+// const utcTime = new_time.utcOffset(localOffset).format("HH:mm");
+// console.log(utcTime);
 
