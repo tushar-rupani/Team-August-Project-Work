@@ -664,6 +664,11 @@ button .text {
     font-weight: 400;
 }
 
+.change-clr{
+    background: linear-gradient(45deg,#5faabb,#d91d1d);
+    padding: 10px 20px;
+}
+
 #dropdown-menu {
     display: none;
     position: absolute;

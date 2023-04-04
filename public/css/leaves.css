@@ -481,7 +481,6 @@ button .text {
 .column-entry h4{
     font-size: 14px;
     padding: 4px;
-    text-align: left;
     margin: 8px;
 }
 .column{
@@ -666,6 +665,7 @@ textarea{
     border: 1px solid #e6ecf5;
     margin-top: 2rem;
     border-radius: 10px;
+    text-align: center;
 }
 .leave-status{
     font-size: larger;
