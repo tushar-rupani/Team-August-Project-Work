@@ -145,6 +145,8 @@ const checkOutHandler = async (req, res) => {
 
 const breakInHandler = async (req, res) => {
    let currentEmployee = req.session.user;
+   console.log(currentTime);
+
    let didUserCheckedIn = await checkIfUserCheckedIn(currentEmployee); 
 
    if(didUserCheckedIn == false){
