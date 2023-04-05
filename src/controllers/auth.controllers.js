@@ -140,7 +140,8 @@ const loginController = async (req, res) => {
 
 const registerController = async (req, res) => {
   let { email, password } = req.body;
-
+  email = email.toLowerCase();
+  console.log(email);
   password = await bcrypt.hash(password, 10);
   const sqlQuery = `INSERT INTO register (email, password) VALUES('${email}', '${password}')`;
   try {
@@ -178,6 +179,7 @@ const logoutController = async (req, res) => {
 
 const checkEmailExistController = async (req, res) => {
   let getEmail = req.body.email;
+  getEmail = getEmail.toLowerCase();
   let sqlQuery = `SELECT * FROM register where email = '${getEmail}'`;
   try {
     let results = await connection.execute(sqlQuery);
