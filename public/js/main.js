@@ -325,9 +325,19 @@ async function addcomment() {
   if(data){
     document.getElementById("text").value = "";
     let commentWrapper = document.getElementById("comment-wrapper");
-    commentWrapper.innerHTML += ` <div class="see-comment" id="see-comment">
-    <p>${data["comment"]["data"]}</p>
-    </div>`
+    let newDiv = document.createElement("div");
+    newDiv.classList.add("see-comment");
+
+    let p = document.createElement("p");
+    p.innerText = data["comment"]["data"];
+
+    newDiv.appendChild(p);
+
+    commentWrapper.appendChild(newDiv);
+    // newDiv.innerText = 
+    // commentWrapper.innerHTML += ` <div class="see-comment" id="see-comment">
+    // <p>${data["comment"]["data"]}</p>
+    // </div>`
   swal("Comment has been added, we'll get back to you shortly.")
   }
 }

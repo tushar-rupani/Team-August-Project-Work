@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Sensation | eSparkBiz</title>
+    <link rel="stylesheet" href="/css/sensation.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment-timezone/0.5.32/moment-timezone-with-data.min.js"></script>
+</head>
+
+<body>
+    <ul id="messages">
+        <% for(let i=0; i<executeAllMessage.length; i++) { %> 
+            <div>
+            <p><%= executeAllMessage[i].full_name %></p>
+            <li><%= executeAllMessage[i].message %></li>    
+            <span class="span-time"><%= executeAllMessage[i].time %></span>  
+        </div>  
+        <% } %>
+    </ul>
+   
+        <input id="input-message" autocomplete="off" />
+        <button type="submit" id="send-button">Send</button>
+   
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/js/sensation.js"></script>
+
+</body>
+
+</html>
