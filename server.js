@@ -9,6 +9,8 @@ var cookieParser = require('cookie-parser');
 var session = require('express-session');
 require("dotenv").config();
 
+const socketIO = require("socket.io")
+
 app.set("view engine", "ejs");
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -33,6 +35,19 @@ app.get("*", (req, res) => {
   res.render("404")
 })
 
-app.listen(3001, () => {
+const server = app.listen(process.env.PORT, () => {
     console.log("App is runnig");
 })
+
+
+const io = socketIO(server);
+io.on("connection", (socket) => {
+  socket.on("chat", (message) => {
+    io.emit("chat", message)
+  })
+
+  socket.on("disconnect", () => {
+    console.log("User disconnected");
+  })
+})
+

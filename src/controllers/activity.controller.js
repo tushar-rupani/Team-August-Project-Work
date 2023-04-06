@@ -10,6 +10,7 @@ const { months } = require("moment");
 
 const checkInHandler = async (req, res) => {  
    let time = moment().format("HH:mm:ss");
+   console.log(time);
    if (currentTime.isAfter(tenAM)) {
       isLate = 1;
    }
