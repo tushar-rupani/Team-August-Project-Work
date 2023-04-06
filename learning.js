@@ -6,7 +6,9 @@ function createObject(){
 }
 const obj = createObject();
 // console.log(obj.constructor);
+
 console.log(JSON.stringify(obj));
+
 function Course(name){
     this.name = name;
     this.func = function() {
@@ -15,6 +17,7 @@ function Course(name){
 }
 const course = new Course("JS");
 // console.log(course.constructor);
+
 
 // ! Checking Prototype of Object.
 
@@ -96,3 +99,4 @@ let clo_multiply = function(x){
 }
 
 clo_multiply(2)(10);
+
