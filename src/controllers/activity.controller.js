@@ -246,6 +246,9 @@ const addcommentControllers = async (req, res) => {
    let id = req.session.user;
    let comment = req.body;
    let comments = comment.data;
+   console.log("before", comment);
+   comments = comments.replaceAll('"', '\\"');
+   console.log("after", comment);
 
    let query = `INSERT INTO comments(employee_id,comment,date) VALUES (${id},"${comments}","${currentDate}"); `;
    try {
