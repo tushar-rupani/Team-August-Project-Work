@@ -193,9 +193,70 @@ const checkEmailExistController = async (req, res) => {
   }
 };
 
+const forgotPassRender = (req, res) => {
+  res.render("forgot")
+}
+
+const forgotPassPost = async(req, res) =>{
+    let {email} = req.body;
+    email = email.toLowerCase();
+    let sqlQuery = `SELECT * FROM register where email = '${email}'`;
+    try {
+      let [results] = await connection.execute(sqlQuery);
+      if (!results.length) {
+        return res.status(401).json({ ans: "error", msg: "This email is not registered with us." });
+      }
+
+      let payload = { email };  
+      const token = jwt.sign(payload, "JWT_SECRET");
+      res.cookie("token", token);
+
+      var mailOptions = {
+        from: "tushar24081@gmail.com",
+        to: `${email}`,
+        subject: "Forgot Password Link",
+        html: `<h1>Here is your forgot password link!</h1><p>Click the below password reset link to set a new password.</p><a href="https://august.appdemoserver.com/reset-password/${token}">${token}</a>`,
+      };
+      transporter.sendMail(mailOptions, function (error, info) {
+        if (error) {
+          console.log(error);
+        } else {
+          // console.log("Email sent: " + info.response);
+          req.session.forgot = true; 
+          return res.status(200).json({ans: "success", msg: "We have sent you an email with password reset link."})
+        }
+      });
+    } catch (err) {
+      console.log(err);
+    }
+}
+
+const newPasswordPage = (req, res) => {
+  if(req.session.forgot){
+    return res.render("newpass")
+  }
+  res.redirect("/")
+}
+
+const resetPassword = (req, res) => {
+    let token = req.params.token;
+    try{
+      let decode = jwt.verify(token, "JWT_SECRET");
+      let email = decode.email;
+      req.session.email = email;
+      console.log("session set", req.session.email);
+      res.redirect("/new-pass")
+    }catch(e){
+      console.log(e);
+    }
+}
 module.exports = {
   loginController,
   registerController,
   checkEmailExistController,
   logoutController,
+  forgotPassRender,
+  forgotPassPost,
+  newPasswordPage,
+  resetPassword
 };

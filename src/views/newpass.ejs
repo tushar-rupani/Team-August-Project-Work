@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.0/css/all.min.css"
+      integrity="sha512-gRH0EcIcYBFkQTnbpO8k0WlsD20x5VzjhOA1Og8+ZUAhcMUCvd+APD35FJw3GzHAP3e+mP28YcDJxVr745loHw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/sweetalert2@10.10.1/dist/sweetalert2.min.css"
+    />
+    <link rel="icon" href="/css/SlideForm.png" />
+    <link rel="stylesheet" href="/css/register.css" />
+    <title>eSparkBiz | Forgot Password</title>
+    <script src=" https://cdn.jsdelivr.net/npm/moment@2.29.4/moment.min.js "></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.10.1/dist/sweetalert2.all.min.js"></script>
+    <style>
+        button{
+            margin-top: 10px;
+        }
+        body{
+            background-image: url('../assets/eSpark.png');
+            background-repeat: no-repeat;
+        }
+        h1{
+            font-size: 1.6rem;
+        }
+    </style>
+  </head>
+
+  <body>
+    <div class="container" id="container">
+      <div class="form-container sign-in-container">
+        <form id="form" action="/forgot" method="POST">
+          <img src="/assets/espark_logo.png" alt="espark logo" />
+
+          <h1 style="margin-bottom: 0px">Forgot Password?</h1>
+          <p style="margin-bottom: 20px; color: #8a8484">
+            Let's reset it.
+        </p>
+
+          <input type="password" placeholder="Enter new password" name="password1" id="pass" autocomplete="off"/>
+          <span id="perror" class="hidden"></span>
+          <input type="password" placeholder="Enter new password again" name="password2" id="pass2" autocomplete="off"/>
+          <span id="reerror" class="hidden"></span>
+          <button id="signin-btn" class="disabling" disabled>Process</button>
+        </form>
+      </div>
+      <div class="overlay-container">
+        <div class="overlay">
+          <div class="overlay-panel overlay-right">
+            <h1>Let's Reset Your Password!</h1>
+            <p style="margin-bottom: 30px">
+               Please note it down somewhere, if you're suffering from alzheimer bro.
+            </p>
+          </div>
+          
+        </div>
+      </div>
+    </div>
+
+    <div class="mobile-message hidden">
+      This Website is not accessible in mobile devices.
+    </div>
+
+  </body>
+  <script src="/js/new_pass.js"></script>
+</html>
