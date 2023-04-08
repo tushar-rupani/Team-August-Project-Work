@@ -252,7 +252,6 @@ async function gettingLogData(){
   let res = await fetch(`/self/logs`);
   let data = await res.json();
   let logs = data["logs"];
-  console.log(logs);
   if(data){
       container.innerHTML = ``;
       logs.forEach(log => {
@@ -303,7 +302,6 @@ function validate_comment() {
   else {  
     document.getElementById("submit").disabled = false;
     document.getElementById("submit").classList.remove("disabling");
-    console.log(document.getElementById("submit").disabled);
       return true;
   }
 

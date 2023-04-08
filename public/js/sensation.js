@@ -24,8 +24,7 @@ form.addEventListener('click', async(e) => {
         },
         body: JSON.stringify({
              message
-        })
-        
+        })  
     })
 });
 
@@ -57,16 +56,12 @@ socket.on("chat", async(message) => {
 })
 
 document.querySelectorAll(".span-time").forEach(time => {
-    console.log(time.innerText);
     let userTime = convertUTCTime(time.innerText);
     time.innerHTML = userTime
   })
   
   function convertUTCTime(time){
-    console.log("i am executing");
-    console.log(time);
     let userTime = moment.utc(time, "YYYY-MM-DD hh:mm:ss").local().format("YYYY-MM-DD hh:mm:ss A");
-    console.log(userTime);
     return userTime;
   }
   

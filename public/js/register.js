@@ -152,7 +152,6 @@ loginFrom.addEventListener('submit', async function (e) {
         })
     }
     let ip = document.querySelector("#user-ip").value;
-    console.log(ip_field);
    
 
     try {

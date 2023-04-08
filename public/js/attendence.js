@@ -6,7 +6,6 @@ async function getData(e){
     let endDate = document.getElementById("date").value;
     const resp = await fetch(`/self/filter-data/${startDate}/${endDate}`);
     const data = await resp.json();
-    console.log(data);
 }
 
 //showing employee profile and name
@@ -16,7 +15,6 @@ async function getUserInfo() {
         let res = await fetch(`/self/get-user`);
     
         let {user_data} = await res.json();
-        console.log(user_data);
         document.querySelector('.user-name').innerHTML = user_data.full_name;
         document.querySelector('.text-muted').innerHTML = user_data.designation;
         if(!(user_data.profile_pic=="undefined")){
@@ -38,8 +36,7 @@ async function getData(e){
     let endDate = document.getElementById("date").value;
     const resp = await fetch(`/self/filter-data/${startDate}/${endDate}`);
     const data = await resp.json();
-    console.log(data);
-    console.log(data['data']);
+
     if(data){
         document.querySelector("#table").innerHTML = `<table class="tab">
                         <tr>
@@ -115,7 +112,6 @@ all_attendence.forEach((x,i)=>{
 });
 
 document.querySelectorAll("#span-time").forEach(time => {
-    console.log(time.innerText);
     let userTime = convertUTCTime(time.innerText);
     time.innerHTML = userTime
 })

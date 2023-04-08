@@ -37,7 +37,6 @@ newform.addEventListener("submit", async(e) => {
     })
 
     let data = await ans.json();
-    console.log(data);
     if(data.ans == "error"){
         Toast2.fire({
             icon: 'warning',
