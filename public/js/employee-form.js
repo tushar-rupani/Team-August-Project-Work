@@ -56,13 +56,11 @@ var name = document.getElementById("fullname").value;
 var dob = document.getElementById("dob").value;
 var dobErr = document.getElementById("dobErr");
 
-console.log(document.querySelectorAll(".btnNext"));
 
 
 
 function require_validate(element, valid) {
     var data = element.value;
-    console.log("element", element);
 
     if (data == "") {
         document.getElementById(valid).innerHTML = "Kindly add the information";

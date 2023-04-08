@@ -47,7 +47,6 @@ uploadImg.onclick = () => {
 
 
 if (uploadImg.id == "remove_image") {
-    console.log('green');
     uploadImg.style.backgroundColor = "green";
 }
 
@@ -65,7 +64,6 @@ removeImg.onclick = () => {
 
 
 function uploadImage() {
-    console.log("upload");
     fetch(`http://127.0.0.1:3000/employee-data/upload`);
 }
 
@@ -86,7 +84,6 @@ console.log(document.querySelectorAll(".btnNext"));
 
 function require_validate(element, valid) {
     var data = element.value;
-    console.log("element", element);
 
     if (data == "") {
         document.getElementById(valid).innerHTML = "Kindly add the information";
@@ -165,7 +162,6 @@ function validateEmail() {
 
 function num_validate(ele, id) {
 
-    console.log(id);
     var num = /^[0-9]*$/;
     var alphabet = /^[a-zA-Z]+$/
     var sp_char = /[\!\@\#\$\%\^\&\*\)\(\+\=\.\<\>\{\}\[\]\:\;\'\"\|\~\`\_\-]/g;
@@ -198,7 +194,6 @@ function person_validate(ele, id) {
 
     if (!person.match(alphabet)) {
         document.getElementById(id).innerHTML = "Input data should be alphabet only!";
-        console.log("invalid name");
         return false;
     }
     else {
@@ -268,7 +263,6 @@ async function updateData(data) {
     console.log("gone");
 
     let profile = document.querySelector('#upload-button').files[0];
-    console.log(profile);
 
     // console.log("name",aadhar.name);
     
@@ -283,7 +277,6 @@ async function updateData(data) {
     let myForm = new FormData();
 
     data = JSON.stringify(data);
-  console.log(data);
 
     myForm.append("file", profile);
     // myForm.append("file", aadhar);
@@ -291,17 +284,14 @@ async function updateData(data) {
     // myForm.append("file", cheque);
     // myForm.append("file", resume);
     myForm.append("data", data);
-    console.log(myForm);
 
     try {
-        console.log("heyyyyyy");
         const response = await fetch(`/update-employee-form`, {
             method: 'POST',
             body: myForm
         });
 
         let res = await response.json();
-        console.log("response",res);
 
         if (res.status == 200) {
             location.assign('/self/home')
@@ -322,7 +312,6 @@ async function updateData(data) {
 document.querySelector('#update_form').addEventListener('submit', function (e) {
     e.preventDefault();
 
-    console.log("js  data");
 
     let data = {};
 
@@ -397,6 +386,5 @@ document.querySelector('#update_form').addEventListener('submit', function (e) {
     data.social = social;
 
     updateData(data);
-    console.log("hello",data);
 });
 

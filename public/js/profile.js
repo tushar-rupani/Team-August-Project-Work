@@ -3,7 +3,6 @@ async function getUserInfo() {
         let res = await fetch(`/self/get-user`);
     
         let {user_data} = await res.json();
-        console.log(user_data);
         // document.querySelector('.user-name').innerHTML = user_data.full_name;
         // document.querySelector('.text-muted').innerHTML = user_data.designation;
         if(!(user_data.profile_pic=="undefined")){

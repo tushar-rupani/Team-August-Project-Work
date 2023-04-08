@@ -2,8 +2,22 @@ const $ = (selector) => {
     return document.querySelector(selector);
 }
 var submitBtn = $("#signin-btn");
-let password = $("#pass");
+var password = $("#pass");
 var success, repass_success;
+
+const Toast2 = Swal.mixin({
+    toast: true,
+    position: 'top',
+    showConfirmButton: false,
+    timer: 3000,
+    timerProgressBar: true,
+    didOpen: (toast) => {
+        toast.addEventListener('mouseenter', Swal.stopTimer)
+        toast.addEventListener('mouseleave', Swal.resumeTimer)
+    }
+})
+
+
 password.addEventListener("keyup", (e) => {
     errorSpan = document.getElementById("perror");
     pval = e.target.value;
@@ -71,3 +85,38 @@ function disableButton() {
         e.target.style.cursor = "not-allowed"
     })
 }
+
+// Fetch in post.
+
+let form = $("#form");
+
+form.addEventListener("submit", async(e) => {
+    e.preventDefault();
+    let pass = password.value
+    console.log(pass);
+    let res = await fetch(`/update-password`, {
+        method: "POST",
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body:JSON.stringify({
+            pass
+        })
+    })
+
+    let data = await res.json();
+    if(data.ans == "error"){
+        Toast2.fire({
+            icon: 'warning',
+            title: `${data.msg}`
+        })
+    }else if(data.ans == "success"){
+        swal({
+            title: "Password has been changed",
+            text: "We have changed your password.",
+            button: "Okay, Login",
+          }).then(function() {
+           location.assign("/");
+          });
+    }
+})

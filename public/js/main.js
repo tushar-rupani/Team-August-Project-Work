@@ -2,7 +2,7 @@ if(/Mobi/.test(navigator.userAgent)) {
   document.querySelector(".mobile-message").classList.remove("hidden");
   document.querySelector(".container").classList.add("hidden");
 } 
-
+const socket = io();
 const MenuBtn = document.querySelector("#menu-btn");
 const SideMenu = document.querySelector("#sidebar");
 const CloseBtn = document.querySelector("#close-btn");
@@ -27,6 +27,26 @@ timeLabel.innerHTML = time;
 dateLabel.innerHTML = date;
 
 const renew = document.getElementById("renew");
+
+const Toast2 = Swal.mixin({
+  toast: true,
+  position: 'top',
+  showConfirmButton: false,
+  timer: 4000,
+  timerProgressBar: true,
+  didOpen: (toast) => {
+    toast.addEventListener('mouseenter', Swal.stopTimer)
+    toast.addEventListener('mouseleave', Swal.resumeTimer)
+  },
+  customClass: {
+    container: 'my-toast', // CSS class for the container
+    title: 'my-toast-title', // CSS class for the title
+    content: 'my-toast-content' // CSS class for the content
+  }
+});
+
+
+
 
 setInterval(() => {
     const time = new Date().toLocaleTimeString();
@@ -252,7 +272,6 @@ async function gettingLogData(){
   let res = await fetch(`/self/logs`);
   let data = await res.json();
   let logs = data["logs"];
-  console.log(logs);
   if(data){
       container.innerHTML = ``;
       logs.forEach(log => {
@@ -303,7 +322,6 @@ function validate_comment() {
   else {  
     document.getElementById("submit").disabled = false;
     document.getElementById("submit").classList.remove("disabling");
-    console.log(document.getElementById("submit").disabled);
       return true;
   }
 
@@ -385,4 +403,16 @@ function convertUTCTime(time){
   let userTime = moment.utc(time, "hh:mm:ss").local().format("hh:mm:ss A");
   return userTime;
 }
+
+socket.on("chat", (data) => {
+  // Trigger a pop-up notification when a new message is received
+  const {message, userName} = data;
+  // window.alert("New message: " + message + userName );
+
+  Toast2.fire({
+    icon: 'info', // Set the icon to null
+    title: `${userName}`, // Set the title of the toast notification
+    text: `${message.substr(0, 20)}` // Set the text of the toast notification
+  });
+});
 

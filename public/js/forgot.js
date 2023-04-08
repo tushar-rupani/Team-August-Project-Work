@@ -15,7 +15,7 @@ const Toast2 = Swal.mixin({
     toast: true,
     position: 'top',
     showConfirmButton: false,
-    timer: 5000,
+    timer: 3000,
     timerProgressBar: true,
     didOpen: (toast) => {
         toast.addEventListener('mouseenter', Swal.stopTimer)
@@ -25,7 +25,9 @@ const Toast2 = Swal.mixin({
 newform.addEventListener("submit", async(e) => {
     e.preventDefault()
     let email = document.getElementById("f-email").value;
-
+    btn.innerText = "Please wait..."
+    btn.disabled = true;
+    btn.classList.add("disabling");
     let ans = await fetch(`/forgot-pass`, {
         method: "POST",
         headers: {
@@ -37,13 +39,16 @@ newform.addEventListener("submit", async(e) => {
     })
 
     let data = await ans.json();
-    console.log(data);
     if(data.ans == "error"){
+        btn.disabled = false;
+        btn.innerText = "Process"
+        btn.classList.remove("disabling");
         Toast2.fire({
             icon: 'warning',
             title: `${data.msg}`
         })
     }else if(data.ans == "success"){
+        btn.innerText = "Check your email"
         Toast2.fire({
             icon: 'success',
             title: `${data.msg}`

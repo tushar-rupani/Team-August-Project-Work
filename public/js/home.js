@@ -5,7 +5,6 @@ async function gettingLogData(){
     if(data){
         let container = document.getElementById("logs-container");
         logs.forEach(log => {
-            console.log(log.activity);
             if(log.activity == "Checked In"){
                 container.innerHTML += `<div class="activity-log">
                 <div class="card-title-small">${log.full_name}</div>

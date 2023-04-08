@@ -1,7 +1,7 @@
 const express = require("express");
 const app = express.Router();
 const { handleLogin, checkIfLoggedIn } = require("../middlewares/authMiddlewares");
-const {loginController, registerController, checkEmailExistController, logoutController, forgotPassRender, forgotPassPost, newPasswordPage, resetPassword} = require("../controllers/auth.controllers")
+const {loginController, registerController, checkEmailExistController, logoutController, forgotPassRender, forgotPassPost, updatePassword, newPasswordPage, resetPassword} = require("../controllers/auth.controllers")
 const {activateLinkController, renderActivatePage} = require("../controllers/validation.controllers");
 
 
@@ -32,5 +32,7 @@ app.post("/forgot-pass", forgotPassPost)
 app.get("/new-pass", newPasswordPage)
 
 app.get("/reset-password/:token", resetPassword)
+
+app.post("/update-password", updatePassword)
 
 module.exports = app;

@@ -16,7 +16,7 @@ form.addEventListener('click', async(e) => {
     e.preventDefault();
     const message = inputMessage.value;
     inputMessage.value = '';
-    socket.emit('chat', message);
+    socket.emit('chat', {userName, message});
     const ans = await fetch(`/sensation`,{
         method: "POST",
         headers: {
@@ -24,12 +24,12 @@ form.addEventListener('click', async(e) => {
         },
         body: JSON.stringify({
              message
-        })
-        
+        })  
     })
 });
 
-socket.on("chat", async(message) => {
+socket.on("chat", async(data) => {
+    const {message} = data
     const div = document.createElement("div");
 
     const p = document.createElement("p");
@@ -57,16 +57,12 @@ socket.on("chat", async(message) => {
 })
 
 document.querySelectorAll(".span-time").forEach(time => {
-    console.log(time.innerText);
     let userTime = convertUTCTime(time.innerText);
     time.innerHTML = userTime
   })
   
   function convertUTCTime(time){
-    console.log("i am executing");
-    console.log(time);
     let userTime = moment.utc(time, "YYYY-MM-DD hh:mm:ss").local().format("YYYY-MM-DD hh:mm:ss A");
-    console.log(userTime);
     return userTime;
   }
   
