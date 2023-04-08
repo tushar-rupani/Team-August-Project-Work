@@ -13,7 +13,7 @@ const renderController = async(req, res) => {
 
 const postMessage = async(req, res) => {
     let message = req.body.message;
-    let time = moment().format('HH:mm:ss');
+    let time = moment().format('YYYY-MM-DD HH:mm:ss');
     let currentUser = req.session.user;
     let sqlQuery = `INSERT INTO sensation (emp_id, message, time) VALUES (${currentUser}, '${message}', '${time}')`;
     try{
@@ -24,7 +24,7 @@ const postMessage = async(req, res) => {
 }
 
 const getNameOfUser = async(req, res) => {
-    let getNameOfUser = `SELECT full_name FROM basic_information where employee_id = ${req.session.user}`;
+    let getNameOfUser = `SELECT full_name, profile_pic FROM basic_information where employee_id = ${req.session.user}`;
     try{
         let [fireUser] = await connection.execute(getNameOfUser);
 
