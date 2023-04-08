@@ -16,7 +16,7 @@ form.addEventListener('click', async(e) => {
     e.preventDefault();
     const message = inputMessage.value;
     inputMessage.value = '';
-    socket.emit('chat', message);
+    socket.emit('chat', {userName, message});
     const ans = await fetch(`/sensation`,{
         method: "POST",
         headers: {
@@ -28,7 +28,8 @@ form.addEventListener('click', async(e) => {
     })
 });
 
-socket.on("chat", async(message) => {
+socket.on("chat", async(data) => {
+    const {message} = data
     const div = document.createElement("div");
 
     const p = document.createElement("p");

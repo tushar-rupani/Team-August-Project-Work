@@ -205,6 +205,8 @@ const forgotPassPost = async(req, res) =>{
       let [results] = await connection.execute(sqlQuery);
       if (!results.length) {
         return res.status(401).json({ ans: "error", msg: "This email is not registered with us." });
+      }else if(results[0].isActivated == 0){
+        return res.status(401).json({ ans: "error", msg: "This account has not been activated yet." });
       }
 
       let payload = { email };  
@@ -232,7 +234,7 @@ const forgotPassPost = async(req, res) =>{
 }
 
 const newPasswordPage = (req, res) => {
-  if(req.session.forgot){
+  if(req.session.email){
     return res.render("newpass")
   }
   res.redirect("/")
@@ -250,6 +252,33 @@ const resetPassword = (req, res) => {
       console.log(e);
     }
 }
+
+const updatePassword = async(req, res) => {
+  let password = req.body.pass;
+  try{
+    let getUserPassword = `SELECT password from register where email = '${req.session.email}'`;
+    let [executeGetPassword] = await connection.execute(getUserPassword);
+    let dbPass = executeGetPassword[0].password;
+    const isMatch = await bcrypt.compare(password, dbPass);
+
+    if(isMatch){
+      return res.json({ans: "error", msg: "New password can not be same as previous one!"})
+    }
+    password = await bcrypt.hash(password, 10);
+
+    let updateQuery = `UPDATE register SET password = '${password}'`;
+    let [executeUpdateQuery] = await connection.execute(updateQuery);
+
+    if(executeUpdateQuery.length != 0){
+      return res.json({ans: "success", msg: "We have updated your password try logging in now."})
+    }
+
+  }catch(e){
+    console.log(e);
+    return res.json({ans: "error", msg: "Something went wrong! We're sorry!"})
+  }
+
+}
 module.exports = {
   loginController,
   registerController,
@@ -258,5 +287,6 @@ module.exports = {
   forgotPassRender,
   forgotPassPost,
   newPasswordPage,
-  resetPassword
+  resetPassword,
+  updatePassword
 };
