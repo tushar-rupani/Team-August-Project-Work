@@ -2,24 +2,18 @@ var connection = require("../connection/connection");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const moment = require("moment");
+const {getUserData, checkUserIp, getFinalBlockTime, resetUserAttempts, hasEmpData, whenAttemptsAreZero} = require('../services/auth.services.js');
 const {mailer:transporter} = require("../helpers/node-mailer");
 
 const loginController = async (req, res) => {
-  const loginErrors = {};
   const { email, password, ip } = req.body;
-  let results;
-  let query = `SELECT * FROM register where email = '${email}'`;
   try {
-    results = await connection.execute(query);
-    results = results[0];
-
+    var results = await getUserData(email);
     if (results.length == 0) {
       return res.status(404).json({ msg: "There are no users with this credentials",ans:"error" });
     }
 
-    
-    let ipCheckingQuery = `SELECT * FROM ip_handler where ip_address = '${ip}'`;
-    let executeIpQuery = await connection.execute(ipCheckingQuery);
+    let executeIpQuery = await checkUserIp(ip);
     if (!executeIpQuery[0].length) {
       return res.status(401).json({ msg: "The device you're trying is not acceptable in our case",ans:"error" });
     }
@@ -30,35 +24,25 @@ const loginController = async (req, res) => {
 
   if (results[0]?.isActivated == "0") {
     return res.status(200).json({ msg: "redirected",ans:"activate" });
-    // return res.redirect("/activate");
   }
 
   let dbPass = results[0].password;
 
   if (results[0].status == "B") {
-    let getTimeOfBlock = `SELECT final_attempt_time from register where email = '${email}'`;
-    let executeQuery = await connection.execute(getTimeOfBlock);
+    let executeQuery = await getFinalBlockTime(email);
     let final_time = executeQuery[0][0].final_attempt_time;
     if (final_time) {
       let dbTime = new Date(final_time);
       const currentTime = moment();
       const diffInMilliseconds = currentTime.diff(dbTime);
       if (diffInMilliseconds >= 86400000) {
-
-        let update_attempts = `UPDATE register SET attempts_remaining = 3, status = 'U' WHERE email = '${email}'`;
-        try {
-          let execute_update_query = await connection.execute(update_attempts);
-        } catch (err) {
-          console.log(err);
-        }
+        resetUserAttempts(email);
       }
     }
   }
 
 
   const isMatch = await bcrypt.compare(password, dbPass);
-  
-
   if (!isMatch) {
     let query = `SELECT attempts_remaining FROM register where email = '${email}'`;
     try {
@@ -66,15 +50,11 @@ const loginController = async (req, res) => {
       let attempts_remaining = results[0].attempts_remaining;
 
       if (attempts_remaining <= 0) {
-        try {
-          let currentDate = moment().format("YYYY-MM-DD HH:mm:ss");
-          let update_attempts = `UPDATE register SET attempts_remaining = ${attempts_remaining}, final_attempt_time = '${currentDate}', status = 'B' WHERE email = '${email}'`;
-          let execute_time = await connection.execute(update_attempts);
+        let ans = whenAttemptsAreZero(attempts_remaining, email);
+        if(ans){
           return res.status(200).json({ msg: "redirected",ans:"suspend" });
-          // return res.redirect("/suspend");
-        } catch (err) {
-          console.log(err);
         }
+        
       } else {
         attempts_remaining = attempts_remaining - 1;
         let update_attempts = `UPDATE register SET attempts_remaining = ${attempts_remaining} WHERE email = '${email}'`;
@@ -118,19 +98,11 @@ const loginController = async (req, res) => {
   //check whether the user entered their details or not
 
   let emp_id=results[0].id;
-  let check_emp_details = `select * from basic_information where employee_id = '${emp_id}'`;
-  try{
-    let [hasData] = await connection.execute(check_emp_details);
-
+    let hasData = await hasEmpData(emp_id);
     if(hasData.length===0){
       return res.status(200).json({ msg: "redirected",ans:"employee-form" });
     }
     
-
-  }catch(e){  
-    console.log(e);
-  }
-
   const user = jwt.sign(emp_id, "JWT_SECRET");
   res.cookie("user", user);
   
