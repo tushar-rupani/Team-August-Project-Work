@@ -40,7 +40,7 @@
         }
 
         body{
-            font-family: 'poppins', sans-serif !;
+            margin-bottom: 0;
         }
         p {
             font-size: 13px !important;
@@ -59,6 +59,10 @@
         main {
             width: 100%;
         }
+        
+.info{
+    color: "green" !important;
+}
     </style>
 
 </head>
@@ -230,7 +234,7 @@
 
                             <% for(let i=0;i<showquery[0].length;i++) { %>
                                 <tr class="row">
-                                    <div class="column2" id="<%= showquery[0][i].id %>" onclick="getData(this)">
+                                    <div class="column2" id="<%= showquery[0][i].id %>" onclick="getLeaveData(this)">
                                         <div class="col">
                                             <p>
                                                 <%= showquery[0][i].leave_type %>
@@ -282,10 +286,17 @@
             <img src="../../assets/leave.png">
           </div>
           <div class="description">
-            <div class="ui header">You have requested leave on this date</div>
-            <p>We've grabbed the following image from the <a href="https://www.gravatar.com" target="_blank">gravatar</a> image associated with your registered e-mail address.</p>
-            <p>Is it okay to use this photo?</p>
-          </div>
+            <div class="ui header" id="modal-header">You have requested leave on this date</div>
+            <!-- <p>We've grabbed the following image from the <a href="https://www.gravatar.com" target="_blank">gravatar</a> image associated with your registered e-mail address.</p> -->
+            <p>Our company's leave request system streamlines the process for employees to request time off, providing a seamless and efficient way to manage leave requests. </p>
+            <h2>Leave Type: <span id="leave-type">SL</span></h2>
+
+            <h2>Leave Reason: <p id="leave-reason"></p></h2>
+
+            <h2>Leave Status: <span id="leave-status">SL</span></h2>
+
+            <h2>Half Day: <span id="leave-half">SL</span></h2>
+        </div>
         </div>
         <div class="actions">
           <div class="ui black deny button">
@@ -300,10 +311,38 @@
     function addleave() {
         document.querySelector(".show").classList.remove("hidden")
     }
+
+    const getElement = (selector) => {
+        return document.querySelector(selector);
+    }
     
-    function getData(e){
+    async function getLeaveData(e){
         let id = e.id;
+        let res = await fetch(`/leaves/get-leave-id/${id}`);
+        let [data] = await res.json();
+        console.log(data);
+        let header = getElement("#modal-header");
+        header.innerText = `You have requested leave on date: ${data.leave_date.substr(0,10)}`;
+
+        let type = getElement("#leave-type");
+        type.innerText = `${data.leave_type}`;
+
+        let reason = getElement("#leave-reason");
+        reason.innerText = `${data.leave_reason}`;
         
+        let status = getElement("#leave-status");
+        if(data.leave_status == "rejected"){
+            status.style.color = "red"
+        }else if(data.leave_status == "pending"){
+            status.style.color = "orange"
+        }else{
+            status.style.color = "green"
+        }
+        status.innerText = `${data.leave_status}`
+
+        let half = getElement("#leave-half");
+        half.innerText = data.half_day
+
         $('.ui.modal').modal('show');
     }
 </script>
