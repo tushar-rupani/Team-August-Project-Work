@@ -95,5 +95,17 @@ const getLeaveByStatus = async(req, res) => {
 }
 
 
+const getLeaveById = async(req, res) => {
+    let id = req.params.id;
+    let query = `SELECT * FROM leave_request where id = ${id}`;
 
-module.exports = {leavesController, addleavesController, getLeaveByStatus};
+    try{
+        var [getQuery] = await connection.execute(query);
+        return res.status(200).json(getQuery);
+    }catch(e){
+        return res.status(404).json({ans:"error", msg: "Something went wrong"})
+    }
+}
+
+
+module.exports = {leavesController, addleavesController, getLeaveByStatus, getLeaveById};
