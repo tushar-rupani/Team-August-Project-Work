@@ -9,19 +9,25 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+    
+
+   <!-- material icons -->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js" integrity="sha512-pumBsjNRGGqkPzKHndZMaAG+bir374sORyzM3uulLV14lN5LyykqNk8eEeUlUkB3U0M4FApyaHraT65ihJhDpQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.5.0/semantic.min.js" integrity="sha512-Xo0Jh8MsOn72LGV8kU5LsclG7SUzJsWGhXbWcYs2MAmChkQzwiW/yTQwdJ8w6UA9C6EVG18GHb/TrYpYCjyAQw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.5.0/semantic.min.css" integrity="sha512-KXol4x3sVoO+8ZsWPFI/r5KBVB/ssCGB5tsv2nVOKwLg33wTFP3fmnXa47FdSVIshVTgsYk/1734xSk9aFIa4A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+<!-- stylesheet -->
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
         rel="stylesheet">
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+        <link rel="stylesheet" href="/css/leaves.css">
+        <link rel="stylesheet" href="/css/style.css">
+<script type="text/javascript" src="/js/leaves.js"></script>
 
-    <!-- material icons -->
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp" rel="stylesheet">
     
-
-    <!-- stylesheet -->
-    <link rel="stylesheet" href="/css/leaves.css">
-    <link rel="stylesheet" href="/css/style.css">
-    <script type="text/javascript" src="/js/leaves.js"></script>
 
     <style>
         .flex {
@@ -33,13 +39,21 @@
             font-weight: bolder;
         }
 
-
+        body{
+            font-family: 'poppins', sans-serif !;
+        }
         p {
-            font-size: 13px !important
+            font-size: 13px !important;
+            margin-bottom: 0;
         }
 
         .container {
-            grid-template-columns: 1fr 5fr;
+            grid-template-columns: 1fr 6fr;
+        }
+        h3{
+            margin-top: 0;
+            margin-left: 2px;
+            font-family: 'poppins', sans-serif !important;
         }
 
         main {
@@ -216,7 +230,7 @@
 
                             <% for(let i=0;i<showquery[0].length;i++) { %>
                                 <tr class="row">
-                                    <div class="column2">
+                                    <div class="column2" id="<%= showquery[0][i].id %>" onclick="getData(this)">
                                         <div class="col">
                                             <p>
                                                 <%= showquery[0][i].leave_type %>
@@ -259,14 +273,39 @@
     </div>
 
     </div>
+    <div class="ui modal">
+        <div class="header">
+          Leave Details
+        </div>
+        <div class="image content">
+          <div class="ui medium image">
+            <img src="../../assets/leave.png">
+          </div>
+          <div class="description">
+            <div class="ui header">You have requested leave on this date</div>
+            <p>We've grabbed the following image from the <a href="https://www.gravatar.com" target="_blank">gravatar</a> image associated with your registered e-mail address.</p>
+            <p>Is it okay to use this photo?</p>
+          </div>
+        </div>
+        <div class="actions">
+          <div class="ui black deny button">
+            Close
+          </div>
+          
+        </div>
+      </div>
 </body>
 <script src="/js/theme.js"></script>
 <script>
     function addleave() {
         document.querySelector(".show").classList.remove("hidden")
     }
-
-
+    
+    function getData(e){
+        let id = e.id;
+        
+        $('.ui.modal').modal('show');
+    }
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
 

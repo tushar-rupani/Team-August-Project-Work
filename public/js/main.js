@@ -2,7 +2,7 @@ if(/Mobi/.test(navigator.userAgent)) {
   document.querySelector(".mobile-message").classList.remove("hidden");
   document.querySelector(".container").classList.add("hidden");
 } 
-const socket = io();
+
 const MenuBtn = document.querySelector("#menu-btn");
 const SideMenu = document.querySelector("#sidebar");
 const CloseBtn = document.querySelector("#close-btn");
@@ -28,22 +28,6 @@ dateLabel.innerHTML = date;
 
 const renew = document.getElementById("renew");
 
-const Toast2 = Swal.mixin({
-  toast: true,
-  position: 'top',
-  showConfirmButton: false,
-  timer: 4000,
-  timerProgressBar: true,
-  didOpen: (toast) => {
-    toast.addEventListener('mouseenter', Swal.stopTimer)
-    toast.addEventListener('mouseleave', Swal.resumeTimer)
-  },
-  customClass: {
-    container: 'my-toast', // CSS class for the container
-    title: 'my-toast-title', // CSS class for the title
-    content: 'my-toast-content' // CSS class for the content
-  }
-});
 
 
 
@@ -404,15 +388,4 @@ function convertUTCTime(time){
   return userTime;
 }
 
-socket.on("chat", (data) => {
-  // Trigger a pop-up notification when a new message is received
-  const {message, userName} = data;
-  // window.alert("New message: " + message + userName );
-
-  Toast2.fire({
-    icon: 'info', // Set the icon to null
-    title: `${userName}`, // Set the title of the toast notification
-    text: `${message.substr(0, 20)}` // Set the text of the toast notification
-  });
-});
 
