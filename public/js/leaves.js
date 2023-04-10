@@ -62,7 +62,7 @@ async function getData(e){
     data["data"].forEach(element => {
       document.querySelector('.showdata').innerHTML += `
       <tr class="row">
-                                    <div class="column2">
+                                    <div class="column2" id=${element.id} onclick="getLeaveData(this)">
                                         <div class="col">
                                             <p>
                                               ${element.leave_type}

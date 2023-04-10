@@ -14,7 +14,7 @@ const Toast2 = Swal.mixin({
 const socket = io();
 socket.on("chat", (data) => {
     const {message, userName} = data;
-    
+    console.log(message, userName);
     let notificationSoundUrl = `../assets/notification-sound.mp3`;
     Toast2.fire({
       icon: 'info',

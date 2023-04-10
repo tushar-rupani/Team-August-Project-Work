@@ -388,4 +388,27 @@ function convertUTCTime(time){
   return userTime;
 }
 
-
+function changeTheme(preference) {
+            
+  if(preference == "dark"){
+      localStorage.setItem("theme", "dark")
+  }else{
+      localStorage.setItem("theme", "light")
+  }
+}
+if(!localStorage.getItem("theme")){
+  localStorage.setItem("theme", "light")
+}else{
+  const ThemeToggler = document.querySelector(".theme-toggler");
+  if(localStorage.getItem("theme") == "dark"){
+      console.log("coming in dark");
+      document.body.classList.add('dark-theme-variables')
+      ThemeToggler.querySelector('.theme-toggler__button--dark').classList.add('theme-toggler__button--active')
+      ThemeToggler.querySelector('.theme-toggler__button--light').classList.remove('theme-toggler__button--active')
+  }else if(localStorage.getItem("theme") == "light"){
+      console.log("coming in light");
+      document.body.classList.remove('dark-theme-variables')
+      ThemeToggler.querySelector('.theme-toggler__button--dark').classList.remove('theme-toggler__button--active')
+      ThemeToggler.querySelector('.theme-toggler__button--light').classList.add('theme-toggler__button--active')
+  }
+}

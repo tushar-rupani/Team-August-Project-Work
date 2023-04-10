@@ -2,13 +2,13 @@ var connection = require("../connection/connection");
 const moment = require("moment");
 
 const renderController = async(req, res) => {
-    let getAllMessages = "SELECT s.message, b.full_name, s.time FROM sensation s INNER JOIN basic_information b ON b.employee_id = s.emp_id order by s.time";
+    let getAllMessages = "SELECT s.message, b.full_name, s.time, b.profile_pic FROM sensation s INNER JOIN basic_information b ON b.employee_id = s.emp_id order by s.time";
     try{
         var [executeAllMessage] = await connection.execute(getAllMessages);
     }catch(e){
         console.log(e);
     }
-    res.render("sensation", {executeAllMessage})
+    res.render("sensation", {executeAllMessage, activatePage: "sensation"})
 }
 
 const postMessage = async(req, res) => {

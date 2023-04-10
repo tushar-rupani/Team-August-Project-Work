@@ -148,11 +148,11 @@
                         material-icons-sharp 
                         theme-toggler__button
                         theme-toggler__button--light
-                        theme-toggler__button--active">light_mode</span>
+                        theme-toggler__button--active" onclick="changeTheme('light')">light_mode</span>
                         <span class="
                         material-icons-sharp 
                         theme-toggler__button--dark
-                        theme-toggler__button">dark_mode</span>
+                        theme-toggler__button" onclick="changeTheme('dark')">dark_mode</span>
                     </div>
 
                     <div class="profile">
@@ -318,7 +318,7 @@
 
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.10.1/dist/sweetalert2.all.min.js"></script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.10.1/dist/sweetalert2.all.min.js"></script> -->
     <script src="/socket.io/socket.io.js"></script>
 
     <script>
@@ -360,6 +360,7 @@
             })
         });
 
+        
     </script>
     <script src="/js/main.js" />
     <script src="/js/socket-script.js"></script>
