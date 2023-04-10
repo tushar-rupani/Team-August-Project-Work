@@ -9,3 +9,4 @@ ThemeToggler.addEventListener("click", () => {
     ThemeToggler.querySelector('.theme-toggler__button--light').classList.toggle('theme-toggler__button--active')
     ThemeToggler.querySelector('.theme-toggler__button--dark').classList.toggle('theme-toggler__button--active')
 })
+

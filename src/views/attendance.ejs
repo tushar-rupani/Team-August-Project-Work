@@ -19,25 +19,15 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css"
         integrity="sha384-FWTLn9R18Q1ACmGvJK8Q1An+kjAXLwDmvoYASmz8mWJ28AVj+rq51aqyvMabpqgW" crossorigin="anonymous">
 
-
-    <link rel="stylesheet" href="/css/attendance.css">
-    <link rel="stylesheet" href="/css/style.css">
-    <script id="scripts" type="text/javascript" src="/scripts.js?c297ffc94dc8b1cc0bf99a59b92ce1f9f01f5208"></script>
-    <!-- <script type="text/javascript" src="/js/leaves.js"></script> -->
-    <!-- Bootstap link -->
-    <style>
-        .container {
-            grid-template-columns: 1fr 7fr;
-        }
-
-        main {
-            width: 100%;
-        }
-    </style>
+      
+        <link rel="stylesheet" href="/css/attendance.css">
+        <link rel="stylesheet" href="/css/style.css">
+        <!-- <script type="text/javascript" src="/js/leaves.js"></script> -->
+        <!-- Bootstap link -->
 
     <style>
         .container {
-            grid-template-columns: 1fr 5fr;
+            grid-template-columns: 1fr 6fr;
         }
 
         main {
@@ -189,7 +179,7 @@
                                     <% } %>
                                 </div>
                                 <div class="col">
-                                    <p class="break-time-<%=(i+1)%>"><%= executeGetRecords[i].break_taken %></p>
+                                    <p class="break-time-<%=(i+1)%>"><%= (executeGetRecords[i].break_taken).split(':')[0] %> hr <%= (executeGetRecords[i].break_taken).split(':')[1] %> min</p>
                                 </div>
                                 <div class="col">
                                     <!-- <progress id="file" max="100" value="<%= array_of_passedTime[i] %>" class="red" style="background-color: red;"></progress> -->
@@ -201,7 +191,8 @@
                                 </div>
                                 <div class="col">
                                     <% if(executeGetRecords[i].check_out != 0 ) { %> 
-                                    <p class="total-<%=(i+1)%>"><%= executeGetRecords[i].hours_worked %></p>
+                                    <p class="total-<%=(i+1)%>"><%= (executeGetRecords[i].hours_worked).split(':')[0] %> hours <%= (executeGetRecords[i].hours_worked).split(':')[1] %> minutes
+                                    </p>
                                     <% } %>
                                 </div>
                             </div>

@@ -19,7 +19,12 @@
 
     <link rel="stylesheet" href="/css/style.css">
 
-  
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10.10.1/dist/sweetalert2.min.css" />
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+    <script
+        src="https://cdnjs.cloudflare.com/ajax/libs/moment-timezone/0.5.32/moment-timezone-with-data.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.10.1/dist/sweetalert2.all.min.js"></script>
 
 
 </head>
@@ -56,16 +61,21 @@
                                 </div>
                                 <div class="row1">
                                     <span class="card-title-small">Absent</span>
-                                    <p> 12 Day</p>
+                                    <p>
+                                        <%= executeAbsent[0].leave_length %> Days
+                                    </p>
                                 </div>
                                 <div class="row1">
                                     <span class="card-title-small">Half Days</span>
-                                    <p> 1 Day</p>
+                                    <p>
+                                        <%= executeHalf[0].half_length %> Day
+                                    </p>
                                 </div>
                                 <div class="row1">
                                     <span class="card-title-small">Worked Hours</span>
                                     <p>
-                                        <%= hoursWorked %> Hours
+                                        <%= (hoursWorked).split(':')[0] %> hrs <%= (hoursWorked).split(':')[1] %> mins
+
                                     </p>
                                 </div>
 
@@ -79,19 +89,22 @@
                             <div class="hr-line"></div>
                             <div class="add_comment">
                                 <div class="input">
-                                    <input type="text" placeholder="Type here.."  id="text" onkeyup="validate_comment()">
+                                    <input type="text" placeholder="Type here.." id="text" onkeyup="validate_comment()">
                                 </div>
                                 <div>
-                                    <button id="submit" onclick="addcomment()" class="disabling" disabled>Comment</button>
+                                    <button id="submit" onclick="addcomment()" class="disabling"
+                                        disabled>Comment</button>
                                 </div>
                             </div>
                             <div id="comment-wrapper">
-                            <% for(var i=0; i<commentResult?.length; i++){%>
-                                <div class="see-comment" id="see-comment">
-                                   <p> <%= commentResult[i].comment %></p>
-                                </div>
-                            <%}%>
-                        </div>
+                                <% for(var i=0; i<commentResult?.length; i++){%>
+                                    <div class="see-comment" id="see-comment">
+                                        <p>
+                                            <%= commentResult[i].comment %>
+                                        </p>
+                                    </div>
+                                    <%}%>
+                            </div>
                         </div>
 
 
@@ -135,11 +148,11 @@
                         material-icons-sharp 
                         theme-toggler__button
                         theme-toggler__button--light
-                        theme-toggler__button--active">light_mode</span>
+                        theme-toggler__button--active" onclick="changeTheme('light')">light_mode</span>
                         <span class="
                         material-icons-sharp 
                         theme-toggler__button--dark
-                        theme-toggler__button">dark_mode</span>
+                        theme-toggler__button" onclick="changeTheme('dark')">dark_mode</span>
                     </div>
 
                     <div class="profile">
@@ -150,7 +163,7 @@
                             <small class="text-muted">SDL-1</small>
                         </div>
                         <div>
-                            <a href="#" onclick="location.assign('/self/profile')"> 
+                            <a href="#" onclick="location.assign('/self/profile')">
                                 <img class="profile__photo"
                                     src="https://hrms.appdemoserver.com/assets/img/avatars/profile_image.jpg"
                                     data-toggle="dropdown" alt="profile-picture" id="dropdown-trigger">
@@ -178,58 +191,59 @@
                             </div>
 
                         </div>
-                        <% if(forgotLastTime) { %> 
+                        <% if(forgotLastTime) { %>
                             <div class="final_message change-clr">
                                 You forgot to check-out last time, please contact HR.
                             </div>
-                            
-                        <% } %>
-                        <% if(forgotLastTime == false) { %> 
-                            <% if(checked_out=="not" ) { %>
-                                <div class="button" id="buttons">
-                                    <button class="checkin action-btn <% if(hasCheckedIn) { %> disabling<% } %>"
-                                        id="check-in" <% if(hasCheckedIn) { %> disabled <% } %>>
-                                            <i class="fa-solid fa-arrow-right-to-bracket"></i>
-                                            <div class="check">
-                                                Check In
-                                            </div>
-                                    </button>
-                                    <button
-                                        class="breakin action-btn <% if(breakAns == false || hasCheckedIn == false) { %> disabling<% } %>"
-                                        id="break-in" <% if(breakAns==false) { %> disabled<% } %>>
-                                            <i class="fa-solid fa-utensils"></i>
-                                            <div class="check">
-                                                Break In
-                                            </div>
-                                    </button>
-                                    <button
-                                        class="checkout action-btn <% if(breakAns == false || hasCheckedIn == false) { %> disabling<% } %>"
-                                        id="check-out" <% if(breakAns==false) { %> disabled<% } %>>
-                                            <i class="fa-solid fa-right-from-bracket"></i>
-                                            <div class="check">
-                                                Check Out
-                                            </div>
-                                    </button>
-                                    <button
-                                        class="breakout action-btn <% if(breakoutAns || hasCheckedIn == false) { %> disabling<% } %>"
-                                        id="break-out" <% if(breakoutAns) { %> disabled <% } %> >
-                                            <img class="img-breakout"
-                                                src="https://hrms.appdemoserver.com/assets/img/icons/break-out.svg" alt="">
-                                            <div class="check">
-                                                Break Out
-                                            </div>
-                                    </button>
-                                </div>
-                                <% } %>
-    
-                                    <% if(checked_out=="checkout" ) { %>
-                                        <div class="final_message"><i class="fa-solid fa-face-smile"
-                                                style="color: #ffffff;"></i> Thank you for your presence</div>
-                                    <% } %>
-                            
-                        <% } %>
 
-                        
+                            <% } %>
+                                <% if(forgotLastTime==false) { %>
+                                    <% if(checked_out=="not" ) { %>
+                                        <div class="button" id="buttons">
+                                            <button class="checkin action-btn <% if(hasCheckedIn) { %> disabling<% } %>"
+                                                id="check-in" <% if(hasCheckedIn) { %> disabled <% } %>>
+                                                    <i class="fa-solid fa-arrow-right-to-bracket"></i>
+                                                    <div class="check">
+                                                        Check In
+                                                    </div>
+                                            </button>
+                                            <button
+                                                class="breakin action-btn <% if(breakAns == false || hasCheckedIn == false) { %> disabling<% } %>"
+                                                id="break-in" <% if(breakAns==false) { %> disabled<% } %>>
+                                                    <i class="fa-solid fa-utensils"></i>
+                                                    <div class="check">
+                                                        Break In
+                                                    </div>
+                                            </button>
+                                            <button
+                                                class="checkout action-btn <% if(breakAns == false || hasCheckedIn == false) { %> disabling<% } %>"
+                                                id="check-out" <% if(breakAns==false) { %> disabled<% } %>>
+                                                    <i class="fa-solid fa-right-from-bracket"></i>
+                                                    <div class="check">
+                                                        Check Out
+                                                    </div>
+                                            </button>
+                                            <button
+                                                class="breakout action-btn <% if(breakoutAns || hasCheckedIn == false) { %> disabling<% } %>"
+                                                id="break-out" <% if(breakoutAns) { %> disabled <% } %> >
+                                                    <img class="img-breakout"
+                                                        src="https://hrms.appdemoserver.com/assets/img/icons/break-out.svg"
+                                                        alt="">
+                                                    <div class="check">
+                                                        Break Out
+                                                    </div>
+                                            </button>
+                                        </div>
+                                        <% } %>
+
+                                            <% if(checked_out=="checkout" ) { %>
+                                                <div class="final_message"><i class="fa-solid fa-face-smile"
+                                                        style="color: #ffffff;"></i> Thank you for your presence</div>
+                                                <% } %>
+
+                                                    <% } %>
+
+
 
                     </div>
                 </div>
@@ -249,7 +263,9 @@
 
                                 <% if(attendance?.check_in) {%>
                                     <div class="check_in">
-                                        <span>Checked In : <span class="span-time"><%= attendance?.check_in %></span></span>
+                                        <span>Checked In : <span class="span-time">
+                                                <%= attendance?.check_in %>
+                                            </span></span>
                                     </div>
                                     <% } %>
 
@@ -258,14 +274,18 @@
                                             <% for(let i=0; i<activity.length; i++) { %>
                                                 <% if(activity[i].break_in) { %>
                                                     <div class="break_in">
-                                                        <span>Breaked In : <span class="span-time"><%= activity[i].break_in %></span>
+                                                        <span>Breaked In : <span class="span-time">
+                                                                <%= activity[i].break_in %>
+                                                            </span>
                                                         </span>
                                                     </div>
                                                     <% } %>
 
                                                         <% if(activity[i].break_out !="00:00:00" ) { %>
                                                             <div class="break_out">
-                                                                <span>Breaked Out : <span class="span-time"><%= activity[i].break_out %></span>
+                                                                <span>Breaked Out : <span class="span-time">
+                                                                        <%= activity[i].break_out %>
+                                                                    </span>
                                                                 </span>
                                                             </div>
                                                             <% } %>
@@ -277,11 +297,13 @@
                                                                         <% if(attendance?.check_out !="0" ) {%>
                                                                             <div class="check_out ">
                                                                                 <span>Checked Out :
-                                                                                    <span class="span-time"><%= attendance?.check_out %></span>
+                                                                                    <span class="span-time">
+                                                                                        <%= attendance?.check_out %>
+                                                                                    </span>
                                                                                 </span>
                                                                             </div>
-                                                                        <% } %>
-                                                        <% } %>
+                                                                            <% } %>
+                                                                                <% } %>
                         </div>
 
                     </div>
@@ -293,8 +315,55 @@
         This Website is not accessible in mobile device.
     </div>
 
-    <script src="/js/main.js" defer>
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.10.1/dist/sweetalert2.all.min.js"></script> -->
+    <script src="/socket.io/socket.io.js"></script>
+
+    <script>
+        const Toast2 = Swal.mixin({
+            toast: true,
+            position: 'top',
+            showConfirmButton: false,
+            timer: 4000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+                toast.addEventListener('mouseenter', Swal.stopTimer)
+                toast.addEventListener('mouseleave', Swal.resumeTimer)
+            }
+        });
+
+        const socket = io();
+        socket.on("chat", (data) => {
+            const { message, userName } = data;
+            let notificationSoundUrl = `/assets/notification-sound.mp3`;
+            Toast2.fire({
+                icon: 'info',
+                title: `${userName}`,
+                html: `<audio src="${notificationSoundUrl}" autoplay></audio>`,
+                text: `${message.substr(0, 20)}...`
+            });
+
+            Notification.requestPermission().then((permission) => {
+                console.log(permission);
+                if (permission == "granted") {
+                    var title = `${userName}`;
+                    var text = `${message.substr(0, 25)}...`;
+                    var notification = new Notification(title, {
+                        body: text,
+                        icon: '../assets/favicon.ico'
+                    })
+                }
+            }).catch((err) => {
+                console.log(`Notification failed to fetch`);
+            })
+        });
+
+        
     </script>
+    <script src="/js/main.js" />
+    <script src="/js/socket-script.js"></script>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment-timezone/0.5.32/moment-timezone-with-data.min.js"></script>
@@ -307,7 +376,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct"
         crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
+
 </body>
 
 </html>

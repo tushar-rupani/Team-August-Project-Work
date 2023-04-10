@@ -25,6 +25,7 @@
     padding: 15px;
     background: #fbfbfb;
     border-radius: 10px;
+    margin: 10px;
 }
 
 .msg-content{
@@ -41,4 +42,21 @@
 
 .card{
     min-height: 87vh;
+}
+
+#input-message{
+    padding: 15px;
+    font-family: "Poppins";
+    border-radius: 15px;
+}
+#send-button{
+    background-color: rgb(24, 111, 209);
+    color: white;
+    cursor: pointer;
+    border-radius: 15px;
+    margin-left: 10px;
+}
+.text-send{
+    display: grid;
+    grid-template-columns: 90% 10%;
 }

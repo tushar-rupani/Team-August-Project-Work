@@ -130,10 +130,32 @@ function activateSubmitButton() {
 
 loginFrom.addEventListener('submit', async function (e) {
     e.preventDefault();
+    const Toast2 = Swal.mixin({
+        toast: true,
+        position: 'top',
+        showConfirmButton: false,
+
+        timer: 1000,
+
+        timerProgressBar: true,
+        didOpen: (toast) => {
+            toast.addEventListener('mouseenter', Swal.stopTimer)
+            toast.addEventListener('mouseleave', Swal.resumeTimer)
+        }
+    })
 
     let email = document.querySelector('#lg-email').value;
     let password = document.querySelector('#lg-password').value;
+    let ip_field = document.querySelector("#user-ip");
+    if(ip_field == null){
+        Toast2.fire({
+            icon: 'warning',
+            title: `Wait for a minute. We are trying to get your IP.`
+        })
+    }
     let ip = document.querySelector("#user-ip").value;
+
+   
 
     try {
         const response = await fetch(`/login`, {
@@ -148,9 +170,20 @@ loginFrom.addEventListener('submit', async function (e) {
         let res = await response.json();
 
         if (res.ans == "error") {
-            alert(res.msg);
+            Toast2.fire({
+                icon: 'warning',
+                title: `${res.msg}`
+            })
         }
         if (res.msg == "redirected") {
+            if(res.ans == "suspend"){
+                Swal.fire(
+                    'Your account has been suspended!',
+                    'Please try again after 24 hours, if you think it has been 24 hours already - please try again!',
+                    'error'
+                  )
+                return;
+            }
             location.assign(`/${res.ans}`);
         }
         if (res.msg == "success") {

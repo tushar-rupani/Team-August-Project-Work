@@ -1,8 +1,6 @@
 async function show(id) {
-    console.log(id);
     let res = await fetch(`/leaveadmin/showleaveAdmin/?id=${id}`);
     let databasedata = await res.json();
-    console.log(databasedata);
     let data = "";
     data += `<div class="showdata">
         <table class="tab">
@@ -66,7 +64,6 @@ async function show(id) {
 }
 
 async function acceptleave(id) {
-    console.log("test");
     let showcase = document.getElementsByClassName("show")[0];
     //console.log(showcase);
     showcase.style.display = "none";

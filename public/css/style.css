@@ -707,6 +707,24 @@ button .text {
     display: none;
   }
 
+
+  .my-toast {
+    background-color: #333;
+    border: none;
+    border-radius: 5px;
+  }
+  
+  .my-toast-title {
+    font-size: 18px;
+    color: #fff;
+  }
+  
+  .my-toast-content {
+    font-size: 16px;
+    color: #eee;
+  }
+
+  
   @media only screen and (max-width:1920px) {
 
     div.scroll {

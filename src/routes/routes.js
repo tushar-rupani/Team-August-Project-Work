@@ -8,7 +8,7 @@ const activityRoutes = require("../routes/activity.routes");
 const employeeFormRoutes = require("../routes/employee-form.routes");
 const leavesRoutes = require("../routes/leaves.routes");
 const leaveAdminRoutes = require("../routes/leave-admin.routes")
-
+const sensationRoutes = require("../routes/sensation.routes")
 
 
 routes_app.use("/", authRoutes);
@@ -18,6 +18,7 @@ routes_app.use("/self", SensationRoutes);
 routes_app.use("/activity", activityRoutes);
 routes_app.use("/leaves",leavesRoutes);
 routes_app.use("/leaveadmin", leaveAdminRoutes);
+routes_app.use("/sensation", sensationRoutes)
 routes_app.use("/",employeeFormRoutes);
 
 

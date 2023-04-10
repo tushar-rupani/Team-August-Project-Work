@@ -28,6 +28,10 @@ dateLabel.innerHTML = date;
 
 const renew = document.getElementById("renew");
 
+
+
+
+
 setInterval(() => {
     const time = new Date().toLocaleTimeString();
     timeLabel.innerHTML = time;
@@ -252,7 +256,6 @@ async function gettingLogData(){
   let res = await fetch(`/self/logs`);
   let data = await res.json();
   let logs = data["logs"];
-  console.log(logs);
   if(data){
       container.innerHTML = ``;
       logs.forEach(log => {
@@ -303,7 +306,6 @@ function validate_comment() {
   else {  
     document.getElementById("submit").disabled = false;
     document.getElementById("submit").classList.remove("disabling");
-    console.log(document.getElementById("submit").disabled);
       return true;
   }
 
@@ -325,9 +327,19 @@ async function addcomment() {
   if(data){
     document.getElementById("text").value = "";
     let commentWrapper = document.getElementById("comment-wrapper");
-    commentWrapper.innerHTML += ` <div class="see-comment" id="see-comment">
-    <p>${data["comment"]["data"]}</p>
-    </div>`
+    let newDiv = document.createElement("div");
+    newDiv.classList.add("see-comment");
+
+    let p = document.createElement("p");
+    p.innerText = data["comment"]["data"];
+
+    newDiv.appendChild(p);
+
+    commentWrapper.appendChild(newDiv);
+    // newDiv.innerText = 
+    // commentWrapper.innerHTML += ` <div class="see-comment" id="see-comment">
+    // <p>${data["comment"]["data"]}</p>
+    // </div>`
   swal("Comment has been added, we'll get back to you shortly.")
   }
 }
@@ -388,13 +400,27 @@ function convertUTCTime(time){
   return userTime;
 }
 
-// const localOffset = moment().utcOffset();
-
-// console.log(typeof(localOffset));
-
-// console.log(moment);
-// const new_time = moment("12:54", "HH:mm");
-
-// const utcTime = new_time.utcOffset(localOffset).format("HH:mm");
-// console.log(utcTime);
-
+function changeTheme(preference) {
+            
+  if(preference == "dark"){
+      localStorage.setItem("theme", "dark")
+  }else{
+      localStorage.setItem("theme", "light")
+  }
+}
+if(!localStorage.getItem("theme")){
+  localStorage.setItem("theme", "light")
+}else{
+  const ThemeToggler = document.querySelector(".theme-toggler");
+  if(localStorage.getItem("theme") == "dark"){
+      console.log("coming in dark");
+      document.body.classList.add('dark-theme-variables')
+      ThemeToggler.querySelector('.theme-toggler__button--dark').classList.add('theme-toggler__button--active')
+      ThemeToggler.querySelector('.theme-toggler__button--light').classList.remove('theme-toggler__button--active')
+  }else if(localStorage.getItem("theme") == "light"){
+      console.log("coming in light");
+      document.body.classList.remove('dark-theme-variables')
+      ThemeToggler.querySelector('.theme-toggler__button--dark').classList.remove('theme-toggler__button--active')
+      ThemeToggler.querySelector('.theme-toggler__button--light').classList.add('theme-toggler__button--active')
+  }
+}

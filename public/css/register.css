@@ -152,6 +152,12 @@ input {
 .red{
   color: red;
 }
+
+.disabling{
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
 @keyframes show {
   0%,
   49.99% {
