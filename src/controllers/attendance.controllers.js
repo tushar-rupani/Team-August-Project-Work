@@ -3,8 +3,10 @@ const moment = require("moment");
 
 const dateformat = require('date-fns');
 const attendanceGenerate = async (req, res) => {
+  const startOfMonth = moment().startOf('month').format('YYYY-MM-DD');
+  const endOfMonth   = moment().endOf('month').format('YYYY-MM-DD');
     let user_id = req.session.user;
-    let getAllRecords = `SELECT * from attendence_manager where employee_id = ${user_id} order by id desc`;
+    let getAllRecords = `SELECT * from attendence_manager where employee_id = ${user_id} AND date BETWEEN '${startOfMonth}' AND '${endOfMonth}' order by id desc`;
     let [executeGetRecords] = await connection.execute(getAllRecords);
     var array_of_break = [];
     var array_of_passedTime = [];
@@ -23,8 +25,7 @@ const attendanceGenerate = async (req, res) => {
        half_data = executeHalf[0]?.half;
     }
 
-    const startOfMonth = moment().startOf('month').format('YYYY-MM-DD');
-    const endOfMonth   = moment().endOf('month').format('YYYY-MM-DD');
+   
     let getWorkingDaysOfUser = `SELECT count(*) as days from attendence_manager where date BETWEEN '${startOfMonth}' AND '${endOfMonth}' AND employee_id = ${user_id}`;
 
     let [executeGetWorkingDays] = await connection.execute(getWorkingDaysOfUser);

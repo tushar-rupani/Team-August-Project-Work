@@ -11,92 +11,59 @@
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     />
-    <link rel="icon" href="/css/SlideForm.png">
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/sweetalert2@10.10.1/dist/sweetalert2.min.css"
+    />
+    <link rel="icon" href="/css/SlideForm.png" />
     <link rel="stylesheet" href="/css/register.css" />
-    <title>eSparkBiz | Authentication</title>
-  <script src=" https://cdn.jsdelivr.net/npm/moment@2.29.4/moment.min.js "></script>
+    <title>eSparkBiz | Forgot Password</title>
+    <script src=" https://cdn.jsdelivr.net/npm/moment@2.29.4/moment.min.js "></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.10.1/dist/sweetalert2.all.min.js"></script>
+    <style>
+        button{
+            margin-top: 10px;
+        }
+        body{
+            background-image: url('../assets/eSpark.png');
+            background-repeat: no-repeat;
+        }
+    </style>
   </head>
-
 
   <body>
     <div class="container" id="container">
-      <div class="form-container sign-up-container" style="margin-top: -20px;">
-        <form action="/register" method="post" id="my-form">
-          <img src="/assets/espark_logo.png" alt="espark logo">
-
-          <h1 style="margin-bottom: 5px; font-size: 21px;">Create an Account</h1>
-         
-          <input type="email" placeholder="Email" name="email" id="email" onkeyup="checkIfExistsEmail(this)" autocomplete="false"/>
-          <span class="mtop-30 messgae hidden green" id="email_available">This email is available</span>
-          <span class="mtop-30 messgae hidden red left" id="email_unavailable" >This email is not available</span>
-          <span class="mtop-30 messgae red left" id="correct" ></span>
-
-          <input type="password" placeholder="Password" id="password" name="password"/>
-          <span id="perror" class="hidden"></span>
-
-          <input type="password" placeholder="Retype Password" id="repassword" />
-          <span id="reerror" class="hidden"></span>
-
-          <input type="submit" value="Submit" id="submit-btn">
-        </form>
-      </div>
       <div class="form-container sign-in-container">
-        <form id="login-form" action="/login" method="POST" id="form">
-          <img src="/assets/espark_logo.png" alt="espark logo">
+        <form id="form" action="/forgot" method="POST">
+          <img src="/assets/espark_logo.png" alt="espark logo" />
 
-          
-          <h1 style="margin-bottom: 0px;">Sign in</h1>
-          <p style="margin-bottom: 20px; color: #8a8484;">Enter your credentials to get started</p>
-         
-          <input type="email" placeholder="Email" name="email" id="lg-email"/>
-          <input type="password" placeholder="Password" name="password" id="lg-password"/>
+          <h1 style="margin-bottom: 0px">Forgot Password?</h1>
+          <p style="margin-bottom: 20px; color: #8a8484">
+            Enter your email to process further.
+          </p>
 
-          <div id="ip">
-
-          </div>
-          <a href="#">Forgot your password?</a>
-          <button id="signin-btn">Sign In</button>
+          <input type="email" placeholder="Email" name="email" id="f-email" autocomplete="off"/>
+          <button id="signin-btn" class="disabling" disabled>Process</button>
         </form>
       </div>
       <div class="overlay-container">
         <div class="overlay">
-          <div class="overlay-panel overlay-left">
-            <h1>Welcome Aboard!</h1>
-            <p style="margin-bottom: 30px;">
-              To keep track of your activities, please register an account from here.
-            </p>
-            <button class="ghost" id="signIn">Sign In</button>
-          </div>
           <div class="overlay-panel overlay-right">
-            <h1>Ahoy, Captain!</h1>
-            <p>Please log in to your existing HRMS account to get started.</p>
-
-            <p>Don't have an account?</p>
-            <button class="ghost" id="signUp">Sign Up</button>
+            <h1>Forgot your password?</h1>
+            <p style="margin-bottom: 30px">
+               No Worries, Easy password recovery! Our helpful forgot password page ensures a secure and smooth reset proces.
+            </p>
+           <a href="/"> <button class="ghost " id="signUp">Sign In</button></a>
           </div>
+          
         </div>
       </div>
-
     </div>
 
-    
     <div class="mobile-message hidden">
       This Website is not accessible in mobile devices.
-  </div>
-    <script>
-      const signUpButton = document.getElementById("signUp");
-      const signInButton = document.getElementById("signIn");
-      const container = document.getElementById("container");
+    </div>
 
-      signUpButton.addEventListener("click", () => {
-        container.classList.add("right-panel-active");
-      });
-
-      signInButton.addEventListener("click", () => {
-        container.classList.remove("right-panel-active");
-      });
-    </script>
-
-    <script src="/js/register.js"></script>
+    <script src="/js/forgot.js"></script>
   </body>
 </html>
