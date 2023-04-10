@@ -5,6 +5,7 @@ const jwt = require("jsonwebtoken");
 
 const { handleLogin } = require("../middlewares/authMiddlewares");
 const {renderHome, renderLogs, editForm} = require("../controllers/home.controller")
+const {checkIndividualEmp} = require("../controllers/employee-data.controller");
 
 const {
   attendanceGenerate,
@@ -45,6 +46,8 @@ router.get("/get-user", handleLogin, async (req, res) => {
 router.get("/edit-form", handleLogin, editForm);
 
 router.get("/profile", handleLogin, profileController);
+
+router.get("/emp-data/:id", handleLogin, checkIndividualEmp);
 
 
 
