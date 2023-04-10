@@ -43,6 +43,7 @@ const server = app.listen(process.env.PORT, () => {
 const io = socketIO(server);
 io.on("connection", (socket) => {
   socket.on("chat", (message) => {
+    
     io.emit("chat", message)
   })
 
