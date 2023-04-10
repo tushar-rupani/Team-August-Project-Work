@@ -116,8 +116,8 @@ const updateData = async (req, res) => {
         selectImage = uncompressed_files[0]
     }
 
-    let upload_uncompressed_path = path.join(__dirname + "/../public/upload_uncompressed");
-    let upload_compressed_path = path.join(__dirname + "/../public/upload_compressed");
+    let upload_uncompressed_path = path.join(__dirname + "../../../public/upload_uncompressed");
+    let upload_compressed_path = path.join(__dirname + "../../../public/upload_compressed");
 
     //upload compressed files =======
     try {

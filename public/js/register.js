@@ -3,11 +3,11 @@ let form = document.getElementById("my-form");
 //     e.preventDefault();
 // })
 
-const loginFrom=document.querySelector('#login-form');
+const loginFrom = document.querySelector('#login-form');
 let emailExists;
 
 let submitBtn = document.getElementById("submit-btn");
-function disableButton(){
+function disableButton() {
     submitBtn.disabled = true;
     submitBtn.style.opacity = 0.5;
     submitBtn.addEventListener("mouseenter", (e) => {
@@ -15,7 +15,7 @@ function disableButton(){
     })
 }
 
-function activateButton(){
+function activateButton() {
     submitBtn.disabled = false;
     submitBtn.style.opacity = 1;
     submitBtn.addEventListener("mouseenter", (e) => {
@@ -26,32 +26,32 @@ disableButton();
 
 let success = false;
 let repass_success = false;
+let email_success = false;
 
 
 let password = document.getElementById("password");
 let errorSpan, pval, passwordValidationRegex, isPasswordCorrect;
 password.addEventListener("keyup", (e) => {
-     errorSpan = document.getElementById("perror");
-     pval = e.target.value;
-     passwordValidationRegex = /^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{9,}$/
-     isPasswordCorrect = passwordValidationRegex.test(pval);
+    errorSpan = document.getElementById("perror");
+    pval = e.target.value;
+    passwordValidationRegex = /^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{9,}$/
+    isPasswordCorrect = passwordValidationRegex.test(pval);
 
-    if(isPasswordCorrect){
+    if (isPasswordCorrect) {
         globalPassword = e.target.value
         success = true;
         errorSpan.innerText = "";
         errorSpan.classList.add("hidden")
         activateSubmitButton();
-    }else{
+    } else {
         errorSpan.style.color = "red"
         errorSpan.innerText = `Password must contain One Capital Letter, One Special Character and Should have a length of more than 8 digits`;
         errorSpan.classList.remove("hidden")
         success = false
         activateSubmitButton();
-    }    
+    }
 
 })
-
 let repassword = document.getElementById("repassword");
 repassword.addEventListener("keyup", (e) => {
     let errorSpan = document.getElementById("reerror");
@@ -75,6 +75,21 @@ repassword.addEventListener("keyup", (e) => {
 
 async function checkIfExistsEmail(e, event) {
     let userEntered = e.value;
+
+    let emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/; // Regular expression pattern for email validation
+
+    let isValidEmail = emailRegex.test(userEntered); // Test if the userEntered value matches the emailRegex pattern
+    console.log();
+    if (isValidEmail) {
+        email_success = true;
+        document.getElementById("correct").innerHTML = ""
+        activateSubmitButton();
+    } else {
+        email_success = false;
+        document.getElementById("correct").innerHTML = "This is not a valid email"
+        activateSubmitButton();
+    }
+
     let ans = await fetch("/check-user-email", {
         method: "POST",
         headers: {
@@ -85,7 +100,7 @@ async function checkIfExistsEmail(e, event) {
         })
     })
     let data = await ans.json();
-   if (data["status"] == "not" && userEntered != "") {
+    if (data["status"] == "not" && userEntered != "") {
         document.getElementById("email_unavailable").classList.add("hidden")
         emailExists = true;
         activateSubmitButton();
@@ -99,25 +114,25 @@ async function checkIfExistsEmail(e, event) {
         document.getElementById("email_available").classList.add("hidden")
         document.getElementById("email_unavailable").classList.add("hidden")
         activateSubmitButton();
-    } 
+    }
 }
 
-function activateSubmitButton(){
-    if(success && emailExists && repass_success){
+function activateSubmitButton() {
+    if (success && emailExists && repass_success && email_success) {
         // submitBtn.disabled = false;  
-        activateButton();      
-    }else{
+        activateButton();
+    } else {
         disableButton();
         // submitBtn.disabled = true;
     }
 }
 
 
-loginFrom.addEventListener('submit',async function(e){
+loginFrom.addEventListener('submit', async function (e) {
     e.preventDefault();
-    
-    let email=document.querySelector('#lg-email').value;
-    let password=document.querySelector('#lg-password').value;
+
+    let email = document.querySelector('#lg-email').value;
+    let password = document.querySelector('#lg-password').value;
     let ip = document.querySelector("#user-ip").value;
 
     try {
@@ -127,29 +142,29 @@ loginFrom.addEventListener('submit',async function(e){
                 'Content-type': 'application/json'
             },
             credentials: 'same-origin',
-            body:JSON.stringify({email,password, ip})
+            body: JSON.stringify({ email, password, ip })
         });
 
         let res = await response.json();
 
-        if(res.ans=="error"){
+        if (res.ans == "error") {
             alert(res.msg);
         }
-        if(res.msg=="redirected"){
+        if (res.msg == "redirected") {
             location.assign(`/${res.ans}`);
         }
-        if(res.msg=="success"){
+        if (res.msg == "success") {
             location.assign(`/self/home`);
         }
-        
-        
+
+
 
     } catch (err) {
         console.log(err);
     }
-    
+
 });
-async function getIP(){
+async function getIP() {
     let ipDetails = await fetch("https://api.ipify.org/?format=json")
     let resp = await ipDetails.json();
     console.log(resp);

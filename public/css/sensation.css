@@ -1,0 +1,44 @@
+.message-header{
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.msg-img img{
+    height: 40px;
+    width: 40px;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.msg-owner{
+    font-size: 19px;
+    font-weight: 600;
+}
+
+.messages-container{
+    padding: 10px;
+}
+
+.message{
+    border: 1px solid #bbd3ff;
+    padding: 15px;
+    background: #fbfbfb;
+    border-radius: 10px;
+}
+
+.msg-content{
+    margin-top: 10px;
+    font-size: 15px;
+    font-weight: 400;
+    margin-bottom: 10px;
+}
+
+.msg-time{
+    font-weight: 500;
+    color: gray;
+}
+
+.card{
+    min-height: 87vh;
+}

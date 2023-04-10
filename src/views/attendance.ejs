@@ -173,11 +173,19 @@
                                     <p><%= executeGetRecords[i].date.toLocaleDateString() %></p>
                                 </div>
                                 <div class="col">
-                                    <p class="checkin-time-<%=(i+1)%>"><%= executeGetRecords[i].check_in %></p>
+                                    <p class="checkin-time-<%=(i+1)%>">
+                                        <span id="span-time">
+                                        <%= executeGetRecords[i].check_in %>
+                                        </span>
+                                    </p>
                                 </div>
                                 <div class="col">
                                     <% if(executeGetRecords[i].check_out != 0 ) { %> 
-                                    <p class="checkout-time-<%=(i+1)%>"><%= executeGetRecords[i].check_out %></p>
+                                    <p class="checkout-time-<%=(i+1)%>">
+                                        <span id="span-time">
+                                        <%= executeGetRecords[i].check_out %>
+                                    </span>
+                                    </p>
                                     <% } %>
                                 </div>
                                 <div class="col">

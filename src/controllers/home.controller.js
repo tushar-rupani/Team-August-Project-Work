@@ -103,7 +103,8 @@ const renderHome = async (req, res) => {
         activatePage,
         checked_out,
         commentResult,
-        forgotLastTime
+        forgotLastTime,
+        moment
     });
 }
 

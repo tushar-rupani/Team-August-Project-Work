@@ -29,6 +29,7 @@
           <input type="email" placeholder="Email" name="email" id="email" onkeyup="checkIfExistsEmail(this)" autocomplete="false"/>
           <span class="mtop-30 messgae hidden green" id="email_available">This email is available</span>
           <span class="mtop-30 messgae hidden red left" id="email_unavailable" >This email is not available</span>
+          <span class="mtop-30 messgae red left" id="correct" ></span>
 
           <input type="password" placeholder="Password" id="password" name="password"/>
           <span id="perror" class="hidden"></span>
@@ -42,11 +43,14 @@
       <div class="form-container sign-in-container">
         <form id="login-form" action="/login" method="POST" id="form">
           <img src="/assets/espark_logo.png" alt="espark logo">
+
+          
           <h1 style="margin-bottom: 0px;">Sign in</h1>
           <p style="margin-bottom: 20px; color: #8a8484;">Enter your credentials to get started</p>
          
           <input type="email" placeholder="Email" name="email" id="lg-email"/>
           <input type="password" placeholder="Password" name="password" id="lg-password"/>
+
           <div id="ip">
 
           </div>
