@@ -44,6 +44,7 @@ const io = socketIO(server);
 io.on("connection", (socket) => {
 
   socket.on("chat", (message) => {
+    
     io.emit("chat", message)
   })
 

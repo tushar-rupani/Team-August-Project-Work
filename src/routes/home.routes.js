@@ -4,9 +4,11 @@ const moment = require("moment");
 const jwt = require("jsonwebtoken");
 
 const { handleLogin } = require("../middlewares/authMiddlewares");
+
 const {renderHome, renderLogs, editForm, forgotCheckout} = require("../controllers/home.controller")
 const {checkIndividualEmp} = require("../controllers/employee-data.controller");
 const {news} = require("../controllers/news.controller")
+
 const {
   attendanceGenerate,
   returnSearchData,
@@ -49,7 +51,9 @@ router.get("/profile", handleLogin, profileController);
 
 router.get("/emp-data/:id", handleLogin, checkIndividualEmp);
 
+
 router.get("/news", handleLogin, news);
+
 
 router.post("/add-forgot", handleLogin, forgotCheckout)
 
