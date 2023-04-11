@@ -179,7 +179,7 @@
                                     <% } %>
                                 </div>
                                 <div class="col">
-                                    <p class="break-time-<%=(i+1)%>"><%= (executeGetRecords[i].break_taken).split(':')[0] %> hr <%= (executeGetRecords[i].break_taken).split(':')[1] %> min</p>
+                                    <p class="break-time-<%=(i+1)%>"><%= (executeGetRecords[i].break_taken)?.split(':')[0] %> hr <%= (executeGetRecords[i].break_taken)?.split(':')[1] %> min</p>
                                 </div>
                                 <div class="col">
                                     <!-- <progress id="file" max="100" value="<%= array_of_passedTime[i] %>" class="red" style="background-color: red;"></progress> -->
@@ -191,7 +191,7 @@
                                 </div>
                                 <div class="col">
                                     <% if(executeGetRecords[i].check_out != 0 ) { %> 
-                                    <p class="total-<%=(i+1)%>"><%= (executeGetRecords[i].hours_worked).split(':')[0] %> hours <%= (executeGetRecords[i].hours_worked).split(':')[1] %> minutes
+                                    <p class="total-<%=(i+1)%>"><%= (executeGetRecords[i].hours_worked)?.split(':')[0] %> hours <%= (executeGetRecords[i].hours_worked)?.split(':')[1] %> minutes
                                     </p>
                                     <% } %>
                                 </div>

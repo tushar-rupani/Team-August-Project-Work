@@ -412,3 +412,62 @@ if(!localStorage.getItem("theme")){
       ThemeToggler.querySelector('.theme-toggler__button--light').classList.add('theme-toggler__button--active')
   }
 }
+
+
+if(document.getElementById("contact-admin")){
+
+document.getElementById("contact-admin").addEventListener("click", () => {
+  $('.ui.modal').modal('show');
+})
+
+document.querySelector(".deny").addEventListener("click", () => {
+  $('.ui.modal').modal('hide');
+})
+}
+
+
+document.addEventListener("contextmenu", (e) => {
+  e.preventDefault();
+  swal("This site is protected.")
+})
+
+document.addEventListener("keydown", (e) => {
+  console.log(e.key);
+  if(e.key == "F12"){
+    e.preventDefault();
+  }
+  if (e.ctrlKey && e.shiftKey && e.keyCode == 67) {
+    e.preventDefault();
+  }
+})
+
+document.getElementById("forget-form").addEventListener("submit", async(e) => {
+  e.preventDefault();
+
+  let checkOutTime = document.getElementById("checkout-time").value;
+  let checkInTime = document.getElementById("checkin-time").value;
+
+
+  const res = await fetch(`/self/add-forgot`, {
+    method: "POST",
+    headers: {
+        'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+        checkInTime, checkOutTime
+    })
+  });
+  let data = await res.json();
+  if(data.ans == "success"){
+    swal({
+      title: "Request has been sent!",
+      text: `${data.msg}, Dont worry about today's time. We will update it.`,
+      button: "Okay, Thanks!",
+    }).then(function() {
+      $('.ui.modal').modal('hide');
+    });
+  }else if(data.ans == "error"){
+    swal(data.msg)  
+  }
+})
+
