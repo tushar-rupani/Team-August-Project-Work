@@ -65,7 +65,11 @@ if(checkIn){
 checkIn.addEventListener("click", async (e) => {
     let ans = await fetch("/activity/check-in");
     let data = await ans.json();
+    console.log(data);
 
+    if(data["leave"]){
+      swal("You applied leave for today, but you are still present at office. So we are removing that leave.")
+    }
     if (data["status"] == "DONE") {
         let checkInSpan = document.getElementById("backlog");
         checkInSpan.innerHTML = ` <div class="check_in" id="check-in-span">
@@ -432,13 +436,19 @@ document.addEventListener("contextmenu", (e) => {
 })
 
 document.addEventListener("keydown", (e) => {
-  console.log(e.key);
-  if(e.key == "F12"){
-    e.preventDefault();
-  }
+
   if (e.ctrlKey && e.shiftKey && e.keyCode == 67) {
     e.preventDefault();
   }
+ 
+  if (e.ctrlKey && e.shiftKey && e.keyCode == 73) {
+     e.preventDefault();
+  }
+
+  if(e.key == "F12"){
+    e.preventDefault();
+  }
+ 
 })
 
 document.getElementById("forget-form").addEventListener("submit", async(e) => {

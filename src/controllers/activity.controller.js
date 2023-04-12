@@ -1,19 +1,27 @@
 var connection = require("../connection/connection");
 const moment = require("moment");
-const { min } = require("date-fns");
-const { months } = require("moment");
-   let currentTime = moment().utcOffset(moment().utcOffset())
-   let currentDate = moment().format("YYYY-MM-DD");
-   let tenAM = moment("10:00:00", "HH:mm:ss");
-   let isLate = 0;
+let currentTime = moment().utcOffset(moment().utcOffset())
+let currentDate = moment().format("YYYY-MM-DD");
+let tenAM = moment("10:00:00", "HH:mm:ss");
+let isLate = 0;
 
 
 const checkInHandler = async (req, res) => {  
    let time = moment().format("HH:mm:ss");
+   var leave;
    if (currentTime.isAfter(tenAM)) {
       isLate = 1;
    }
    let currentEmployee = req.session.user;
+
+   let checkIfUserAppliedForLeave = `SELECT count(*) as applied from leave_request where employee_id = ${currentEmployee} AND leave_date = '${currentDate}'`;
+   let [executeLeave] = await connection.execute(checkIfUserAppliedForLeave);
+
+   if(executeLeave[0].applied != 0){
+      let deleteLeave = `DELETE from leave_request where employee_id = ${currentEmployee} and leave_date = '${currentDate}'`;
+      var [executeDeletedLeave] = await connection.execute(deleteLeave);
+   }
+
 
    let alreadyOnBreak = await checkIfUserIsonBreak(currentEmployee);
    if(alreadyOnBreak == false){
@@ -25,7 +33,7 @@ const checkInHandler = async (req, res) => {
    if(didUserCheckout == false){
       return res.json({status: "ERROR", message: "You have already checked out!"})
    }
-
+   
    let checkIfalreadyExist = `SELECT * FROM attendence_manager where employee_id = ${currentEmployee} and date = '${currentDate}'`;
 
    try{
@@ -46,7 +54,7 @@ const checkInHandler = async (req, res) => {
          let updateStatus = `update status set status ='online' where employee_id = ${currentEmployee}`;
          let [status] = await connection.execute(updateStatus); 
       }
-      return res.json({status: "DONE", checkInTime: time})
+      return res.json({status: "DONE", checkInTime: time, leave: executeDeletedLeave})
       
    }
    catch(e){
