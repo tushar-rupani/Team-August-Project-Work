@@ -183,5 +183,24 @@ const updateData = async (req, res) => {
 }
 
 
-module.exports = { saveData, renderForm, updateData };
+const checkIndividualEmp = async(req, res) => {
+    let id = req.params.id;
+    let getBasicInfo = `SELECT * FROM basic_information where employee_id = ${id}`;
+    let companyRelation = `SELECT * from company_relation where employee_id = ${id}`;
+    let contactInformation = `SELECT * from contact_information where employee_id = ${id}`;
+    let socialMedia = `SELECT * FROM social_information where employee_id = ${id};`
+    let getEmail = `SELECT email FROM register where id = ${id}`;
+    let [executeBasicInfo] = await connection.execute(getBasicInfo);
+    let [executeCompany] = await connection.execute(companyRelation);
+    let [executeContact] = await connection.execute(contactInformation);
+    let [executeSocial] = await connection.execute(socialMedia);
+    let [executeEmail] = await connection.execute(getEmail);
+    console.log(executeBasicInfo, executeCompany, executeContact);
+   
+    res.render("emp-data", {executeBasicInfo,executeEmail, executeCompany, executeContact,executeSocial, activatePage: "emp-data"});
+
+}
+
+
+module.exports = { saveData, renderForm, updateData, checkIndividualEmp };
 

@@ -23,8 +23,8 @@ function renderUserCard(users, status) {
     }
 
     users.forEach(user => {
-
-        let card = `<div class="person">
+        console.log(user);
+        let card = `<a href='/self/emp-data/${user.employee_id}'><div class="person">
         <div class="head">
             <div class="hotline-office">
                 <i class="fa-solid fa-building"></i>
@@ -68,7 +68,7 @@ function renderUserCard(users, status) {
                 <div>${user.contact_no}</div>
             </div>
         </div>
-    </div>`;
+    </div></a>`;
 
         usercardContainer.innerHTML += card;
 

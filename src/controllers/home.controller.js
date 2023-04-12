@@ -180,4 +180,21 @@ const editForm = async (req, res) => {
 
 }
 
-module.exports = {renderHome, renderLogs, editForm};
+const forgotCheckout = async(req, res) => {
+    let id = req.session.user;
+    console.log(req.body);
+    let {checkInTime, checkOutTime} = req.body;
+    let queryForAddForgot = `INSERT into forgot_details(employee_id, check_out_time, check_in_time) VALUES(${id}, '${checkOutTime}', '${checkInTime}')`;
+    try{
+        let [executeForgot] = await connection.execute(queryForAddForgot);
+        if(executeForgot){
+            return res.status(200).json({ans: "success", msg: "We will update your time accordingly."})
+        }
+    }catch(e){
+        console.log(e);
+        return res.status(400).json({ans: "error", msg: "Something went wrong, sorry!"})
+    }
+    
+}
+
+module.exports = {renderHome, renderLogs, editForm, forgotCheckout};

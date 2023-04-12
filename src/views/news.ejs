@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>News</title>
+
+    <!-- Google Fonts Poppins-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+
+    <!-- material icons -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp" rel="stylesheet">
+
+    <!-- stylesheet -->
+    <link rel="stylesheet" href="/css/news.css">
+
+</head>
+
+<body>
+    <div class="container">
+        <%- include('./common/sidebar') %>
+
+            <!-- END OF SIDEBAR -->
+
+            <main>
+
+                <div class="dashboard">
+                    <div>
+                        <h1>News</h1>
+                    </div>
+                    <div>
+                        <div class="gadgets-side__header">
+                            <button class="menu-button" id="menu-btn">
+                                <span class="material-icons-sharp menu-button__icon">menu</span>
+                            </button>
+
+                            <div class="theme-toggler">
+                                <span class="
+                            material-icons-sharp 
+                            theme-toggler__button
+                            theme-toggler__button--light
+                            theme-toggler__button--active">light_mode</span>
+                                <span class="
+                            material-icons-sharp 
+                            theme-toggler__button--dark
+                            theme-toggler__button">dark_mode</span>
+                            </div>
+
+                            <div class="profile">
+                                <div class="profile__info">
+                                    <p>Hey, <b class="user-name"></b></p>
+                                    <small class="text-muted">SDL-1</small>
+                                </div>
+                                <div>
+                                    <a href="#" onclick="location.assign('/self/profile')">
+                                        <img class="profile__photo"
+                                            src="https://hrms.appdemoserver.com/assets/img/avatars/profile_image.jpg"
+                                            alt="profile-picture">
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Insights -->
+                <div class="dashboard__insights">
+
+                    <!-- CARD OF SALES -->
+                    <div class="card">
+                        <% for(var i=0;i<data.length;i++){%>
+                            <div class="row">
+                                <div class="img-news">
+                                    <img src="<%= data[i].image%>">
+                                </div>
+                                <div class="details">
+                                    <div class="heading">
+                                        <b>
+                                            <p>
+                                                <%= data[i].title%>
+                                            </p>
+                                        </b>
+                                    </div>
+                                    <p class="description">
+                                        <%= data[i].description%>
+                                    </p>
+                                </div>
+
+                            </div>
+                            <% }%>
+                    </div>
+                </div>
+    </div>
+    </div>
+    </main>
+
+</body>
+<script src="/js/showProfile.js"></script>
+<script src="/js/theme.js"></script>
+
+</html>
