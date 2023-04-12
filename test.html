@@ -1,0 +1,24 @@
+<style>
+    div{
+        border: 1px solid black;
+        padding: 10px;
+    }
+</style>
+<div contenteditable="true">
+
+</div>
+<button onclick="moveToend()">Move to end</button>
+
+<script>
+    let yourContentEditableElement = document.querySelector("div");
+// [optional] make sure focus is on the element
+
+function moveToend(){
+    console.log(yourContentEditableElement);
+    yourContentEditableElement.focus();
+    // select all the content in the element
+    document.execCommand('selectAll', false, null);
+    // collapse selection to the end
+    document.getSelection().collapseToEnd();
+}
+</script>

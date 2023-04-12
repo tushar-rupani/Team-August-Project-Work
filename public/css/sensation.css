@@ -56,7 +56,20 @@
     border-radius: 15px;
     margin-left: 10px;
 }
+
+#add-file{
+    background-color: rgb(172, 52, 52);
+    color: white;
+    cursor: pointer;
+    border-radius: 15px;
+    margin-left: 10px;
+}
 .text-send{
     display: grid;
-    grid-template-columns: 90% 10%;
+    grid-template-columns: 80% 10% 10%;
+}
+
+.image-wrapper{
+    min-height: 200px;
+    width: 300px;
 }
