@@ -417,6 +417,7 @@ if(!localStorage.getItem("theme")){
   }
 }
 
+
 if(document.getElementById("contact-admin")){
 
 document.getElementById("contact-admin").addEventListener("click", () => {
@@ -477,3 +478,4 @@ document.getElementById("forget-form").addEventListener("submit", async(e) => {
     swal(data.msg)  
   }
 })
+
