@@ -436,17 +436,19 @@ document.addEventListener("contextmenu", (e) => {
 })
 
 document.addEventListener("keydown", (e) => {
-  console.log(e.key);
-  // if(e.key == "F12"){
-  //   e.preventDefault();
-  // }
+
   if (e.ctrlKey && e.shiftKey && e.keyCode == 67) {
     e.preventDefault();
   }
-  console.log(e.keyCode);
+ 
   if (e.ctrlKey && e.shiftKey && e.keyCode == 73) {
+     e.preventDefault();
+  }
+
+  if(e.key == "F12"){
     e.preventDefault();
   }
+ 
 })
 
 document.getElementById("forget-form").addEventListener("submit", async(e) => {
