@@ -67,7 +67,7 @@
                 </div>
                 <div class="dashboard__insights">
                     <div class="card">
-
+                        <div id="all-messages">
                         <% for(let i=0; i<executeAllMessage.length; i++) { %> 
                         <div class="message">
                             <div class="message-header">
@@ -77,21 +77,26 @@
                                 <div class="msg-owner">
                                     <%= executeAllMessage[i].full_name %>
                                 </div>
+                                
                             </div>
                             <div class="msg-content"><%= executeAllMessage[i].message %></div>
+                            <% if(executeAllMessage[i].image) { %> 
+                                <div class="image-wrapper">
+                                    <img src="/upload_uncompressed/<%= executeAllMessage[i].image %>" alt="">
+                                </div>    
+                            <% } %>
                             <div class="msg-time"><%= executeAllMessage[i].time %></div>
+
                         </div>
                         <% } %>
-
-                        
+                    </div>
                     </div>
                     <div class="text-send">
                         <input id="input-message" autocomplete="off" placeholder="Enter your message"/>
+                        <input type="file" id="selectedFile" name = "image" accept="image/png, image/gif, image/jpeg" style="display: none;">
+                        <button id="add-file" onclick="document.getElementById('selectedFile').click();">Add Image <i class="bi bi-card-image"></i></button>
                         <button type="submit" id="send-button">Send <i class="bi bi-send"></i></button>
                     </div>
-
-                   
-                    
                 </div>
     </div>
     </main>
