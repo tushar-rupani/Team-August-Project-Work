@@ -169,6 +169,23 @@ async function checkOutData() {
       }
     });
     
+  }else if(data.status == "half"){
+    swal(data.msg, {
+      buttons: {
+        cancel: "Cancel!",
+        catch: {
+          text: "Yes, Its fine",
+          value: "Yes",
+        },
+      },
+    })
+    .then(async (value) => {
+      switch (value) {
+        case "Yes":
+          await makeAHalfDay();
+          break;
+      }
+    });
   }
     else if (data["status"] == "DONE") {
         let checkInSpan = document.getElementById("backlog");
@@ -184,8 +201,7 @@ async function checkOutData() {
     }
 }
 
-async function makeALeave(){
-  
+async function makeALeave(){  
   let res = await fetch("/activity/add-leave");
   let data = await res.json();
   console.log(data.ans);
@@ -193,6 +209,17 @@ async function makeALeave(){
     location.reload(true);
   }
 }
+
+async function makeAHalfDay(){
+  let res = await fetch("/activity/half-day");
+  let data = await res.json();
+  console.log(data.ans);
+  if(data.ans){
+    location.reload(true);
+  }
+
+}
+
 
 async function breakOutData(){
     let ans = await fetch("/activity/break-out");
@@ -431,6 +458,9 @@ document.querySelectorAll(".span-time").forEach(time => {
 })
 
 function convertUTCTime(time){
+  if(time == "00:00:00"){
+    return "You left early."
+  }
   let userTime = moment.utc(time, "hh:mm:ss").local().format("hh:mm:ss A");
   return userTime;
 }

@@ -23,6 +23,25 @@ const addLeaveControllers = async (req, res) => {
 
 }
 
+const addHalfDayControllers = async(req, res) => {
+   let time = moment().format("HH:mm:ss");
+   let empId = req.session.user;  
+   let addALeaveQuery = `INSERT INTO leave_request (employee_id, leave_date, leave_type, leave_reason, leave_status, half_day) VALUES(${empId}, '${currentDate}', 'IL', 'Left early', 'accepted', 1)`;
+   let removeAttendanceQUery = `UPDATE attendence_manager SET check_out = '${time}' WHERE employee_id = ${empId} and date = '${currentDate}'`;
+   let removeBreakQuery = `DELETE FROM break_manager where employee_id = ${empId} and created_date = '${currentDate}'`;
+   try{
+      let [executeLeave] = await connection.execute(addALeaveQuery);
+      let [executeRemoveAttendace] = await connection.execute(removeAttendanceQUery);
+      let [executeRemoveBreak] = await connection.execute(removeBreakQuery);
+      return res.status(200).json({ans:executeLeave});
+   }
+   catch(err){
+      console.log(err);
+      return res.json({error: "Something went wrong"})
+   }
+
+}
+
 const checkInHandler = async (req, res) => {  
    let time = moment().format("HH:mm:ss");
    var leave;
@@ -124,6 +143,8 @@ const checkOutHandler = async (req, res) => {
       console.log(duratioinInSeconds);
       if(duratioinInSeconds <= 120){
          return res.status(200).json({status: "early", msg: "Are you sure you want to checkout, it hasn't been an hour till now. We'll count this as a leave."})
+      }else if(duratioinInSeconds>120 && duratioinInSeconds <= 330){
+         return res.status(200).json({status: "half", msg: "We'll count this day as a half day, since you have worked less than 4.5 hours. You sure?"})
       }
    }
    catch(e){
@@ -330,4 +351,4 @@ const checkIfUserIsBreakedOut = async (getUserId) => {
       return true;
    }return false;
 }
-module.exports = {checkInHandler, checkOutHandler, breakInHandler, breakOutHander, checkIfUserIsonBreak, checkIfUserIsBreakedOut, addcommentControllers, addLeaveControllers}
+module.exports = {checkInHandler, checkOutHandler, breakInHandler, breakOutHander, checkIfUserIsonBreak, checkIfUserIsBreakedOut, addcommentControllers, addLeaveControllers, addHalfDayControllers}
