@@ -1,12 +1,12 @@
 var connection = require("../connection/connection");
 const moment = require("moment");
-let currentTime = moment().utcOffset(moment().utcOffset())
-let currentDate = moment().format("YYYY-MM-DD");
 let tenAM = moment("10:00:00", "HH:mm:ss");
 let isLate = 0;
 
 const addLeaveControllers = async (req, res) => {
    let empId = req.session.user;  
+   let currentTime = moment().utcOffset(moment().utcOffset())
+   let currentDate = moment().format("YYYY-MM-DD");
    let addALeaveQuery = `INSERT INTO leave_request (employee_id, leave_date, leave_type, leave_reason, leave_status, half_day) VALUES(${empId}, '${currentDate}', 'IL', 'Left early', 'accepted', 0)`;
    let removeAttendanceQUery = `UPDATE attendence_manager SET check_out = '00:00:00' WHERE employee_id = ${empId} and date = '${currentDate}'`;
    let removeBreakQuery = `DELETE FROM break_manager where employee_id = ${empId} and created_date = '${currentDate}'`;
@@ -43,7 +43,10 @@ const addHalfDayControllers = async(req, res) => {
 }
 
 const checkInHandler = async (req, res) => {  
+   
    let time = moment().format("HH:mm:ss");
+   let currentTime = moment().utcOffset(moment().utcOffset())
+   let currentDate = moment().format("YYYY-MM-DD");
    var leave;
    if (currentTime.isAfter(tenAM)) {
       isLate = 1;
@@ -102,6 +105,8 @@ const checkInHandler = async (req, res) => {
 
 
 const checkOutHandler = async (req, res) => {
+   let currentTime = moment().utcOffset(moment().utcOffset())
+   let currentDate = moment().format("YYYY-MM-DD");
    let currentEmployee = req.session.user;
    let didUserCheckedIn = await checkIfUserCheckedIn(currentEmployee); 
    if(didUserCheckedIn == false){
@@ -194,7 +199,11 @@ const checkOutHandler = async (req, res) => {
 }
 
 
+
 const breakInHandler = async (req, res) => {
+   let currentTime = moment().utcOffset(moment().utcOffset())
+   let currentDate = moment().format("YYYY-MM-DD");
+   
    let currentEmployee = req.session.user;
    console.log(currentTime);
 
@@ -245,6 +254,9 @@ const breakInHandler = async (req, res) => {
 }
 
 const breakOutHander = async (req, res) => {
+
+   let currentDate = moment().format("YYYY-MM-DD");
+   console.log("this is", currentDate);
    let currentEmployee = req.session.user;
    let didUserCheckedIn = await checkIfUserCheckedIn(currentEmployee); 
    if(didUserCheckedIn == false){
@@ -316,6 +328,7 @@ const addcommentControllers = async (req, res) => {
 
 
 const checkIfUserCheckedIn = async (getUserId) => {
+   let currentDate = moment().format("YYYY-MM-DD");
    let checkUser = `SELECT * FROM attendence_manager where employee_id = ${getUserId} and date = '${currentDate}'`;
    let [executeCheckUser] = await connection.execute(checkUser);
    if(executeCheckUser.length == 0){
@@ -325,6 +338,7 @@ const checkIfUserCheckedIn = async (getUserId) => {
 }
 
 const checkIfUserCheckedOut = async (getUserId) => {
+   let currentDate = moment().format("YYYY-MM-DD");
    let checkUser = `SELECT check_out FROM attendence_manager where employee_id = ${getUserId} and date = '${currentDate}' and check_out = '0'`;
    let [executeCheckUser] = await connection.execute(checkUser);
 
@@ -345,6 +359,7 @@ const checkIfUserIsonBreak = async (getUserId) => {
 
 
 const checkIfUserIsBreakedOut = async (getUserId) => {
+
    let checkUser = `SELECT * FROM break_manager where employee_id = ${getUserId} order by id desc LIMIT 1`;
    let [executeCheckUser] = await connection.execute(checkUser);
    if(executeCheckUser[0]?.break_out != "00:00:00"){
