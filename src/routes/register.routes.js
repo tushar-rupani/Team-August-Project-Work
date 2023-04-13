@@ -6,7 +6,7 @@ const {activateLinkController, renderActivatePage} = require("../controllers/val
 
 
 app.get("/", checkIfLoggedIn, (req, res) => {
-    res.render("register")
+    res.render("register", {error: false})
 })
 
 app.post("/register", registerController);

@@ -118,6 +118,9 @@ document.querySelectorAll("#span-time").forEach(time => {
 })
 
 function convertUTCTime(time){
+    if(time == "00:00:00"){
+        return "-"
+    }
     let userTime = moment.utc(time, "hh:mm:ss").local().format("hh:mm:ss A");
     return userTime;
 }

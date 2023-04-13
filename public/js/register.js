@@ -1,7 +1,5 @@
 let form = document.getElementById("my-form");
-// form.addEventListener("submit", (e) => {
-//     e.preventDefault();
-// })
+
 
 const loginFrom = document.querySelector('#login-form');
 let emailExists;
