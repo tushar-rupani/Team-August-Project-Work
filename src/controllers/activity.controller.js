@@ -145,7 +145,7 @@ const checkOutHandler = async (req, res) => {
       var minutes = duration.minutes();
       var workedHours = hours + ":" + minutes;
       let duratioinInSeconds = moment.duration(workedHours).asMinutes();
-      console.log(duratioinInSeconds);
+
       if(duratioinInSeconds <= 120){
          return res.status(200).json({status: "early", msg: "Are you sure you want to checkout, it hasn't been an hour till now. We'll count this as a leave."})
       }else if(duratioinInSeconds>120 && duratioinInSeconds <= 330){
@@ -176,7 +176,6 @@ const checkOutHandler = async (req, res) => {
     let time2 = moment(formatted, "hh:mm");
     let finalWorkedTime = moment.duration(time1.diff(time2));
    //  console.log(finalWorkedTime);
-   console.log(finalWorkedTime.as("milliseconds"));
     var formattedFinalTime = moment.utc(finalWorkedTime.as("milliseconds")).format("HH:mm");
 
    let updateQuery = `UPDATE attendence_manager SET check_out = '${time}', hours_worked = '${formattedFinalTime}', break_taken = '${formatted}'
@@ -205,7 +204,6 @@ const breakInHandler = async (req, res) => {
    let currentDate = moment().format("YYYY-MM-DD");
    
    let currentEmployee = req.session.user;
-   console.log(currentTime);
 
    let didUserCheckedIn = await checkIfUserCheckedIn(currentEmployee); 
 
@@ -256,7 +254,6 @@ const breakInHandler = async (req, res) => {
 const breakOutHander = async (req, res) => {
 
    let currentDate = moment().format("YYYY-MM-DD");
-   console.log("this is", currentDate);
    let currentEmployee = req.session.user;
    let didUserCheckedIn = await checkIfUserCheckedIn(currentEmployee); 
    if(didUserCheckedIn == false){
@@ -311,9 +308,7 @@ const addcommentControllers = async (req, res) => {
    let id = req.session.user;
    let comment = req.body;
    let comments = comment.data;
-   console.log("before", comment);
    comments = comments.replaceAll('"', '\\"');
-   console.log("after", comment);
 
    let query = `INSERT INTO comments(employee_id,comment,date) VALUES (${id},"${comments}","${currentDate}"); `;
    try {
