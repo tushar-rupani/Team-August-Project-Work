@@ -90,26 +90,27 @@ async function getData(e){
 getUserInfo();
 
 
-const all_attendence=document.querySelectorAll(".column2");
+// const all_attendence=document.querySelectorAll(".column2");
 
-all_attendence.forEach((x,i)=>{
+// all_attendence.forEach((x,i)=>{
     
-    let checkin=document.querySelector(`.checkin-time-${(i+1)}`).innerHTML;
-    let checkout=document.querySelector(`.checkout-time-${(i+1)}`)?.innerHTML;
-    let break_time = document.querySelector(`.break-time-${(i+1)}`)?.innerHTML;
+//     let checkin=document.querySelector(`.checkin-time-${(i+1)}`).innerHTML;
+//     let checkout=document.querySelector(`.checkout-time-${(i+1)}`)?.innerHTML;
+//     let break_time = document.querySelector(`.break-time-${(i+1)}`)?.innerHTML;
     
-    if(checkin!=undefined && checkout!=undefined && break_time!=undefined){
-        let startTime=moment(checkin,'HH:mm:ss');
-        let endTime=moment(checkout,'HH:mm:ss');
-        let diff=moment.duration(endTime.diff(startTime));
-        let diff_min=diff.asMinutes().toFixed(0);
+//     if(checkin!=undefined && checkout!=undefined && break_time!=undefined){
+//         let startTime=moment(checkin,'HH:mm:ss');
+//         let endTime=moment(checkout,'HH:mm:ss');
+//         let diff=moment.duration(endTime.diff(startTime));
+//         let diff_min=diff.asMinutes().toFixed(0);
 
-        if(diff_min<61){
-            document.querySelector(`#progress-${(i+1)}`).style.width="0%";
-            document.querySelector(`.total-${(i+1)}`).innerHTML=diff_min+" Minutes";
-        }
-    } 
-});
+//         if(diff_min<61){
+//             document.querySelector(`#progress-${(i+1)}`).style.width="0%";
+//             document.querySelector(`.total-${(i+1)}`).innerHTML=diff_min+" Minutes";
+            
+//         }
+//     } 
+// });
 
 document.querySelectorAll("#span-time").forEach(time => {
     let userTime = convertUTCTime(time.innerText);

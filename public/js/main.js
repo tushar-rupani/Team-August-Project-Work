@@ -149,8 +149,28 @@ breakOut.addEventListener("click", async(e) => {
 async function checkOutData() {
     let ans = await fetch("/activity/check-out");
     let data = await ans.json();
+  console.log(data);
 
-    if (data["status"] == "DONE") {
+  if(data.status == "early"){
+    swal(data.msg, {
+      buttons: {
+        cancel: "Cancel!",
+        catch: {
+          text: "Yes Do it!",
+          value: "Yes",
+        },
+      },
+    })
+    .then(async (value) => {
+      switch (value) {
+        case "Yes":
+          await makeALeave();
+          break;
+      }
+    });
+    
+  }
+    else if (data["status"] == "DONE") {
         let checkInSpan = document.getElementById("backlog");
         checkInSpan.innerHTML += ` <div class="check_out">
         <span>Checked Out : ${convertUTCTime(data["checkOutTime"])}</span>
@@ -163,6 +183,17 @@ async function checkOutData() {
         swal(data.message)
     }
 }
+
+async function makeALeave(){
+  
+  let res = await fetch("/activity/add-leave");
+  let data = await res.json();
+  console.log(data.ans);
+  if(data.ans){
+    location.reload(true);
+  }
+}
+
 async function breakOutData(){
     let ans = await fetch("/activity/break-out");
     let data = await ans.json();
@@ -380,6 +411,18 @@ else if(log.activity == "Breaked In"){
 
 gettingLogData();
 
+// let usersTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+// console.log(usersTimeZone);
+// console.log(usersTimeZone==="America/New_York");
+// document.querySelectorAll(".span-time").forEach(time => {
+//   console.log(time.innerText);
+  // let currentTime = moment(time.innerText, "HH:mm:ss");
+
+
+  // const newYorkTime = currentTime.tz("America/New_York");
+  // console.log("new york", newYorkTime);
+  // let newStr = newYorkTime.format('HH:mm:ss');
+  // time.innerHTML = newStr;
 
 document.querySelectorAll(".span-time").forEach(time => {
   console.log(time.innerText);
@@ -445,9 +488,9 @@ document.addEventListener("keydown", (e) => {
      e.preventDefault();
   }
 
-  if(e.key == "F12"){
-    e.preventDefault();
-  }
+  // if(e.key == "F12"){
+  //   e.preventDefault();
+  // }
  
 })
 
