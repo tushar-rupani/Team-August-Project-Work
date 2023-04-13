@@ -21,17 +21,13 @@ const breakOut = document.getElementById("break-out");
 const buttons = document.getElementById("buttons");
 const time = new Date().toLocaleTimeString();
 const recent = document.getElementById("recents");
+
 timeLabel.innerHTML = time;
-
-
 dateLabel.innerHTML = date;
 
 const renew = document.getElementById("renew");
 
-
-
-
-
+var breakInterval;
 setInterval(() => {
     const time = new Date().toLocaleTimeString();
     timeLabel.innerHTML = time;
@@ -111,16 +107,39 @@ breakIn.addEventListener("click", async(e) => {
           case "Yes":
             await breakInData();
             await gettingLogData();
+            await reminderForBreakOut();
             break;
         }
       });
+    
 })
+}
+
+async function reminderForBreakOut(){
+  console.log("called");
+  breakInterval = setInterval(() => {
+    Notification.requestPermission().then((permission) => {
+      console.log(permission);
+      if(permission == "granted"){
+        var title = `Hey, its been 10 more minutes.`;
+        var text = `If you forgot to checkout please do it now.`;
+        var notification = new Notification(title, {
+          body: text,
+          icon: '../assets/favicon.ico'
+        })
+        notification.addEventListener("click", () => {
+          location.assign("/");
+        })
+      }
+    }).catch((err) => {
+      console.log(err);
+      console.log(`Notification failed to fetch`);
+    })
+  }, 10000)
 }
 
 
 if(breakOut){
-
-
 breakOut.addEventListener("click", async(e) => {
 
     swal("Are you sure you want to Break Out?", {
@@ -137,6 +156,7 @@ breakOut.addEventListener("click", async(e) => {
           case "Yes":
             await breakOutData();
             await gettingLogData();
+            clearInterval(breakInterval)
             break;
         }
       });
