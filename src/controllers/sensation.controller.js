@@ -48,4 +48,8 @@ const getNameOfUser = async(req, res) => {
     }
 }
 
-module.exports = {renderController, postMessage, getNameOfUser};
+const renderVideoChat = async(req, res) => {
+    res.redirect("https://espark-vidchat-by-tushar.netlify.app/lobby.html")
+}
+
+module.exports = {renderController, postMessage, getNameOfUser, renderVideoChat};
