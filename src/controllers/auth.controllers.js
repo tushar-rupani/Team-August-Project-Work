@@ -113,7 +113,13 @@ const loginController = async (req, res) => {
 const registerController = async (req, res) => {
   let { email, password } = req.body;
   email = email.toLowerCase();
-  console.log(email);
+
+  let getIfExists = `SELECT count(*) as email_length from register where email = '${email}'`;
+  let [executeExits] = await connection.execute(getIfExists);
+  if(executeExits[0].email_length){
+    return res.render("error", {msg: "Email Already Exists"});
+  }
+
   password = await bcrypt.hash(password, 10);
   const sqlQuery = `INSERT INTO register (email, password) VALUES('${email}', '${password}')`;
   try {
@@ -127,7 +133,7 @@ const registerController = async (req, res) => {
       var mailOptions = {
         from: "tushar24081@gmail.com",
         to: `${email}`,
-        subject: "Password Activation Link",
+        subject: "Account Activation Link",
         html: `<h1>Welcome aboard!</h1><p>Click the below activation link to get started.</p><a href="https://august.appdemoserver.com/activate-account/${token}">${token}</a>`,
       };
       transporter.sendMail(mailOptions, function (error, info) {

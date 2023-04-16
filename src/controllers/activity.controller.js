@@ -1,19 +1,66 @@
 var connection = require("../connection/connection");
 const moment = require("moment");
-const { min } = require("date-fns");
-const { months } = require("moment");
+let tenAM = moment("10:00:00", "HH:mm:ss");
+let isLate = 0;
+
+const addLeaveControllers = async (req, res) => {
+   let empId = req.session.user;  
    let currentTime = moment().utcOffset(moment().utcOffset())
    let currentDate = moment().format("YYYY-MM-DD");
-   let tenAM = moment("10:00:00", "HH:mm:ss");
-   let isLate = 0;
+   let addALeaveQuery = `INSERT INTO leave_request (employee_id, leave_date, leave_type, leave_reason, leave_status, half_day) VALUES(${empId}, '${currentDate}', 'IL', 'Left early', 'accepted', 0)`;
+   let removeAttendanceQUery = `UPDATE attendence_manager SET check_out = '00:00:00' WHERE employee_id = ${empId} and date = '${currentDate}'`;
+   let removeBreakQuery = `DELETE FROM break_manager where employee_id = ${empId} and created_date = '${currentDate}'`;
+   try{
+      let [executeLeave] = await connection.execute(addALeaveQuery);
+      let [executeRemoveAttendace] = await connection.execute(removeAttendanceQUery);
+      let [executeRemoveBreak] = await connection.execute(removeBreakQuery);
+      return res.status(200).json({ans:executeLeave});
+   }
+   catch(err){
+      console.log(err);
+      return res.json({error: "Something went wrong"})
+   }
 
+}
+
+const addHalfDayControllers = async(req, res) => {
+   let time = moment().format("HH:mm:ss");
+   let empId = req.session.user;  
+   let addALeaveQuery = `INSERT INTO leave_request (employee_id, leave_date, leave_type, leave_reason, leave_status, half_day) VALUES(${empId}, '${currentDate}', 'IL', 'Left early', 'accepted', 1)`;
+   let removeAttendanceQUery = `UPDATE attendence_manager SET check_out = '${time}' WHERE employee_id = ${empId} and date = '${currentDate}'`;
+   let removeBreakQuery = `DELETE FROM break_manager where employee_id = ${empId} and created_date = '${currentDate}'`;
+   try{
+      let [executeLeave] = await connection.execute(addALeaveQuery);
+      let [executeRemoveAttendace] = await connection.execute(removeAttendanceQUery);
+      let [executeRemoveBreak] = await connection.execute(removeBreakQuery);
+      return res.status(200).json({ans:executeLeave});
+   }
+   catch(err){
+      console.log(err);
+      return res.json({error: "Something went wrong"})
+   }
+
+}
 
 const checkInHandler = async (req, res) => {  
+   
    let time = moment().format("HH:mm:ss");
+   let currentTime = moment().utcOffset(moment().utcOffset())
+   let currentDate = moment().format("YYYY-MM-DD");
+   var leave;
    if (currentTime.isAfter(tenAM)) {
       isLate = 1;
    }
    let currentEmployee = req.session.user;
+
+   let checkIfUserAppliedForLeave = `SELECT count(*) as applied from leave_request where employee_id = ${currentEmployee} AND leave_date = '${currentDate}' AND leave_status = 'accepted'`;
+   let [executeLeave] = await connection.execute(checkIfUserAppliedForLeave);
+
+   if(executeLeave[0].applied != 0){
+      let deleteLeave = `DELETE from leave_request where employee_id = ${currentEmployee} and leave_date = '${currentDate}'`;
+      var [executeDeletedLeave] = await connection.execute(deleteLeave);
+   }
+
 
    let alreadyOnBreak = await checkIfUserIsonBreak(currentEmployee);
    if(alreadyOnBreak == false){
@@ -25,7 +72,7 @@ const checkInHandler = async (req, res) => {
    if(didUserCheckout == false){
       return res.json({status: "ERROR", message: "You have already checked out!"})
    }
-
+   
    let checkIfalreadyExist = `SELECT * FROM attendence_manager where employee_id = ${currentEmployee} and date = '${currentDate}'`;
 
    try{
@@ -46,7 +93,7 @@ const checkInHandler = async (req, res) => {
          let updateStatus = `update status set status ='online' where employee_id = ${currentEmployee}`;
          let [status] = await connection.execute(updateStatus); 
       }
-      return res.json({status: "DONE", checkInTime: time})
+      return res.json({status: "DONE", checkInTime: time, leave: executeDeletedLeave})
       
    }
    catch(e){
@@ -58,6 +105,8 @@ const checkInHandler = async (req, res) => {
 
 
 const checkOutHandler = async (req, res) => {
+   let currentTime = moment().utcOffset(moment().utcOffset())
+   let currentDate = moment().format("YYYY-MM-DD");
    let currentEmployee = req.session.user;
    let didUserCheckedIn = await checkIfUserCheckedIn(currentEmployee); 
    if(didUserCheckedIn == false){
@@ -95,7 +144,13 @@ const checkOutHandler = async (req, res) => {
       var hours = duration.hours();
       var minutes = duration.minutes();
       var workedHours = hours + ":" + minutes;
+      let duratioinInSeconds = moment.duration(workedHours).asMinutes();
 
+      if(duratioinInSeconds <= 120){
+         return res.status(200).json({status: "early", msg: "Are you sure you want to checkout, it hasn't been an hour till now. We'll count this as a leave."})
+      }else if(duratioinInSeconds>120 && duratioinInSeconds <= 330){
+         return res.status(200).json({status: "half", msg: "We'll count this day as a half day, since you have worked less than 4.5 hours. You sure?"})
+      }
    }
    catch(e){
       console.log("error",e);
@@ -143,9 +198,12 @@ const checkOutHandler = async (req, res) => {
 }
 
 
+
 const breakInHandler = async (req, res) => {
+   let currentTime = moment().utcOffset(moment().utcOffset())
+   let currentDate = moment().format("YYYY-MM-DD");
+   
    let currentEmployee = req.session.user;
-   console.log(currentTime);
 
    let didUserCheckedIn = await checkIfUserCheckedIn(currentEmployee); 
 
@@ -194,6 +252,8 @@ const breakInHandler = async (req, res) => {
 }
 
 const breakOutHander = async (req, res) => {
+
+   let currentDate = moment().format("YYYY-MM-DD");
    let currentEmployee = req.session.user;
    let didUserCheckedIn = await checkIfUserCheckedIn(currentEmployee); 
    if(didUserCheckedIn == false){
@@ -248,6 +308,7 @@ const addcommentControllers = async (req, res) => {
    let id = req.session.user;
    let comment = req.body;
    let comments = comment.data;
+   comments = comments.replaceAll('"', '\\"');
 
    let query = `INSERT INTO comments(employee_id,comment,date) VALUES (${id},"${comments}","${currentDate}"); `;
    try {
@@ -262,6 +323,7 @@ const addcommentControllers = async (req, res) => {
 
 
 const checkIfUserCheckedIn = async (getUserId) => {
+   let currentDate = moment().format("YYYY-MM-DD");
    let checkUser = `SELECT * FROM attendence_manager where employee_id = ${getUserId} and date = '${currentDate}'`;
    let [executeCheckUser] = await connection.execute(checkUser);
    if(executeCheckUser.length == 0){
@@ -271,6 +333,7 @@ const checkIfUserCheckedIn = async (getUserId) => {
 }
 
 const checkIfUserCheckedOut = async (getUserId) => {
+   let currentDate = moment().format("YYYY-MM-DD");
    let checkUser = `SELECT check_out FROM attendence_manager where employee_id = ${getUserId} and date = '${currentDate}' and check_out = '0'`;
    let [executeCheckUser] = await connection.execute(checkUser);
 
@@ -291,10 +354,11 @@ const checkIfUserIsonBreak = async (getUserId) => {
 
 
 const checkIfUserIsBreakedOut = async (getUserId) => {
+
    let checkUser = `SELECT * FROM break_manager where employee_id = ${getUserId} order by id desc LIMIT 1`;
    let [executeCheckUser] = await connection.execute(checkUser);
    if(executeCheckUser[0]?.break_out != "00:00:00"){
       return true;
    }return false;
 }
-module.exports = {checkInHandler, checkOutHandler, breakInHandler, breakOutHander, checkIfUserIsonBreak, checkIfUserIsBreakedOut, addcommentControllers}
+module.exports = {checkInHandler, checkOutHandler, breakInHandler, breakOutHander, checkIfUserIsonBreak, checkIfUserIsBreakedOut, addcommentControllers, addLeaveControllers, addHalfDayControllers}

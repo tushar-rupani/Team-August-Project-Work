@@ -1,7 +1,5 @@
 let form = document.getElementById("my-form");
-// form.addEventListener("submit", (e) => {
-//     e.preventDefault();
-// })
+
 
 const loginFrom = document.querySelector('#login-form');
 let emailExists;
@@ -176,6 +174,14 @@ loginFrom.addEventListener('submit', async function (e) {
             })
         }
         if (res.msg == "redirected") {
+            if(res.ans == "suspend"){
+                Swal.fire(
+                    'Your account has been suspended!',
+                    'Please try again after 24 hours, if you think it has been 24 hours already - please try again!',
+                    'error'
+                  )
+                return;
+            }
             location.assign(`/${res.ans}`);
         }
         if (res.msg == "success") {

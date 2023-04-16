@@ -12,8 +12,10 @@ require("dotenv").config();
 const socketIO = require("socket.io")
 
 app.set("view engine", "ejs");
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+
 app.use(express.static(path.join(__dirname ,'/public')));
 app.set('views', path.join(__dirname, '/src/views'));
 app.use(cookieParser());
@@ -42,7 +44,9 @@ const server = app.listen(process.env.PORT, () => {
 
 const io = socketIO(server);
 io.on("connection", (socket) => {
+
   socket.on("chat", (message) => {
+    
     io.emit("chat", message)
   })
 

@@ -1,0 +1,9 @@
+<ul id="messages">
+    <% for(let i=0; i<executeAllMessage.length; i++) { %> 
+        <div>
+        <p><%= executeAllMessage[i].full_name %></p>
+        <li><%= executeAllMessage[i].message %></li>    
+        <span class="span-time"><%= executeAllMessage[i].time %></span>  
+    </div>  
+    <% } %>
+</ul>

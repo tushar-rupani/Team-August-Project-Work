@@ -21,17 +21,13 @@ const breakOut = document.getElementById("break-out");
 const buttons = document.getElementById("buttons");
 const time = new Date().toLocaleTimeString();
 const recent = document.getElementById("recents");
+
 timeLabel.innerHTML = time;
-
-
 dateLabel.innerHTML = date;
 
 const renew = document.getElementById("renew");
 
-
-
-
-
+var breakInterval;
 setInterval(() => {
     const time = new Date().toLocaleTimeString();
     timeLabel.innerHTML = time;
@@ -65,7 +61,11 @@ if(checkIn){
 checkIn.addEventListener("click", async (e) => {
     let ans = await fetch("/activity/check-in");
     let data = await ans.json();
+    console.log(data);
 
+    if(data["leave"]){
+      swal("You applied leave for today, but you are still present at office. So we are removing that leave.")
+    }
     if (data["status"] == "DONE") {
         let checkInSpan = document.getElementById("backlog");
         checkInSpan.innerHTML = ` <div class="check_in" id="check-in-span">
@@ -107,16 +107,39 @@ breakIn.addEventListener("click", async(e) => {
           case "Yes":
             await breakInData();
             await gettingLogData();
+            await reminderForBreakOut();
             break;
         }
       });
+    
 })
+}
+
+async function reminderForBreakOut(){
+  console.log("called");
+  breakInterval = setInterval(() => {
+    Notification.requestPermission().then((permission) => {
+      console.log(permission);
+      if(permission == "granted"){
+        var title = `Hey, its been 10 more minutes.`;
+        var text = `If you forgot to checkout please do it now.`;
+        var notification = new Notification(title, {
+          body: text,
+          icon: '../assets/favicon.ico'
+        })
+        notification.addEventListener("click", () => {
+          location.assign("/");
+        })
+      }
+    }).catch((err) => {
+      console.log(err);
+      console.log(`Notification failed to fetch`);
+    })
+  }, 10000)
 }
 
 
 if(breakOut){
-
-
 breakOut.addEventListener("click", async(e) => {
 
     swal("Are you sure you want to Break Out?", {
@@ -133,6 +156,7 @@ breakOut.addEventListener("click", async(e) => {
           case "Yes":
             await breakOutData();
             await gettingLogData();
+            clearInterval(breakInterval)
             break;
         }
       });
@@ -145,8 +169,45 @@ breakOut.addEventListener("click", async(e) => {
 async function checkOutData() {
     let ans = await fetch("/activity/check-out");
     let data = await ans.json();
+  console.log(data);
 
-    if (data["status"] == "DONE") {
+  if(data.status == "early"){
+    swal(data.msg, {
+      buttons: {
+        cancel: "Cancel!",
+        catch: {
+          text: "Yes Do it!",
+          value: "Yes",
+        },
+      },
+    })
+    .then(async (value) => {
+      switch (value) {
+        case "Yes":
+          await makeALeave();
+          break;
+      }
+    });
+    
+  }else if(data.status == "half"){
+    swal(data.msg, {
+      buttons: {
+        cancel: "Cancel!",
+        catch: {
+          text: "Yes, Its fine",
+          value: "Yes",
+        },
+      },
+    })
+    .then(async (value) => {
+      switch (value) {
+        case "Yes":
+          await makeAHalfDay();
+          break;
+      }
+    });
+  }
+    else if (data["status"] == "DONE") {
         let checkInSpan = document.getElementById("backlog");
         checkInSpan.innerHTML += ` <div class="check_out">
         <span>Checked Out : ${convertUTCTime(data["checkOutTime"])}</span>
@@ -159,6 +220,28 @@ async function checkOutData() {
         swal(data.message)
     }
 }
+
+async function makeALeave(){
+  
+  let res = await fetch("/activity/add-leave");
+  let data = await res.json();
+  console.log(data.ans);
+  if(data.ans){
+    location.reload(true);
+  }
+}
+
+async function makeAHalfDay(){
+  let res = await fetch("/activity/half-day");
+  let data = await res.json();
+  console.log(data.ans);
+  if(data.ans){
+    location.reload(true);
+  }
+
+}
+
+
 async function breakOutData(){
     let ans = await fetch("/activity/break-out");
     let data = await ans.json();
@@ -376,6 +459,18 @@ else if(log.activity == "Breaked In"){
 
 gettingLogData();
 
+// let usersTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+// console.log(usersTimeZone);
+// console.log(usersTimeZone==="America/New_York");
+// document.querySelectorAll(".span-time").forEach(time => {
+//   console.log(time.innerText);
+  // let currentTime = moment(time.innerText, "HH:mm:ss");
+
+
+  // const newYorkTime = currentTime.tz("America/New_York");
+  // console.log("new york", newYorkTime);
+  // let newStr = newYorkTime.format('HH:mm:ss');
+  // time.innerHTML = newStr;
 
 document.querySelectorAll(".span-time").forEach(time => {
   console.log(time.innerText);
@@ -384,8 +479,99 @@ document.querySelectorAll(".span-time").forEach(time => {
 })
 
 function convertUTCTime(time){
+  if(time == "00:00:00"){
+    return "You left early."
+  }
   let userTime = moment.utc(time, "hh:mm:ss").local().format("hh:mm:ss A");
   return userTime;
 }
 
+function changeTheme(preference) {
+            
+  if(preference == "dark"){
+      localStorage.setItem("theme", "dark")
+  }else{
+      localStorage.setItem("theme", "light")
+  }
+}
+if(!localStorage.getItem("theme")){
+  localStorage.setItem("theme", "light")
+}else{
+  const ThemeToggler = document.querySelector(".theme-toggler");
+  if(localStorage.getItem("theme") == "dark"){
+      console.log("coming in dark");
+      document.body.classList.add('dark-theme-variables')
+      ThemeToggler.querySelector('.theme-toggler__button--dark').classList.add('theme-toggler__button--active')
+      ThemeToggler.querySelector('.theme-toggler__button--light').classList.remove('theme-toggler__button--active')
+  }else if(localStorage.getItem("theme") == "light"){
+      console.log("coming in light");
+      document.body.classList.remove('dark-theme-variables')
+      ThemeToggler.querySelector('.theme-toggler__button--dark').classList.remove('theme-toggler__button--active')
+      ThemeToggler.querySelector('.theme-toggler__button--light').classList.add('theme-toggler__button--active')
+  }
+}
+
+
+if(document.getElementById("contact-admin")){
+
+document.getElementById("contact-admin").addEventListener("click", () => {
+  $('.ui.modal').modal('show');
+})
+
+document.querySelector(".deny").addEventListener("click", () => {
+  $('.ui.modal').modal('hide');
+})
+}
+
+
+document.addEventListener("contextmenu", (e) => {
+  e.preventDefault();
+  swal("This site is protected.")
+})
+
+document.addEventListener("keydown", (e) => {
+
+  if (e.ctrlKey && e.shiftKey && e.keyCode == 67) {
+    e.preventDefault();
+  }
+ 
+  if (e.ctrlKey && e.shiftKey && e.keyCode == 73) {
+     e.preventDefault();
+  }
+
+  // if(e.key == "F12"){
+  //   e.preventDefault();
+  // }
+ 
+})
+
+document.getElementById("forget-form").addEventListener("submit", async(e) => {
+  e.preventDefault();
+
+  let checkOutTime = document.getElementById("checkout-time").value;
+  let checkInTime = document.getElementById("checkin-time").value;
+
+
+  const res = await fetch(`/self/add-forgot`, {
+    method: "POST",
+    headers: {
+        'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+        checkInTime, checkOutTime
+    })
+  });
+  let data = await res.json();
+  if(data.ans == "success"){
+    swal({
+      title: "Request has been sent!",
+      text: `${data.msg}, Dont worry about today's time. We will update it.`,
+      button: "Okay, Thanks!",
+    }).then(function() {
+      $('.ui.modal').modal('hide');
+    });
+  }else if(data.ans == "error"){
+    swal(data.msg)  
+  }
+})
 

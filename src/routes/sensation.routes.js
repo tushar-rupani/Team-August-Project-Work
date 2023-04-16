@@ -1,11 +1,11 @@
 const express = require("express");
 const { handleLogin } = require("../middlewares/authMiddlewares");
 const router = express.Router();
-const {renderController, postMessage, getNameOfUser} = require('../controllers/sensation.controller')
+const {upload} = require("../helpers/multer-storage");
+const {renderController, postMessage, getNameOfUser, renderVideoChat} = require('../controllers/sensation.controller')
 router.get("/", handleLogin, renderController)
+router.post("/", handleLogin, upload.array('file',1), postMessage)
+router.get("/name-of-user", getNameOfUser);
+router.get("/video-call", handleLogin, renderVideoChat);
 
-
-router.post("/", handleLogin, postMessage)
-
-router.get("/name-of-user", getNameOfUser)
 module.exports = router;

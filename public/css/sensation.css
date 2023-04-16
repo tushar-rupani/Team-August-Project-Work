@@ -1,15 +1,75 @@
-body {
-    padding: 20px;
+.message-header{
+    display: flex;
+    align-items: center;
+    gap: 20px;
 }
 
-form {
-    margin-top: 20px;
+.msg-img img{
+    height: 40px;
+    width: 40px;
+    object-fit: cover;
+    border-radius: 50%;
 }
 
-ul {
-    list-style-type: none;
+.msg-owner{
+    font-size: 19px;
+    font-weight: 600;
 }
 
-ul li {
-    margin-bottom: 2px;
+.messages-container{
+    padding: 10px;
+}
+
+.message{
+    border: 1px solid #bbd3ff;
+    padding: 15px;
+    background: #fbfbfb;
+    border-radius: 10px;
+    margin: 10px;
+}
+
+.msg-content{
+    margin-top: 10px;
+    font-size: 15px;
+    font-weight: 400;
+    margin-bottom: 10px;
+}
+
+.msg-time{
+    font-weight: 500;
+    color: gray;
+}
+
+.card{
+    min-height: 87vh;
+}
+
+#input-message{
+    padding: 15px;
+    font-family: "Poppins";
+    border-radius: 15px;
+}
+#send-button{
+    background-color: rgb(24, 111, 209);
+    color: white;
+    cursor: pointer;
+    border-radius: 15px;
+    margin-left: 10px;
+}
+
+#add-file{
+    background-color: rgb(172, 52, 52);
+    color: white;
+    cursor: pointer;
+    border-radius: 15px;
+    margin-left: 10px;
+}
+.text-send{
+    display: grid;
+    grid-template-columns: 80% 10% 10%;
+}
+
+.image-wrapper{
+    min-height: 200px;
+    width: 300px;
 }

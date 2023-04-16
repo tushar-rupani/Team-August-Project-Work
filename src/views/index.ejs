@@ -1,32 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>eSparkBiz | HRMS</title>
+    <%- include('./common/cdns') %>
+    
+    <style>
+        h3 {
+            margin-top: 0;
+            margin-left: 2px;
+            font-family: 'poppins', sans-serif !important;
+        }
+        p{
+            margin: 0;;
+        }
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
-        rel="stylesheet">
-    <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
-
-    <link rel="stylesheet" href="/css/style.css">
-
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10.10.1/dist/sweetalert2.min.css" />
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
-    <script
-        src="https://cdnjs.cloudflare.com/ajax/libs/moment-timezone/0.5.32/moment-timezone-with-data.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.10.1/dist/sweetalert2.all.min.js"></script>
-
-
+.ui.modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  
+    </style>
 </head>
 
 <body>
@@ -37,10 +35,7 @@
 
                 <div class="dashboard">
                     <h1>Dashboard</h1>
-
-
                     <div class="dashboard__insights">
-
                         <div class="card">
                             <div class="attandance">
                                 <h3 class="card-title">Record Your Attandance</h3>
@@ -74,7 +69,7 @@
                                 <div class="row1">
                                     <span class="card-title-small">Worked Hours</span>
                                     <p>
-                                        <%= (hoursWorked).split(':')[0] %> hrs <%= (hoursWorked).split(':')[1] %> mins
+                                        <%= (hoursWorked)?.split(':')[0] %> hrs <%= (hoursWorked)?.split(':')[1] %> mins
 
                                     </p>
                                 </div>
@@ -148,11 +143,11 @@
                         material-icons-sharp 
                         theme-toggler__button
                         theme-toggler__button--light
-                        theme-toggler__button--active">light_mode</span>
+                        theme-toggler__button--active" onclick="changeTheme('light')">light_mode</span>
                         <span class="
                         material-icons-sharp 
                         theme-toggler__button--dark
-                        theme-toggler__button">dark_mode</span>
+                        theme-toggler__button" onclick="changeTheme('dark')">dark_mode</span>
                     </div>
 
                     <div class="profile">
@@ -194,7 +189,11 @@
                         <% if(forgotLastTime) { %>
                             <div class="final_message change-clr">
                                 You forgot to check-out last time, please contact HR.
+
                             </div>
+                            <center>
+                                <div><button class="contact" id="contact-admin">Click Here to Contact</button></div>
+                            </center>
 
                             <% } %>
                                 <% if(forgotLastTime==false) { %>
@@ -315,64 +314,50 @@
         This Website is not accessible in mobile device.
     </div>
 
-
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.10.1/dist/sweetalert2.all.min.js"></script>
-    <script src="/socket.io/socket.io.js"></script>
-
-    <script>
-        const Toast2 = Swal.mixin({
-            toast: true,
-            position: 'top',
-            showConfirmButton: false,
-            timer: 4000,
-            timerProgressBar: true,
-            didOpen: (toast) => {
-                toast.addEventListener('mouseenter', Swal.stopTimer)
-                toast.addEventListener('mouseleave', Swal.resumeTimer)
-            }
-        });
-
-        const socket = io();
-        socket.on("chat", (data) => {
-            const { message, userName } = data;
-            let notificationSoundUrl = `/assets/notification-sound.mp3`;
-            Toast2.fire({
-                icon: 'info',
-                title: `${userName}`,
-                html: `<audio src="${notificationSoundUrl}" autoplay></audio>`,
-                text: `${message.substr(0, 20)}...`
-            });
-
-            Notification.requestPermission().then((permission) => {
-                console.log(permission);
-                if (permission == "granted") {
-                    var title = `${userName}`;
-                    var text = `${message.substr(0, 25)}...`;
-                    var notification = new Notification(title, {
-                        body: text,
-                        icon: '../assets/favicon.ico'
-                    })
-                }
-            }).catch((err) => {
-                console.log(`Notification failed to fetch`);
-            })
-        });
-
-    </script>
-    <script src="/js/main.js" />
-    <script src="/js/socket-script.js"></script>
-
-    <script src="https://kit.fontawesome.com/30e122f54b.js" crossorigin="anonymous"></script>
-
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
-        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-        crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct"
-        crossorigin="anonymous"></script>
+    <div class="ui modal">
+        <div class="header">
+          Leave Details
+        </div>
+        <div class="image content">
+          <div class="ui medium image">
+            <img src="../../assets/forgot.png">
+          </div>
+          <div class="description">
+            <div class="ui header" id="modal-header">You forgot to checkout last time</div>
+            <p>You forgot to checkout last time, please help us by answering some of the questions we want to know.</p>
+            <div class="questions">What was the time you think, you left the office?</div>
+            <form action="/self/add-forgot" method="POST" id="forget-form">
+                <input type="text" id="checkout-time" placeholder="ex: 18:00 (Pl add in 24 hr format)" />
+                <div class="questions">What was your check-in time for today? </div>
+                    <input type="text" id="checkin-time" placeholder="ex: 9:30" />
+                <div>
+                <input type="submit" value="Submit"></div>
+        </form>
+        </div>
+        </div>
+        <div class="actions">
+          <div class="ui black deny button">
+            Close
+          </div>
+          
+        </div>
+    </div>
 
 </body>
 
 </html>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
+<script src="/socket.io/socket.io.js"></script>
+
+<script src="/js/main.js" />
+<script src="/js/socket-script.js"></script>
+
+<script src="https://kit.fontawesome.com/30e122f54b.js" crossorigin="anonymous"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"
+integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct"
+crossorigin="anonymous"></script>
+
+
+    

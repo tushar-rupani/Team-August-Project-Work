@@ -1,4 +1,3 @@
-/* ----- ROOT VARIABLES ------ */
 
 :root {
     --color-primary: #7380ec;
@@ -31,7 +30,6 @@
     --box-shadow: 0rem 0rem 18rem rgb(132 139 200 / 31%), 1px 1px 14px rgba(0, 0, 0, 0.2);
 }
 
-/* ========= DARK THEM VARIABLES ==========*/
 
 .dark-theme-variables {
     --color-background: #181a1e;
@@ -171,7 +169,6 @@ b {
 }
 
 
-/* ========== sidebar ========== */
 
 .sidebar {
     height: 95vh;
@@ -268,13 +265,6 @@ b {
     border-radius: var(--border-radius-1);
 }
 
-/* ========== END sidebar ========== */
-
-
-
-/* ========== DASHBOARD ========== */
-
-
 
 .dashboard__insights {
     display: grid;
@@ -282,10 +272,7 @@ b {
     gap: 20px;
 }
 
-/* ========== END DASHBOARD========== */
 
-
-/* ========== CARD ========== */
 .card {
     background: var(--color-white);
     padding: var(--card-padding);
@@ -669,6 +656,17 @@ button .text {
     padding: 10px 20px;
 }
 
+.contact{
+    margin-top: 10px;
+    padding: 8px;
+    border-radius: 10px;
+    background: rgb(29, 21, 21);
+    cursor: pointer;
+    color: white;
+    font-weight: 700;
+    
+}
+
 #dropdown-menu {
     display: none;
     position: absolute;
@@ -685,10 +683,31 @@ button .text {
     color: black;
 }
 
+
 #dropdown-trigger:hover + #dropdown-menu {
     display: block;
 }
 
+.questions{
+    font-weight: bolder;
+    margin-top: 10px;
+}
+
+.ui input[type="submit"]{
+    margin-top: 10px;
+    padding: 5px;
+    background-color: #3d8dbb;
+    color: white;
+    cursor: pointer;
+}
+
+.ui input[type="text"]{
+    background-color: #f8f8f8;
+    border: 1px solid #726767;
+    padding: 6px;
+    margin-top: 10px;
+    width: 70%;
+}
 .popup-message a{
     color: red;
     position: absolute;
@@ -723,6 +742,7 @@ button .text {
     font-size: 16px;
     color: #eee;
   }
+
 
   
   @media only screen and (max-width:1920px) {

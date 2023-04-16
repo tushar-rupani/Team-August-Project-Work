@@ -269,9 +269,6 @@ async function sendData(data){
             alert(res.msg);
             
         }
-        
-
-
     } catch (err) {
         console.log(err);
 
